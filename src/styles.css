@@ -5,25 +5,24 @@
     --black: #000;
     --white: #fff;
 
-    /* Primary Theme Colors */
-    --primary: #3d5dff;
-    --primary-hover: #5b76ff;
-    --primary-shadow: #374ebf;
-    --primary-shadow-hover: #5064c7;
+    /* Primary */
+    --primary: #800080; /* Purple */
+    --primary-hover: #993399; /* Lighter Purple */
+    --primary-shadow: #660066; /* Darker Purple */
+    --primary-shadow-hover: #732673; /* Slightly lighter than primary-shadow */
 
-    --primary-two: #d37647;
-
-    /* Secondary (Back Button) Colors */
+    /* Secondary */
     --secondary: #95a5a6;
     --secondary-hover: #798d8f;
     --secondary-shadow: var(--secondary);
     --secondary-shadow-hover: #647071;
 
-    /* Accent (Orange Button) Colors */
-    --accent: #ff9c4c;
-    --accent-hover: #ff8a2a;
-    --accent-shadow: #e2873c;
-    --accent-shadow-hover: #e27c28;
+    /* Accent */
+    --accent: #daa520; /* Goldenrod */
+    --accent-hover: #c49b1c; /* Slightly darker */
+    --accent-shadow: #b8860b; /* Dark Goldenrod */
+    --accent-shadow-hover: #a0780a; /* Darker */
+    --accent-darker: #bd9015; /* Even darker */
 
     /* Danger/Alert Color */
     --danger: #e80a0a;
@@ -35,7 +34,7 @@
 body,
 html {
     height: 100%;
-    font-family: "Arial";
+    font-family: Arial;
 }
 body {
     padding: 0;
@@ -468,7 +467,7 @@ body.dark-theme #chat-block.gm-1v1-lobby {
     max-width: 170px;
 }
 #leaderboard-block .is-self {
-    color: #ff8c26;
+    color: var(--accent-shadow-hover);
 }
 #leaderboard-block .separator {
     border-bottom: 1px solid #8e8e8e;
@@ -1098,6 +1097,11 @@ body.dark-theme #minimap {
     padding: 5px 12px;
 }
 
+@media screen and (max-width: 730px), screen and (max-height: 405px) {
+    #respawn-gm2 #curse-promo-gm2 {
+        display: none;
+    }
+}
 #respawn-gm2 .button.homepage {
     font-size: 14px;
     padding: 6px 16px;
@@ -1725,7 +1729,7 @@ body.dark-theme #countdown-1v1 {
     #homepage-loaded
     #tourney-countdown
     .button.orange {
-    background-color: var(--primary-two);
+    background-color: var(--accent-darker);
     box-shadow:
         0 2px 10px rgba(0, 0, 0, 0.2),
         0 4px 0 #ab5528;
@@ -1823,7 +1827,7 @@ body.dark-theme #countdown-1v1 {
         0 4px 0 var(--secondary-hover);
 }
 #homepage .content .middle-box .game-modes div.selected {
-    background-color: var(--primary-two);
+    background-color: var(--accent-darker);
     box-shadow:
         0 2px 10px rgba(0, 0, 0, 0.2),
         0 4px 0 #ab5528;
@@ -1964,7 +1968,7 @@ body.dark-theme #countdown-1v1 {
 }
 #homepage .create-team-bar .button {
     font-size: 18px;
-    background-color: var(--primary-two);
+    background-color: var(--accent-darker);
     box-shadow:
         0 2px 10px rgba(0, 0, 0, 0.2),
         0 4px 0 #ab5528;
@@ -1994,7 +1998,7 @@ body.dark-theme #countdown-1v1 {
 }
 #homepage .team-bar .button {
     font-size: 14px;
-    background-color: var(--primary-two);
+    background-color: var(--accent-darker);
     padding: 4px 8px;
 }
 #homepage .team-bar .button:hover {
@@ -2038,7 +2042,7 @@ body.dark-theme #countdown-1v1 {
     vertical-align: middle;
 }
 body.dark-theme #homepage .background {
-    background-image: url(img/background-grid-dt.png);
+    background-image: url(../public/img/background-grid-dt.png);
 }
 body.dark-theme #homepage .content .left-box .inside {
     background-color: rgba(255, 255, 255, 0.2);
@@ -2629,18 +2633,6 @@ body.dark-theme #homepage .content .middle-box #homepage-loaded {
         0 2px 10px rgba(0, 0, 0, 0.2),
         0 4px 0 var(--accent);
     border: 2px solid var(--accent);
-}
-#skin-popup .box .skin-list .card.locked::after {
-    content: " ";
-    display: block;
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    width: 24px;
-    height: 24px;
-    background: url(img/lock.svg) no-repeat;
-    background-position: center;
-    opacity: 0.6 !important;
 }
 #skin-popup .close-button {
     text-align: center;
