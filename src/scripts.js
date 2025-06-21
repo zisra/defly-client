@@ -30088,7 +30088,6 @@ var $jscomp$this = this;
               body.removeChild(container),
               shrinkWrapBlocksVal)
             : void 0);
-      var div, body, container;
     });
   var pnum = /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,
     rcssNum = new RegExp("^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i"),
@@ -38493,7 +38492,7 @@ var defly = (function () {
                 Mv < 80 &&
                 h >= 80 &&
                 !vv &&
-                $D("You reached 80%, now kill everyone to win!", 2e4),
+                showAlert("You reached 80%, now kill everyone to win!", 2e4),
               (Mv = h);
           }
           4 != hz &&
@@ -38918,10 +38917,10 @@ var defly = (function () {
                 (XV[HV].visible = !1),
                 (Xz = -1),
                 (document.getElementById("buy-screen").style.display = "none"),
-                $D("You are spectating until end of round", 1e4),
+                showAlert("You are spectating until end of round", 1e4),
                 (Gv = setTimeout(function () {
                   2 == JV &&
-                    $D(
+                    showAlert(
                       (Fl ? "Tap" : "Click") +
                         " anywhere to spectate next teammate",
                       1e4,
@@ -39385,13 +39384,13 @@ var defly = (function () {
         !(function (z) {
           var V = z.getInt32(1);
           V == HV
-            ? $D("You reached 80%, now kill everyone to win!", 2e4, !0)
+            ? showAlert("You reached 80%, now kill everyone to win!", 2e4, !0)
             : 0 == V || V == HV || n
               ? 0 != V ||
                 0 == cv ||
                 n ||
-                $D("Your position is no longer being shown!", 5e3, !0)
-              : $D(
+                showAlert("Your position is no longer being shown!", 5e3, !0)
+              : showAlert(
                   "A player reached 80%, your position is shown to them!",
                   2e4,
                   !0,
@@ -39403,7 +39402,7 @@ var defly = (function () {
         !(function (z) {
           var V = z.getInt32(1),
             l = Nl(z, 5);
-          if (-2 == V) return void $D(l, 5e3);
+          if (-2 == V) return void showAlert(l, 5e3);
           if (4 == hz && 0 == V && l.startsWith("1v1RESULT/")) {
             var D = l.split("/"),
               v = 1 == parseInt(D[1]),
@@ -39502,7 +39501,7 @@ var defly = (function () {
             V != JV)
           )
             if (1 == JV)
-              $D("Round will start shortly", 1e3 * (xV - 1)),
+              showAlert("Round will start shortly", 1e3 * (xV - 1)),
                 mc ||
                   ((n = null),
                   (Kz = 0),
@@ -39519,7 +39518,7 @@ var defly = (function () {
                   (Sc = [!1, !1, !1, !1]),
                   Xc());
             else if (2 == JV)
-              $D(
+              showAlert(
                 2 == uV[HV]
                   ? "Protect the blue bomb spots or kill every red player to win"
                   : "Plant the bomb at blue spots or kill every blue player to win",
@@ -39529,7 +39528,7 @@ var defly = (function () {
               var l = z.getUint8(6),
                 D = z.getUint8(7);
               2 == D && ((Hz = !0), (rz = new Date().getTime())),
-                $D(MD[(l == MV ? 0 : 4) + D], 5e3),
+                showAlert(MD[(l == MV ? 0 : 4) + D], 5e3),
                 l == MV && bz++,
                 Xz++,
                 (document.getElementById("countdown-value").className = ""),
@@ -39544,7 +39543,7 @@ var defly = (function () {
                   });
             } else
               4 == JV &&
-                ($D(
+                (showAlert(
                   2 == uV[HV]
                     ? "The bomb has been planted! Defuse it by staying still inside the bomb spot"
                     : "Your team planted the bomb, defend it until the countdown reaches 0",
@@ -40849,7 +40848,7 @@ var defly = (function () {
       "Can't build dot on existing line",
     ],
     TD = 0;
-  function $D(z, V, l) {
+  function showAlert(z, V, l) {
     var D = document.getElementById("user-info");
     D && l && (window.document.body.removeChild(D), (D = null)),
       D ||
@@ -42600,7 +42599,10 @@ var defly = (function () {
   }
   function gc() {
     (document.getElementById("respawn-gm2").style.display = "none"),
-      $D((Fl ? "Tap" : "Click") + " anywhere to spectate next player", 1e4);
+      showAlert(
+        (Fl ? "Tap" : "Click") + " anywhere to spectate next player",
+        1e4,
+      );
   }
   var qc,
     mc = !1;
@@ -43040,7 +43042,7 @@ var defly = (function () {
           (K.moving = !1),
           tc(),
           Ec < 4 &&
-            $D(
+            showAlert(
               "Move with mouse " +
                 (cV ? "ENABLED" : "DISABLED") +
                 (gl.MOVEWMOUSE.length > 0 &&
@@ -43185,10 +43187,10 @@ var defly = (function () {
           13 == z.keyCode
             ? ic()
             : "KeyP" == z.code
-              ? ($D("grid version = " + (Gc = (Gc + 1) % 2), 3e3), kc())
+              ? (showAlert("grid version = " + (Gc = (Gc + 1) % 2), 3e3), kc())
               : "KeyO" != z.code ||
                 SL ||
-                $D("interpolation = " + (CP = !CP), 3e3);
+                showAlert("interpolation = " + (CP = !CP), 3e3);
         }
       }
     }
@@ -43969,7 +43971,7 @@ var defly = (function () {
           Math.sqrt(
             Math.pow(rD[W].x - XV[HV].x, 2) + Math.pow(rD[W].y - XV[HV].y, 2),
           ) < rD[W].radius &&
-            $D(
+            showAlert(
               2 == MV
                 ? "Stay still to defuse the bomb"
                 : "Stay still to plant the bomb",
@@ -44246,16 +44248,16 @@ var defly = (function () {
         !mc &&
         (jP
           ? !aP && lz >= 1800
-            ? $D("Level up by enclosing big areas with your towers", 100)
+            ? showAlert("Level up by enclosing big areas with your towers", 100)
             : T >= 1 &&
               !BP &&
-              $D(
+              showAlert(
                 "Upgrade your copter! " +
                   (Fl ? "Tap" : "Click") +
                   ' a <img src="img/plus-4-64.png">',
                 100,
               )
-          : $D(
+          : showAlert(
               Fl
                 ? "Build a tower by pressing the BUILD button"
                 : "Build a tower with right-click or SPACE key",
@@ -44905,40 +44907,7 @@ var defly = (function () {
                         void 0,
                         "SkinBuy",
                         !0,
-                      ),
-                        j.getElementsByTagName("a")[0].addEventListener(
-                          "click",
-                          (function (z, V) {
-                            return function () {
-                              if (!sz && !Jz)
-                                return (
-                                  dl(
-                                    "You must login first to buy skins",
-                                    "",
-                                    XP,
-                                  ),
-                                  !1
-                                );
-                              EP < V
-                                ? dl(
-                                    "You don't have enough coins to buy this skin (you own " +
-                                      Math.floor(EP) +
-                                      " coins)",
-                                  )
-                                : sl(
-                                    "You own " +
-                                      Math.floor(EP) +
-                                      " coins. Buy skin for " +
-                                      V +
-                                      " coins?",
-                                    "",
-                                    function (l) {
-                                      l && GP(z, V);
-                                    },
-                                  );
-                            };
-                          })(U, C),
-                        );
+                      );
                   }
                 } else
                   wP(
