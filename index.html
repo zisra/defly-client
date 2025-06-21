@@ -1,0 +1,1506 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="./src/scripts.js" async=""></script>
+        <link rel="stylesheet" href="./src/style.css" />
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <title>defly.io</title>
+
+        <script
+            src="https://cdn.ravenjs.com/3.26.4/raven.min.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+
+    <body>
+        <div id="countdown">
+            <div id="countdown-value">00:00</div>
+            <div id="countdown-bomb-message">Bomb planted!</div>
+        </div>
+        <div id="score"></div>
+        <div id="fps"></div>
+        <div id="leaderboard-block">
+            <div class="title">
+                Leaderboard (<span id="player-count"></span> players)
+            </div>
+            <div id="lb-top">
+                <div class="lb-item">
+                    1. <span class="player-name">Helicopter</span
+                    ><span class="points">89123</span>
+                </div>
+                <div class="lb-item">
+                    2. <span class="player-name">Helic.io</span
+                    ><span class="points">54362</span>
+                </div>
+                <div class="lb-item is-self">
+                    3. <span class="player-name">Deflyio</span
+                    ><span class="points">10009</span>
+                </div>
+                <div class="lb-item">
+                    4. <span class="player-name">Chopter</span
+                    ><span class="points">3232</span>
+                </div>
+                <div class="lb-item">
+                    5. <span class="player-name">io gamer</span
+                    ><span class="points">5</span>
+                </div>
+            </div>
+            <div id="lb-player-line">
+                <div class="separator"></div>
+                <div class="lb-item is-self">
+                    <span id="lb-player-rank">12</span>.
+                    <span id="lb-player-name" class="player-name">TheBest</span
+                    ><span class="points" id="lb-player-points">12345</span>
+                </div>
+            </div>
+        </div>
+        <div id="xp-block">
+            <div id="superpower-fuel">
+                <div class="text" id="superpower-label">
+                    Recharging Superpower...
+                </div>
+                <div class="bar" id="superpower-fuel-value"></div>
+            </div>
+            <div class="score-bar">
+                <div class="text">
+                    Map control: <span id="map-control-value">0</span>%<span
+                        id="hide-xp-block"
+                        class="info"
+                        >press [B] to hide</span
+                    >
+                </div>
+                <div id="score-bars">
+                    <div class="bar" id="map-control-bar-value"></div>
+                </div>
+            </div>
+            <div id="xp-bar" class="xp-bar">
+                <div class="text">Level <span id="level-value">0</span></div>
+                <div class="bar" id="xp-value"></div>
+            </div>
+        </div>
+        <div id="choose-superpower">
+            <div class="title">Select your superpower</div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Dual Fire</td>
+                        <td>Speed Boost</td>
+                        <td>Clone</td>
+                        <td>Shield</td>
+                        <td>Flashbang</td>
+                        <td>Teleport</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div
+                                class="icon"
+                                onclick="defly.selectSuperpower(0);"
+                            >
+                                <img src="img/sp0.png" />
+                            </div>
+                        </td>
+                        <td>
+                            <div
+                                class="icon"
+                                onclick="defly.selectSuperpower(1);"
+                            >
+                                <img src="img/sp1.png" />
+                            </div>
+                        </td>
+                        <td>
+                            <div
+                                class="icon"
+                                onclick="defly.selectSuperpower(2);"
+                            >
+                                <img src="img/sp2.png" />
+                            </div>
+                        </td>
+                        <td>
+                            <div
+                                class="icon"
+                                onclick="defly.selectSuperpower(3);"
+                            >
+                                <img src="img/sp3.png" />
+                            </div>
+                        </td>
+                        <td>
+                            <div
+                                class="icon"
+                                onclick="defly.selectSuperpower(4);"
+                            >
+                                <img src="img/sp4.png" />
+                            </div>
+                        </td>
+                        <td>
+                            <div
+                                class="icon"
+                                onclick="defly.selectSuperpower(5);"
+                            >
+                                <img src="img/sp5.png" />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="upgrade-block">
+            <div class="avail-pts">
+                Avail. upgrade points: <span id="upgrade-points">0</span>
+            </div>
+            <div class="main-block">
+                <div class="line">
+                    <div class="bars-bg">
+                        <div class="bars" id="skill-bar-0"></div>
+                        <div class="text">
+                            Player speed <span class="shortcut">[1]</span>
+                        </div>
+                    </div>
+                    <div
+                        class="plus"
+                        id="skill-plus-0"
+                        onclick="defly.upgrade(0);"
+                    >
+                        <img src="img/plus-4-64.png" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="bars-bg">
+                        <div class="bars" id="skill-bar-1"></div>
+                        <div class="text">
+                            Bullet speed <span class="shortcut">[2]</span>
+                        </div>
+                    </div>
+                    <div
+                        class="plus"
+                        id="skill-plus-1"
+                        onclick="defly.upgrade(1);"
+                    >
+                        <img src="img/plus-4-64.png" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="bars-bg">
+                        <div class="bars" id="skill-bar-2"></div>
+                        <div class="text">
+                            Bullet range <span class="shortcut">[3]</span>
+                        </div>
+                    </div>
+                    <div
+                        class="plus"
+                        id="skill-plus-2"
+                        onclick="defly.upgrade(2);"
+                    >
+                        <img src="img/plus-4-64.png" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="bars-bg">
+                        <div class="bars" id="skill-bar-3"></div>
+                        <div class="text">
+                            Reload speed<span class="shortcut">[4]</span>
+                        </div>
+                    </div>
+                    <div
+                        class="plus"
+                        id="skill-plus-3"
+                        onclick="defly.upgrade(3);"
+                    >
+                        <img src="img/plus-4-64.png" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="bars-bg">
+                        <div class="bars" id="skill-bar-4"></div>
+                        <div class="text">
+                            Build range <span class="shortcut">[5]</span>
+                        </div>
+                    </div>
+                    <div
+                        class="plus"
+                        id="skill-plus-4"
+                        onclick="defly.upgrade(4);"
+                    >
+                        <img src="img/plus-4-64.png" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="bars-bg">
+                        <div class="bars" id="skill-bar-5"></div>
+                        <div class="text">
+                            Tower shield <span class="shortcut">[6]</span>
+                        </div>
+                    </div>
+                    <div
+                        class="plus"
+                        id="skill-plus-5"
+                        onclick="defly.upgrade(5);"
+                    >
+                        <img src="img/plus-4-64.png" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="bars-bg">
+                        <div class="bars" id="skill-bar-6"></div>
+                        <div class="text">
+                            Tower health <span class="shortcut">[7]</span>
+                        </div>
+                    </div>
+                    <div
+                        class="plus"
+                        id="skill-plus-6"
+                        onclick="defly.upgrade(6);"
+                    >
+                        <img src="img/plus-4-64.png" />
+                    </div>
+                </div>
+                <div class="redo-prompt">
+                    <div class="text">Apply previous upgrades?</div>
+                    <div>
+                        <div
+                            id="redo-last-upgrade-yes-button"
+                            class="button orange"
+                        >
+                            YES
+                        </div>
+                        <div id="redo-last-upgrade-no-button" class="button">
+                            NO
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="minimap">
+            <canvas id="minimap-canvas" width="96" height="96"></canvas>
+            <div id="minimap-team-positions"></div>
+            <div id="minimap-position" class="minimap-position"></div>
+        </div>
+        <div id="chat-block">
+            <div
+                id="chat-button"
+                class="button"
+                onclick="defly.toggleChatInput();"
+            >
+                Tap to chat
+            </div>
+            <div id="chat-history"></div>
+            <div class="chat-input-block">
+                <div id="chat-history-full"></div>
+                <input
+                    id="chat-input"
+                    type="text"
+                    maxlength="64"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                />
+            </div>
+        </div>
+        <div id="toasts"></div>
+        <div id="internet-issue" class="animated pulse">
+            Internet lost, reconnecting...
+            <div class="spinner">
+                <div class="lds-dual-ring">
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div id="respawn">
+            <div class="center">
+                <div class="top">
+                    <div class="left">
+                        <div id="respawn-kill-reason" class="kill-reason">
+                            You were killed by GuestPlayer
+                        </div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="stat">Score:</td>
+                                    <td class="value" id="respawn-score">
+                                        12345
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="stat">Map controlled:</td>
+                                    <td class="value" id="respawn-map">
+                                        5.23%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="stat">Time alive:</td>
+                                    <td class="value" id="respawn-alive">
+                                        1min 2s
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="stat">Level:</td>
+                                    <td class="value" id="respawn-level">5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="respawn-panel-earnings" class="right">
+                        <div>
+                            <span id="respawn-max-control-label"
+                                >Your max. map control: </span
+                            ><span id="respawn-max-control">0.02</span>%
+                        </div>
+                        <div>
+                            Your max. score:
+                            <span id="respawn-max-score">1324</span>
+                        </div>
+                        <div>
+                            You earned <img src="img/coin.png" />
+                            <span id="respawn-earned-coins">10</span> coins
+                        </div>
+                    </div>
+                    <div id="respawn-promo"></div>
+                </div>
+                <div style="text-align: center" id="respawn-buttons">
+                    <button
+                        id="respawn-button"
+                        type="button"
+                        class="button"
+                        onclick="defly.respawn()"
+                    >
+                        Respawn
+                    </button>
+                    <button
+                        id="respawn-spinner"
+                        type="button"
+                        class="button"
+                        disabled=""
+                        lang="en"
+                    >
+                        <div class="lds-dual-ring2">
+                            <div></div>
+                        </div>
+                    </button>
+                    <button
+                        type="button"
+                        class="back button"
+                        onclick="defly.spectate()"
+                    >
+                        Spectate
+                    </button>
+                    <button
+                        type="button"
+                        class="back button homepage"
+                        onclick="defly.backToHomepage()"
+                    >
+                        Back to homepage
+                    </button>
+                    <div id="spawn-warning" class="spawn-warning">
+                        We have trouble finding an empty spot, the map may be
+                        full. If you do not want to wait, you can go back to
+                        homepage and join another map.
+                    </div>
+                    <div id="spawn-lose" class="spawn-warning">
+                        A player has more than 80%, you are not allowed to
+                        respawn
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="respawn-gm2">
+            <div class="center">
+                <div class="top">
+                    <div class="left">
+                        <div id="respawn-kill-reason-gm2" class="kill-reason">
+                            You were killed by GuestPlayer
+                        </div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="stat">Score:</td>
+                                    <td class="value" id="respawn-score-gm2">
+                                        12345
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="stat">Total Kills:</td>
+                                    <td class="value" id="respawn-kills-gm2">
+                                        15
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="stat">Deaths:</td>
+                                    <td class="value" id="respawn-deaths-gm2">
+                                        3
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="stat">Rounds won:</td>
+                                    <td
+                                        class="value"
+                                        id="respawn-rounds-won-gm2"
+                                    >
+                                        3/5
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="respawn-panel-earnings-gm2" class="right">
+                        <div>
+                            <div>
+                                You earned <img src="img/coin.png" />
+                                <span id="respawn-earned-coins-gm2">10</span>
+                                coins
+                            </div>
+                            <div id="respawn-not-connected-gm2">
+                                Your coins will be lost without an account!
+                                <button
+                                    type="button"
+                                    class="button"
+                                    onclick="defly.showLoginPopup();"
+                                    lang="en"
+                                >
+                                    Create account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="respawn-promo-gm2"></div>
+                </div>
+                <div style="text-align: center" id="respawn-buttons-gm2">
+                    <button
+                        type="button"
+                        class="button"
+                        onclick="defly.spectate()"
+                    >
+                        Spectate until end of round
+                    </button>
+                    <button
+                        type="button"
+                        class="back button homepage"
+                        onclick="defly.backToHomepage()"
+                    >
+                        Back to homepage
+                    </button>
+                </div>
+                <div
+                    style="text-align: center; cursor: pointer"
+                    onclick="defly.showMyAccount();"
+                    id="respawn-get-premium-gm2"
+                >
+                    Like the game? Support us and
+                    <span style="text-decoration: underline"
+                        >get <b>Premium</b></span
+                    >
+                    for extra benefits (no ads, reserved nickname, supporter
+                    badge...)
+                </div>
+                <div style="text-align: center" id="respawn-feedback-gm2">
+                    The game is regularly being updated version, please
+                    <a
+                        href=""
+                        onclick="document.getElementById('doorbell-button').click();return false;"
+                        >give feedback here</a
+                    >
+                    or
+                    <a
+                        href="https://discord.gg/NXuuhv7"
+                        target="_blank"
+                        title="Chat on Discord"
+                        >discord</a
+                    >
+                </div>
+                <div id="curse-promo-gm2"></div>
+            </div>
+        </div>
+        <div id="map-vote">
+            <div class="title">Vote for the next map</div>
+            <div id="map-vote-candidates"></div>
+        </div>
+        <div id="gm-1v1-lobby">
+            <div id="gm-1v1-main" class="main">
+                <div class="result-stats">
+                    <div id="gm-1v1-result" class="left">
+                        <div id="gm-1v1-result-title">
+                            You defeated GuestPlayer
+                        </div>
+                        <div class="duration">
+                            fight duration:
+                            <span id="gm-1v1-fight-duration">5 s</span>
+                        </div>
+                        <div class="earnings">
+                            <div class="text">
+                                <span>You earned </span
+                                ><img src="img/coin.png" /><span
+                                    id="respawn-earned-coins-gm4"
+                                    >10</span
+                                ><span> coins</span>
+                            </div>
+                            <div class="text2">
+                                <span>(Total earnings: </span
+                                ><img src="img/coin.png" /><span
+                                    id="respawn-total-earned-coins-gm4"
+                                    >10</span
+                                ><span> coins)</span>
+                            </div>
+                            <div id="respawn-not-connected-gm4">
+                                Your coins will be lost without an account!
+                                <button
+                                    type="button"
+                                    class="button"
+                                    onclick="defly.showLoginPopup();"
+                                    lang="en"
+                                >
+                                    Create account
+                                </button>
+                            </div>
+                        </div>
+                        <button
+                            id="gm-1v1-continue-spinner"
+                            type="button"
+                            class="button"
+                            disabled=""
+                            lang="en"
+                        >
+                            <div class="lds-dual-ring2">
+                                <div></div>
+                            </div>
+                        </button>
+                        <div id="gm-1v1-button-continue" class="button">
+                            Continue
+                        </div>
+                        <div id="gm-1v1-button-back" class="button back">
+                            Back to homepage
+                        </div>
+                    </div>
+                    <div id="gm-1v1-noresult" class="left">
+                        <div id="gm-1v1-result-title">1v1 Lobby</div>
+                        <div class="duration">
+                            Click any player to challenge them, or wait for any
+                            challenge
+                        </div>
+                        <div id="gm-1v1-button-back2" class="button back">
+                            Back to homepage
+                        </div>
+                    </div>
+                    <div id="respawn-promo-gm4"></div>
+                </div>
+
+                <div class="players">
+                    <div class="title">Players</div>
+                    <table>
+                        <thead id="gm-1v1-players-header">
+                            <tr>
+                                <th>Name</th>
+                                <th>Kills</th>
+                                <th>Deaths</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gm-1v1-players"></tbody>
+                    </table>
+                </div>
+                <div class="action">
+                    <div class="content">
+                        <div class="title">Enter Arena</div>
+                        <div id="gm-1v1-confirm-duel">
+                            <div id="gm-1v1-confirm-duel-text">
+                                Challenge XXX
+                            </div>
+                            <div
+                                onclick="defly.confirmChallenge(true);"
+                                class="button orange"
+                            >
+                                YES
+                            </div>
+                            <div
+                                onclick="defly.confirmChallenge(false);"
+                                class="button"
+                            >
+                                NO
+                            </div>
+                        </div>
+                        <div id="gm-1v1-duel-list" class="duel-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="spectate-1v1-ui">
+            <div id="spectate-1v1-previous-button" class="button back">
+                Previous player
+            </div>
+            <div id="spectate-1v1-next-button" class="button back">
+                Next player
+            </div>
+            <div id="back-to-1v1-lobby-button" class="button">
+                Back to Lobby
+            </div>
+        </div>
+        <div id="buy-screen">
+            <div class="fade"></div>
+            <div class="box">
+                <div class="title">Equip your gear</div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Vehicle</td>
+                            <td>
+                                <img
+                                    id="vehicule-0-gm2"
+                                    onclick="defly.buyGear(0);"
+                                    class="selected"
+                                    src="img/weapon3.png"
+                                />
+                            </td>
+                            <td>
+                                <img
+                                    id="vehicule-1-gm2"
+                                    onclick="defly.buyGear(1);"
+                                    src="img/weapon5.png"
+                                />
+                            </td>
+                            <td>
+                                <img
+                                    id="vehicule-2-gm2"
+                                    onclick="defly.buyGear(2);"
+                                    src="img/weapon7.png"
+                                />
+                            </td>
+                            <td>
+                                <img
+                                    id="vehicule-3-gm2"
+                                    onclick="defly.buyGear(3);"
+                                    src="img/weapon1.png"
+                                />
+                            </td>
+                            <td>
+                                <img
+                                    id="vehicule-4-gm2"
+                                    onclick="defly.buyGear(4);"
+                                    src="img/weapon12.png"
+                                />
+                            </td>
+                            <td>
+                                <img
+                                    id="vehicule-5-gm2"
+                                    onclick="defly.buyGear(5);"
+                                    src="img/weapon8.png"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Value</td>
+                            <td>$0</td>
+                            <td>$2000</td>
+                            <td>$1000</td>
+                            <td>$2000</td>
+                            <td>$3000</td>
+                            <td>$4000</td>
+                        </tr>
+                        <tr>
+                            <td>Player speed</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 100%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="bar"
+                                        style="width: 66.66%"
+                                    ></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="bar"
+                                        style="width: 66.66%"
+                                    ></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 50%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="bar"
+                                        style="width: 16.66%"
+                                    ></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bullet range</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 50%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="bar"
+                                        style="width: 33.33%"
+                                    ></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="bar"
+                                        style="width: 66.66%"
+                                    ></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="bar"
+                                        style="width: 16.66%"
+                                    ></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 100%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bullet speed</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 12.5%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 25%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 100%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fire rate</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 62.5%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 50%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 75%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 62.5%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 90%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Accuracy</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 100%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="bar"
+                                        style="width: 66.66%"
+                                    ></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="bar"
+                                        style="width: 83.33%"
+                                    ></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="bar" style="width: 50%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="bar"
+                                        style="width: 96.66%"
+                                    ></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="gear">
+                    <div class="card">
+                        <div class="title">
+                            Shield <span id="gear-100-gm2">0</span>/1
+                        </div>
+                        <div class="image"><img src="img/sp3.png" /></div>
+                        <div class="price">
+                            <button type="button" onclick="defly.buyGear(100);">
+                                +
+                            </button>
+                            <button
+                                type="button"
+                                onclick="defly.sellGear(100);"
+                            >
+                                -
+                            </button>
+                            $3000
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="title">
+                            EMP Grenade <span id="gear-101-gm2">0</span>/2
+                        </div>
+                        <div class="image"><img src="img/emp.png" /></div>
+                        <div class="price">
+                            <button type="button" onclick="defly.buyGear(101);">
+                                +
+                            </button>
+                            <button
+                                type="button"
+                                onclick="defly.sellGear(101);"
+                            >
+                                -
+                            </button>
+                            $1000
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="title">
+                            Tower HP <span id="gear-102-gm2">0</span>/1
+                        </div>
+                        <div class="image">
+                            <img src="img/tower-health.png" />
+                        </div>
+                        <div class="price">
+                            <button type="button" onclick="defly.buyGear(102);">
+                                +
+                            </button>
+                            <button
+                                type="button"
+                                onclick="defly.sellGear(102);"
+                            >
+                                -
+                            </button>
+                            $2000
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="title">
+                            Tower Shield <span id="gear-103-gm2">0</span>/2
+                        </div>
+                        <div class="image">
+                            <img src="img/tower-shield.png" />
+                        </div>
+                        <div class="price">
+                            <button type="button" onclick="defly.buyGear(103);">
+                                +
+                            </button>
+                            <button
+                                type="button"
+                                onclick="defly.sellGear(103);"
+                            >
+                                -
+                            </button>
+                            $2000
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="title">
+                            Build distance <span id="gear-104-gm2">0</span>/2
+                        </div>
+                        <div class="image">
+                            <img src="img/build-distance.png" />
+                        </div>
+                        <div class="price">
+                            <button type="button" onclick="defly.buyGear(104);">
+                                +
+                            </button>
+                            <button
+                                type="button"
+                                onclick="defly.sellGear(104);"
+                            >
+                                -
+                            </button>
+                            $3000
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <span class="money"
+                        >Gear value: $<span id="money-spent-gm2">0</span> -
+                        Money left: $<span id="money-left-gm2">2000</span
+                        ><span class="info"
+                            >you earned $<span id="money-earned-gm2">0</span>
+                            last round</span
+                        >
+                    </span>
+                    <button
+                        type="button"
+                        class="button"
+                        onclick="document.getElementById('buy-screen').style.display='none';"
+                    >
+                        Ready to Play
+                    </button>
+                    <div class="info2">
+                        (gear value + money left is capped at $6000)
+                    </div>
+                </div>
+                <div class="stats">
+                    <div>Kills: <span id="bs-kills">0</span></div>
+                    <div>Deaths: <span id="bs-deaths">0</span></div>
+                    <div>Rounds won: <span id="bs-rounds-won">0/0</span></div>
+                </div>
+            </div>
+        </div>
+        <div id="homepage">
+            <div class="background">
+                <div class="fade">
+                    <div class="version">
+                        <div
+                            class="settings"
+                            onclick="document.getElementById('settings-popup').style.display = 'block';"
+                        >
+                            <svg
+                                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                xmlns:cc="http://creativecommons.org/ns#"
+                                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                xmlns:svg="http://www.w3.org/2000/svg"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                                viewBox="0 0 44.253906 46.253906"
+                                width="44.253906"
+                                height="46.253906"
+                                version="1.1"
+                            >
+                                <path
+                                    inkscape:connector-curvature="0"
+                                    id="path828"
+                                    d="m 23.126953,4 c -1.37283,0 -2.712875,0.1345136 -4.011719,0.3828125 l -0.724609,4.4375 c -1.2,0.345 -2.3525,0.8181092 -3.4375,1.4121095 L 11.287109,7.6132812 C 9.0716991,9.1111071 7.1613468,11.02042 5.65625,13.230469 l 2.5781251,3.6875 c -0.6050002,1.095 -1.0865001,2.254937 -1.4375001,3.460937 L 2.3828125,21.113281 C 2.1342787,22.412712 2,23.753458 2,25.126953 c 0,1.349523 0.1309641,2.667095 0.3710937,3.945312 l 4.4140625,0.78125 c 0.349,1.203 0.8305001,2.362938 1.4374999,3.460938 l -2.611328,3.650391 c 1.4980573,2.216372 3.408338,4.127201 5.6191409,5.632812 l 3.697265,-2.589844 c 1.093,0.601 2.24636,1.077827 3.44336,1.423829 l 0.740234,4.439453 c 1.300019,0.248768 2.641466,0.382812 4.015625,0.382812 1.348075,0 2.664472,-0.129514 3.941406,-0.369141 l 0.792969,-4.472656 c 1.199,-0.353 2.347689,-0.833547 3.429687,-1.435547 l 3.734376,2.619141 c 2.208332,-1.504348 4.116198,-3.413262 5.613281,-5.626953 l -2.666016,-3.701172 c 0.593,-1.08 1.065203,-2.222203 1.408203,-3.408203 l 4.503906,-0.791016 c 0.239627,-1.276934 0.369141,-2.593331 0.369141,-3.941406 0,-1.372165 -0.134748,-2.711509 -0.382812,-4.009766 l -4.494141,-0.734375 c -0.346,-1.186 -0.818156,-2.32725 -1.410156,-3.40625 l 2.630859,-3.748047 C 39.093502,11.020204 37.184167,9.1124031 34.970703,7.6152343 L 31.28125,10.267578 C 30.19225,9.6655781 29.042609,9.1887968 27.849609,8.8417969 L 27.066406,4.3691406 C 25.79006,4.1297449 24.474363,4 23.126953,4 Z m 0,10.746094 A 10.381356,10.381356 0 0 1 33.507812,25.126953 10.381356,10.381356 0 0 1 23.126953,35.507812 10.381356,10.381356 0 0 1 12.746094,25.126953 10.381356,10.381356 0 0 1 23.126953,14.746094 Z"
+                                    style="fill: #bbbbbb; fill-opacity: 1"
+                                ></path>
+                                <path
+                                    style="fill-opacity: 1"
+                                    d="m 21.126953,0 c -1.37283,0 -2.712875,0.1345136 -4.011719,0.3828125 l -0.724609,4.4375 c -1.2,0.345 -2.3525,0.8181092 -3.4375,1.4121096 L 9.2871091,3.6132812 C 7.0716991,5.1111071 5.1613468,7.0204201 3.65625,9.2304691 l 2.5781251,3.6874999 c -0.6050002,1.095 -1.0865001,2.254937 -1.4375001,3.460937 L 0.3828125,17.113281 C 0.1342787,18.412712 0,19.753458 0,21.126953 c 0,1.349523 0.1309641,2.667095 0.3710937,3.945312 l 4.4140625,0.78125 c 0.349,1.203 0.8305001,2.362938 1.4374999,3.460938 l -2.611328,3.650391 c 1.4980573,2.216372 3.408338,4.127201 5.619141,5.632812 l 3.6972649,-2.589844 c 1.093,0.601 2.24636,1.077827 3.44336,1.423829 l 0.740234,4.439453 c 1.300019,0.248768 2.641466,0.382812 4.015625,0.382812 1.348075,0 2.664472,-0.129514 3.941406,-0.369141 l 0.792969,-4.472656 c 1.199,-0.353 2.347689,-0.833547 3.429687,-1.435547 l 3.734376,2.619141 c 2.208332,-1.504348 4.116198,-3.413262 5.613281,-5.626953 l -2.666016,-3.701172 c 0.593,-1.08 1.065203,-2.222203 1.408203,-3.408203 l 4.503906,-0.791016 c 0.239627,-1.276934 0.369141,-2.593331 0.369141,-3.941406 0,-1.372165 -0.134748,-2.711509 -0.382812,-4.009766 l -4.494141,-0.734375 c -0.346,-1.186 -0.818156,-2.32725 -1.410156,-3.40625 L 38.597656,9.2285151 C 37.093502,7.0202041 35.184167,5.1124031 32.970703,3.6152343 L 29.28125,6.2675781 c -1.089,-0.602 -2.238641,-1.0787813 -3.431641,-1.4257812 L 25.066406,0.3691406 C 23.79006,0.1297449 22.474363,0 21.126953,0 Z m 0,10.746094 A 10.381356,10.381356 0 0 1 31.507812,21.126953 10.381356,10.381356 0 0 1 21.126953,31.507812 10.381356,10.381356 0 0 1 10.746094,21.126953 10.381356,10.381356 0 0 1 21.126953,10.746094 Z"
+                                ></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div id="homepage-content" class="content">
+                        <div class="middle-box">
+                            <div class="inside">
+                                <div class="logo">
+                                    <img src="img/logo2.png" />
+                                </div>
+                                <div id="homepage-loading" lang="en">
+                                    Loading...
+                                </div>
+                                <div id="homepage-loaded">
+                                    <input
+                                        type="text"
+                                        id="username"
+                                        placeholder="Your nickname..."
+                                        maxlength="12"
+                                        lang="en"
+                                    />
+                                    <div id="skin-block" class="skin">
+                                        <div id="skin-homepage-canvas"></div>
+                                        <div>
+                                            <button
+                                                id="skin-button"
+                                                type="button"
+                                                class="orange button"
+                                                onclick="defly.chooseSkin();"
+                                                lang="en"
+                                            >
+                                                Change skin
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="game-modes">
+                                        <div
+                                            id="gamemode-0"
+                                            title="Conquer the whole map all by yourself!"
+                                            onclick="defly.selectMode(0);"
+                                            class="selected"
+                                        >
+                                            FFA
+                                        </div>
+                                        <div
+                                            id="gamemode-1"
+                                            title="Team-up with other players to conquer the map!"
+                                            onclick="defly.selectMode(1);"
+                                        >
+                                            TEAM
+                                        </div>
+                                        <div
+                                            id="gamemode-2"
+                                            title="Join blue to protect the bomb spots, red to try to plant the bomb"
+                                            onclick="defly.selectMode(2);"
+                                        >
+                                            DEFUSE
+                                        </div>
+                                        <div
+                                            id="gamemode-3"
+                                            title="Experimental Free-for-all"
+                                            onclick="defly.selectMode(3);"
+                                        >
+                                            E-FFA
+                                        </div>
+                                        <div
+                                            id="gamemode-4"
+                                            title="1 vs 1"
+                                            onclick="defly.selectMode(4);"
+                                        >
+                                            1v1
+                                        </div>
+                                    </div>
+                                    <button
+                                        id="play-button"
+                                        type="button"
+                                        class="button"
+                                        onclick="defly.clickPlay();"
+                                        lang="en"
+                                    >
+                                        Play
+                                    </button>
+                                    <button
+                                        id="play-spinner"
+                                        type="button"
+                                        class="button"
+                                        disabled=""
+                                        lang="en"
+                                    >
+                                        <div class="lds-dual-ring">
+                                            <div></div>
+                                        </div>
+                                    </button>
+                                    <div id="server-block" class="server">
+                                        <span class="label" lang="en"
+                                            >Server</span
+                                        >
+                                        <span class="field"
+                                            ><select name="server" id="server">
+                                                <option>Loading...</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                    <div
+                                        id="preferred-server-block"
+                                        class="server"
+                                    >
+                                        <span class="label" lang="en"
+                                            >Server</span
+                                        >
+                                        <span
+                                            class="field"
+                                            id="preferred-server"
+                                        ></span>
+                                        <span class="close">&times;</span>
+                                    </div>
+                                    <div
+                                        id="tourney-countdown"
+                                        title="Click here to play the Tournament game (once the countdown reaches 0)"
+                                    ></div>
+                                    <div
+                                        id="tourney-info"
+                                        style="margin-top: 8px; display: none"
+                                    >
+                                        <a
+                                            href="winter-game.html"
+                                            target="_blank"
+                                            style="color: white"
+                                            >Check-out the map</a
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="settings-popup" class="settings-popup animated fadeInDown">
+            <div class="close">
+                <img
+                    src="img/close.svg"
+                    onclick="Javascript: document.getElementById('settings-popup').style.display='none';"
+                />
+            </div>
+            <div class="graphics">
+                <div class="quality">
+                    <div>Graphics:</div>
+                    <span lang="en">Quality</span>
+                    <button
+                        id="button-quality-high"
+                        type="button"
+                        class="button"
+                        onclick="defly.setQuality(1);"
+                        lang="en"
+                    >
+                        High
+                    </button>
+                    <button
+                        id="button-quality-medium"
+                        type="button"
+                        class="button unselected"
+                        onclick="defly.setQuality(0.8);"
+                        lang="en"
+                    >
+                        Medium
+                    </button>
+                    <button
+                        id="button-quality-low"
+                        type="button"
+                        class="button unselected"
+                        onclick="defly.setQuality(0.6);"
+                        lang="en"
+                    >
+                        Low
+                    </button>
+                </div>
+                <div>
+                    <input
+                        type="radio"
+                        id="theme-radio1"
+                        name="theme-radio"
+                        checked=""
+                        onchange="defly.changeTheme();"
+                    /><label for="theme-radio1">Light theme</label>
+                    <input
+                        type="radio"
+                        id="theme-radio2"
+                        name="theme-radio"
+                        onchange="defly.changeTheme();"
+                    /><label for="theme-radio2">Dark theme</label>
+                </div>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="controls-colorblind"
+                        name="controls-colorblind"
+                        onchange="defly.changeControls();"
+                    /><label for="controls-colorblind">Colorblind mode</label>
+                </div>
+            </div>
+            <div class="controls">
+                <div>Controls:</div>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="controls-mwm"
+                        name="controls-mwm"
+                        onchange="defly.changeControls();"
+                    /><label for="controls-mwm"
+                        >Move with mouse (switch during game with keybind
+                        below)</label
+                    >
+                </div>
+            </div>
+            <div class="chat">
+                <div>Chat:</div>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="settings-disablechat"
+                        name="settings-disablechat"
+                        onchange="defly.changeChatSettings();"
+                    /><label for="settings-disablechat">Disable chat</label>
+                </div>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="settings-disableinfolog"
+                        name="settings-disableinfolog"
+                        onchange="defly.changeChatSettings();"
+                    /><label for="settings-disableinfolog"
+                        >Disable kill/join/leave log</label
+                    >
+                </div>
+                <div>
+                    Text size:
+                    <input
+                        type="radio"
+                        id="settings-chat-size1"
+                        name="settings-chat-size"
+                        onchange="defly.changeChatSettings();"
+                        value="1"
+                    /><label for="settings-chat-size1">Smaller</label
+                    ><input
+                        type="radio"
+                        id="settings-chat-size2"
+                        name="settings-chat-size"
+                        checked=""
+                        onchange="defly.changeChatSettings();"
+                        value="2"
+                    /><label for="settings-chat-size2">Normal</label
+                    ><input
+                        type="radio"
+                        id="settings-chat-size3"
+                        name="settings-chat-size"
+                        onchange="defly.changeChatSettings();"
+                        value="3"
+                    /><label for="settings-chat-size3">Bigger</label>
+                </div>
+            </div>
+            <div class="keys">
+                <div class="title">Keybinds:</div>
+                <div class="subtitle">(Click to change, Escape to unbind)</div>
+                <div id="settings-bindings"></div>
+            </div>
+            <div class="footer">Display settings in-game by pressing I</div>
+        </div>
+        <div id="event-popup">
+            <div
+                class="fade"
+                onclick="document.getElementById('event-popup').style.display='none';"
+            ></div>
+            <div class="box">
+                <div id="event-title" class="title"></div>
+                <div id="event-content" class="content"></div>
+                <button
+                    type="button"
+                    class="button"
+                    onclick="document.getElementById('event-popup').style.display='none';"
+                    lang="en"
+                >
+                    Close
+                </button>
+            </div>
+        </div>
+
+        <div id="skin-editor">
+            <div class="fade"></div>
+            <div class="box">
+                <div class="title">Skin Editor</div>
+                <div id="skin-editor-canvas"></div>
+                <div class="display-params">
+                    <div>
+                        <input
+                            id="show-collision-circle"
+                            type="checkbox"
+                        /><label for="show-collision-circle"
+                            >Show/hide collision circle</label
+                        >
+                    </div>
+                    <div>
+                        Stance:
+                        <button id="stance-idle" class="button back">
+                            Idle</button
+                        ><button id="stance-moving" class="button">
+                            Moving
+                        </button>
+                    </div>
+                </div>
+                <div class="base-layer">
+                    <label class="button" for="skin-editor-input"
+                        >Load images</label
+                    ><input
+                        id="skin-editor-input"
+                        type="file"
+                        accept="image/*"
+                        multiple=""
+                    />
+                </div>
+                <div id="skin-editor-parameters" class="parameters">
+                    Base:
+                    <select id="skin-editor-base"></select>
+                    NoTint:
+                    <select id="skin-editor-notint"></select>
+                    scale:
+                    <input
+                        type="number"
+                        value="1.0"
+                        step="0.1"
+                        id="skin-editor-size"
+                    />
+                </div>
+                <div id="skin-editor-rotors" class="rotors"></div>
+                <div class="action-buttons">
+                    <div class="button back" onclick="defly.saveSkin();">
+                        Save skin
+                    </div>
+                    <label class="button back" for="skin-upload-input"
+                        >Load skin</label
+                    ><input id="skin-upload-input" type="file" accept=".txt" />
+                    <div class="button back" onclick="defly.clearSkin();">
+                        Clear skin
+                    </div>
+                    <div class="button back" onclick="defly.closeSkinEditor();">
+                        Try it
+                    </div>
+                </div>
+                <div class="game-sprites">
+                    <select id="skin-editor-game-sprites"></select
+                    ><label class="button" for="skin-editor-input2"
+                        >Replace game sprite</label
+                    ><input
+                        id="skin-editor-input2"
+                        type="file"
+                        accept="image/*"
+                    />
+                </div>
+            </div>
+        </div>
+        <div id="skin-popup">
+            <div class="fade"></div>
+            <div class="box">
+                <div class="coins-owned">
+                    <img src="img/coin.png" /> <span id="coins-owned">0</span>
+                </div>
+                <div id="skin-popup-canvas"></div>
+                <div id="color-list" class="color-list">
+                    <div class="label">Color</div>
+                    <span class="random" onclick="defly.changeSkinColor(-1);"
+                        >Random</span
+                    >
+                </div>
+                <div id="skin-tabs" class="skin-tabs">
+                    <div class="skin-tab selected">All</div>
+                    <div class="skin-tab">Helicopter</div>
+                    <div class="skin-tab">Drone</div>
+                    <div class="skin-tab">Gyrocopter</div>
+                    <div class="skin-tab">UFO</div>
+                    <div class="skin-tab">Jet</div>
+                    <div class="skin-tab">Space</div>
+                    <div class="skin-tab">Beast</div>
+                    <div class="skin-tab">Insect</div>
+                    <div class="skin-tab">Ancient</div>
+                    <div class="skin-tab">Mythical</div>
+                    <div class="skin-tab">Holidays</div>
+                </div>
+                <div id="skin-list" class="skin-list"></div>
+                <div class="close-button">
+                    <button
+                        type="button"
+                        class="button"
+                        onclick="defly.closeSkinSelector()"
+                        lang="en"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="choose-team-popup">
+            <div class="fade"></div>
+            <div class="box">
+                <div class="title">Choose your team</div>
+                <table id="team-choice-table"></table>
+                <div id="team-choice-loading" class="loading">
+                    <div class="spinner">
+                        <div class="lds-dual-ring">
+                            <div></div>
+                        </div>
+                    </div>
+                    Please wait... (if this is taking too long there's no free
+                    space on the map)
+                    <button
+                        type="button"
+                        class="back button homepage"
+                        onclick="defly.backToHomepage()"
+                    >
+                        Play another server
+                    </button>
+                </div>
+                <div class="info">
+                    Teams are unavailable when they have too many members or
+                    &gt;70% territory
+                </div>
+            </div>
+        </div>
+
+        <div id="chat-guidelines-popup">
+            <div class="wrapper">
+                <div class="title">Rules for in-game chat</div>
+                <ul>
+                    <li>No sexual content</li>
+                    <li>No slurs, hate speech or toxic chat</li>
+                    <li>No political or religious propaganda</li>
+                    <li>Do not collect, ask or provide personal information</li>
+                </ul>
+                <div class="toslink">
+                    See full details in
+                    <a href="/tos.html" target="_blank">Terms of Service</a>
+                </div>
+                <div class="buttons">
+                    <div id="chat-guidelines-accept" class="button">
+                        I'm 13+ and agree
+                    </div>
+                    <div id="chat-guidelines-deny" class="button">
+                        Disable chat
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="preroll"></div>
+    </body>
+</html>
