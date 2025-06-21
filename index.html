@@ -1,8 +1,11 @@
 <!doctype html>
 <html>
     <head>
-        <script src="./src/scripts.js" async=""></script>
-        <link rel="stylesheet" href="./src/style.css" />
+        <script src="./src/libraries.js"></script>
+        <script src="./src/scripts.js" defer></script>
+        <link rel="stylesheet" href="./src/css-libs.css" />
+        <link rel="stylesheet" href="./src/css-animation.css" />
+        <link rel="stylesheet" href="./src/styles.css" />
         <meta charset="UTF-8" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta
@@ -275,13 +278,6 @@
             <div id="minimap-position" class="minimap-position"></div>
         </div>
         <div id="chat-block">
-            <div
-                id="chat-button"
-                class="button"
-                onclick="defly.toggleChatInput();"
-            >
-                Tap to chat
-            </div>
             <div id="chat-history"></div>
             <div class="chat-input-block">
                 <div id="chat-history-full"></div>
@@ -354,7 +350,6 @@
                             <span id="respawn-earned-coins">10</span> coins
                         </div>
                     </div>
-                    <div id="respawn-promo"></div>
                 </div>
                 <div style="text-align: center" id="respawn-buttons">
                     <button
@@ -461,7 +456,6 @@
                             </div>
                         </div>
                     </div>
-                    <div id="respawn-promo-gm2"></div>
                 </div>
                 <div style="text-align: center" id="respawn-buttons-gm2">
                     <button
@@ -479,34 +473,6 @@
                         Back to homepage
                     </button>
                 </div>
-                <div
-                    style="text-align: center; cursor: pointer"
-                    onclick="defly.showMyAccount();"
-                    id="respawn-get-premium-gm2"
-                >
-                    Like the game? Support us and
-                    <span style="text-decoration: underline"
-                        >get <b>Premium</b></span
-                    >
-                    for extra benefits (no ads, reserved nickname, supporter
-                    badge...)
-                </div>
-                <div style="text-align: center" id="respawn-feedback-gm2">
-                    The game is regularly being updated version, please
-                    <a
-                        href=""
-                        onclick="document.getElementById('doorbell-button').click();return false;"
-                        >give feedback here</a
-                    >
-                    or
-                    <a
-                        href="https://discord.gg/NXuuhv7"
-                        target="_blank"
-                        title="Chat on Discord"
-                        >discord</a
-                    >
-                </div>
-                <div id="curse-promo-gm2"></div>
             </div>
         </div>
         <div id="map-vote">
@@ -579,7 +545,6 @@
                             Back to homepage
                         </div>
                     </div>
-                    <div id="respawn-promo-gm4"></div>
                 </div>
 
                 <div class="players">
@@ -1311,24 +1276,6 @@
             </div>
             <div class="footer">Display settings in-game by pressing I</div>
         </div>
-        <div id="event-popup">
-            <div
-                class="fade"
-                onclick="document.getElementById('event-popup').style.display='none';"
-            ></div>
-            <div class="box">
-                <div id="event-title" class="title"></div>
-                <div id="event-content" class="content"></div>
-                <button
-                    type="button"
-                    class="button"
-                    onclick="document.getElementById('event-popup').style.display='none';"
-                    lang="en"
-                >
-                    Close
-                </button>
-            </div>
-        </div>
 
         <div id="skin-editor">
             <div class="fade"></div>
@@ -1406,9 +1353,6 @@
         <div id="skin-popup">
             <div class="fade"></div>
             <div class="box">
-                <div class="coins-owned">
-                    <img src="img/coin.png" /> <span id="coins-owned">0</span>
-                </div>
                 <div id="skin-popup-canvas"></div>
                 <div id="color-list" class="color-list">
                     <div class="label">Color</div>
@@ -1468,30 +1412,6 @@
                 <div class="info">
                     Teams are unavailable when they have too many members or
                     &gt;70% territory
-                </div>
-            </div>
-        </div>
-
-        <div id="chat-guidelines-popup">
-            <div class="wrapper">
-                <div class="title">Rules for in-game chat</div>
-                <ul>
-                    <li>No sexual content</li>
-                    <li>No slurs, hate speech or toxic chat</li>
-                    <li>No political or religious propaganda</li>
-                    <li>Do not collect, ask or provide personal information</li>
-                </ul>
-                <div class="toslink">
-                    See full details in
-                    <a href="/tos.html" target="_blank">Terms of Service</a>
-                </div>
-                <div class="buttons">
-                    <div id="chat-guidelines-accept" class="button">
-                        I'm 13+ and agree
-                    </div>
-                    <div id="chat-guidelines-deny" class="button">
-                        Disable chat
-                    </div>
                 </div>
             </div>
         </div>

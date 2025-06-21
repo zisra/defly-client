@@ -1,11 +1,9 @@
-var defly = (function () {
+var defly = (() => {
   var z,
     V,
     l,
-    D,
     v,
     c,
-    P,
     L,
     W,
     g,
@@ -33,7 +31,6 @@ var defly = (function () {
     J,
     x,
     S,
-    R,
     b,
     X,
     H,
@@ -286,12 +283,8 @@ var defly = (function () {
     }
     return {
       dppx: V,
-      dpi: function () {
-        return V() * z.dpi;
-      },
-      dpcm: function () {
-        return V() * z.dpcm;
-      },
+      dpi: () => V() * z.dpi,
+      dpcm: () => V() * z.dpcm,
     };
   }
   var jl = tl().dpcm();
@@ -345,7 +338,512 @@ var defly = (function () {
       .replace(/</g, "&lt;")
       .replace(/"/g, "&quot;");
   }
-  var pl = ["New"],
+  var pl = [
+      "4r5e",
+      "5h1t",
+      "5hit",
+      "a_s_s",
+      "a55",
+      "analbead",
+      "anal",
+      "analconda",
+      "anus",
+      "ar5e",
+      "arrse",
+      "arse",
+      "arsehole",
+      "ass",
+      "ass fuck",
+      "asses",
+      "assfucker",
+      "ass-fucker",
+      "assfukka",
+      "asshole",
+      "assholes",
+      "assmucus",
+      "asswhole",
+      "b!tch",
+      "b00bs",
+      "b17ch",
+      "b1tch",
+      "ballbag",
+      "balls",
+      "bangmywife",
+      "ballsack",
+      "bastard",
+      "bastards",
+      "beastial",
+      "beastiality",
+      "bellend",
+      "bestial",
+      "bestiality",
+      "bi+ch",
+      "biatch",
+      "bitch",
+      "bitcher",
+      "bitchers",
+      "bitches",
+      "bitchin",
+      "bitching",
+      "bloody",
+      "blow job",
+      "blowjob",
+      "blowjobs",
+      "blumpkin",
+      "boiolas",
+      "bollock",
+      "bollocks",
+      "bollok",
+      "boner",
+      "boob",
+      "boobs",
+      "booobs",
+      "boooobs",
+      "booooobs",
+      "booooooobs",
+      "breasts",
+      "buceta",
+      "bugger",
+      "buggery",
+      "bum",
+      "bunny fucker",
+      "butt",
+      "butthole",
+      "buttmuch",
+      "buttplug",
+      "c0ck",
+      "c0cksucker",
+      "carpet muncher",
+      "cawk",
+      "chink",
+      "cipa",
+      "cl1t",
+      "clit",
+      "clitoris",
+      "clits",
+      "cnut",
+      "cock",
+      "cockface",
+      "cockhead",
+      "cockmunch",
+      "cockmuncher",
+      "cocks",
+      "cocksuck",
+      "cocksucked",
+      "cocksucker",
+      "cock-sucker",
+      "cocksucker",
+      "cocksucking",
+      "cocksucks",
+      "cocksuka",
+      "cocksukka",
+      "cok",
+      "cokmuncher",
+      "coksucka",
+      "coon",
+      "cox",
+      "crap",
+      "cum",
+      "cum freak",
+      "cumdump",
+      "cumjunkie",
+      "cummer",
+      "cumming",
+      "cums",
+      "cumshot",
+      "cunilingus",
+      "cunillingus",
+      "cunnilingus",
+      "cunt",
+      "cuntbag",
+      "cuntlick",
+      "cuntlicker",
+      "cuntlicking",
+      "cunts",
+      "cuntsicle",
+      "cyalis",
+      "cyberfuc",
+      "cyberfuck",
+      "cyberfucked",
+      "cyberfucker",
+      "cyberfuckers",
+      "cyberfucking",
+      "d1ck",
+      "damn",
+      "darn",
+      "dick",
+      "dickhead",
+      "dildo",
+      "dildos",
+      "dink",
+      "dinks",
+      "dirsa",
+      "dlck",
+      "dog-fucker",
+      "doggin",
+      "dogging",
+      "donkeyribber",
+      "doosh",
+      "douche",
+      "duche",
+      "dyke",
+      "ejaculate",
+      "ejaculated",
+      "ejaculates",
+      "ejaculating",
+      "ejaculatings",
+      "ejaculation",
+      "ejakulate",
+      "f u c k",
+      "f u c k e r",
+      "f_u_c_k",
+      "f4nny",
+      "facialize",
+      "fag",
+      "fagging",
+      "faggitt",
+      "faggot",
+      "faggs",
+      "fagot",
+      "fagots",
+      "fags",
+      "fanny",
+      "fannyflaps",
+      "fannyfucker",
+      "fanyy",
+      "fart",
+      "fatass",
+      "fcuk",
+      "fcuker",
+      "fcuking",
+      "feck",
+      "fecker",
+      "felch",
+      "felching",
+      "fellate",
+      "fellatio",
+      "fingerfuck",
+      "fingerfucked",
+      "fingerfucker",
+      "fingerfuckers",
+      "fingerfucking",
+      "fingerfucks",
+      "fistfuck",
+      "fistfucked",
+      "fistfucker",
+      "fistfuckers",
+      "fistfucking",
+      "fistfuckings",
+      "fistfucks",
+      "flange",
+      "fook",
+      "fooker",
+      "fuck",
+      "fucka",
+      "fuck-bitch",
+      "fucked",
+      "fucker",
+      "fuckers",
+      "fuckhead",
+      "fuckheads",
+      "fuckin",
+      "fucking",
+      "fucking ",
+      "fuckings",
+      "fuckingshitmotherfucker",
+      "fuckme",
+      "fuckmeat",
+      "fucks",
+      "fucktoy",
+      "fuckwhit",
+      "fuckwit",
+      "fudge packer",
+      "fudgepacker",
+      "fuk",
+      "fuker",
+      "fukker",
+      "fukkin",
+      "fuks",
+      "fukwhit",
+      "fukwit",
+      "fux",
+      "fux0r",
+      "gangbang",
+      "gangbang",
+      "gangbanged",
+      "gangbangs",
+      "gaylord",
+      "gaysex",
+      "goatse",
+      "God",
+      "god-dam",
+      "goddamn",
+      "goddamned",
+      "god-damned",
+      "hardcoresex",
+      "heshe",
+      "hoar",
+      "hoare",
+      "hoer",
+      "homo",
+      "hore",
+      "horniest",
+      "horny",
+      "hotsex",
+      "jackoff",
+      "jack-off",
+      "jap",
+      "jerk-off",
+      "jism",
+      "jiz",
+      "jizm",
+      "jizz",
+      "kawk",
+      "knob",
+      "knobead",
+      "knobed",
+      "knobend",
+      "knobhead",
+      "knobjocky",
+      "knobjokey",
+      "kock",
+      "kondum",
+      "kondums",
+      "kum",
+      "kummer",
+      "kumming",
+      "kums",
+      "kunilingus",
+      "l3i+ch",
+      "l3itch",
+      "labia",
+      "liter",
+      "lust",
+      "lusting",
+      "m0f0",
+      "m0fo",
+      "m45terbate",
+      "ma5terb8",
+      "ma5terbate",
+      "masochist",
+      "masterb8",
+      "masterbat*",
+      "masterbat3",
+      "masterbate",
+      "master-bate",
+      "masterbation",
+      "masterbations",
+      "masturbate",
+      "mof0",
+      "mofo",
+      "mo-fo",
+      "mothafuck",
+      "mothafucka",
+      "mothafuckas",
+      "mothafuckaz",
+      "mothafucked",
+      "mothafucker",
+      "mothafuckers",
+      "mothafuckin",
+      "mothafucking",
+      "mothafuckings",
+      "mothafucks",
+      "mother fucker",
+      "motherfuck",
+      "motherfucked",
+      "motherfucker",
+      "motherfucker",
+      "motherfuckers",
+      "motherfuckin",
+      "motherfucking",
+      "motherfucking",
+      "motherfuckings",
+      "motherfuckka",
+      "motherfucks",
+      "muff",
+      "mutha",
+      "muthafecker",
+      "muthafuckker",
+      "muther",
+      "mutherfucker",
+      "n1gga",
+      "n1gger",
+      "nazi",
+      "nigg3r",
+      "nigg4h",
+      "nigga",
+      "niqqa",
+      "nÅ‚gga",
+      "niggah",
+      "niggas",
+      "niqqas",
+      "niggaz",
+      "n.igger",
+      "nigger",
+      "niggers",
+      "nlgga",
+      "nlgger",
+      "nlggers",
+      "niger",
+      "ngga",
+      "nggas",
+      "nÃ­gga",
+      "nob",
+      "nob jokey",
+      "nobhead",
+      "nobjocky",
+      "nobjokey",
+      "numbnuts",
+      "nutsack",
+      "orgasim",
+      "orgasims",
+      "orgasm",
+      "orgasms",
+      "p0rn",
+      "pawn",
+      "pecker",
+      "penis",
+      "penisfucker",
+      "phonesex",
+      "phuck",
+      "phuk",
+      "phuked",
+      "phuking",
+      "phukked",
+      "phukking",
+      "phuks",
+      "phuq",
+      "pigfucker",
+      "pimpis",
+      "piss",
+      "pissed",
+      "pisser",
+      "pissers",
+      "pisses",
+      "pissflaps",
+      "pissin",
+      "pissing",
+      "pissoff",
+      "poop",
+      "porn",
+      "porno",
+      "pornography",
+      "pornos",
+      "prick",
+      "pricks",
+      "pron",
+      "pube",
+      "pusse",
+      "pussi",
+      "pussies",
+      "pussy",
+      "pussys",
+      "rapist",
+      "rectum",
+      "retard",
+      "rimjaw",
+      "rimming",
+      "s hit",
+      "s_h_i_t",
+      "sadist",
+      "schlong",
+      "screwing",
+      "scroat",
+      "scrote",
+      "scrotum",
+      "semen",
+      "sex",
+      "sh!+",
+      "sh!t",
+      "sh1t",
+      "shag",
+      "shagger",
+      "shaggin",
+      "shagging",
+      "shemale",
+      "shi+",
+      "shit",
+      "shit ass",
+      "shitass",
+      "shitdick",
+      "shite",
+      "shited",
+      "shitey",
+      "shitfuck",
+      "shitfull",
+      "shithead",
+      "shiting",
+      "shitings",
+      "shits",
+      "shitted",
+      "shitter",
+      "shitters",
+      "shitting",
+      "shittings",
+      "shitty",
+      "skank",
+      "skullfuck",
+      "slaptard",
+      "slich",
+      "slut",
+      "sluts",
+      "smegma",
+      "smut",
+      "snatch",
+      "sob",
+      "son-of-a-bitch",
+      "spac",
+      "spunk",
+      "sucker",
+      "suckmydick",
+      "suckmydlck",
+      "t1tt1e5",
+      "t1tties",
+      "teets",
+      "teez",
+      "testical",
+      "testicle",
+      "tit",
+      "titfuck",
+      "tits",
+      "titt",
+      "tittie5",
+      "tittiefucker",
+      "titties",
+      "tittyfuck",
+      "tittywank",
+      "titwank",
+      "tosser",
+      "turd",
+      "tw4t",
+      "twat",
+      "twathead",
+      "twatty",
+      "twunt",
+      "twunter",
+      "v14gra",
+      "v1gra",
+      "vagina",
+      "viagra",
+      "vulva",
+      "w00se",
+      "wang",
+      "wank",
+      "wanker",
+      "wanky",
+      "whoar",
+      "whore",
+      "willies",
+      "willy",
+      "xrated",
+      "xxx",
+      "rape",
+      "rapist",
+      "adolf",
+      "hitler",
+      "a$$",
+      "jews",
+    ],
     Yl = {};
   function ol(z, V) {
     for (
@@ -401,7 +899,7 @@ var defly = (function () {
     }
     return z;
   }
-  !(function () {
+  !(() => {
     for (var z = 0; z < pl.length; z++) {
       var V = pl[z].toUpperCase(),
         l = V.charAt(0);
@@ -412,13 +910,13 @@ var defly = (function () {
   })();
   var Zl = !1;
   var Fl =
-      (function () {
+      (() => {
         var z = navigator.userAgent || navigator.vendor || window.opera;
         return !(
           !/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(
             z,
           ) &&
-          !/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
+          !/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(
             z.substr(0, 4),
           )
         );
@@ -461,7 +959,7 @@ var defly = (function () {
         duration: 100,
         easing: "easeInQuad",
         opacity: [1, 0],
-        complete: function () {
+        complete: () => {
           document.body.removeChild(D), "function" == typeof l && l();
         },
       });
@@ -497,7 +995,7 @@ var defly = (function () {
         duration: 100,
         easing: "easeInQuad",
         opacity: [1, 0],
-        complete: function () {
+        complete: () => {
           document.body.removeChild(D), "function" == typeof l && l(z);
         },
       });
@@ -531,7 +1029,7 @@ var defly = (function () {
         var z = new Uint8Array(1);
         z.set([99], 0), this.send(z);
       }),
-      I[V].addEventListener("open", function (z) {
+      I[V].addEventListener("open", (z) => {
         z.target.sendPing();
       }),
       I[V].addEventListener("error", function (z) {
@@ -547,8 +1045,8 @@ var defly = (function () {
             "",
           );
       }),
-      I[V].addEventListener("close", function (z) {}),
-      I[V].addEventListener("message", function (l) {
+      I[V].addEventListener("close", (z) => {}),
+      I[V].addEventListener("message", (l) => {
         var D = new DataView(l.data).getUint8(0);
         99 == D
           ? (l.target.pings.push(new Date().getTime() - l.target.lastPingTime),
@@ -557,7 +1055,7 @@ var defly = (function () {
                 delete I[V],
                 (A[V] = Math.min.apply(Math, l.target.pings)),
                 console.log("Best ping for region", V, A[V]),
-                (function () {
+                (() => {
                   var V = 999999,
                     l = "";
                   for (var D in A)
@@ -590,7 +1088,7 @@ var defly = (function () {
     yl = 0;
   function bl() {
     c &&
-      (!(function () {
+      (!(() => {
         for (var z in c)
           I[z] && ((I[z].cancelled = !0), I[z].close()), delete I[z];
         (A = []),
@@ -600,7 +1098,7 @@ var defly = (function () {
       })(),
       clearTimeout(Sl));
     var z = new XMLHttpRequest();
-    (z.onreadystatechange = function () {
+    (z.onreadystatechange = () => {
       if (4 == z.readyState && 200 == z.status)
         try {
           var V = z.responseText.split("\n");
@@ -653,7 +1151,7 @@ var defly = (function () {
                       ));
                   }
                   if (q >= -36e5 * m) {
-                    var t = function () {
+                    var t = () => {
                       var z = new Date().getTime(),
                         V = W - z,
                         l = Math.floor(V / 864e5),
@@ -695,7 +1193,7 @@ var defly = (function () {
         }
       else 4 == z.readyState && 200 != z.status && z.onerror(z.status);
     }),
-      (z.onerror = function (z) {
+      (z.onerror = (z) => {
         xD(
           new Date().toLocaleTimeString() + " - Error downloading server list",
           "error",
@@ -717,7 +1215,7 @@ var defly = (function () {
           : v,
         c = document.getElementById("username").value.substring(0, 12),
         P = new XMLHttpRequest();
-      (P.onreadystatechange = function () {
+      (P.onreadystatechange = () => {
         if (4 == P.readyState && 200 == P.status)
           if (-1 != P.responseText.indexOf("LOGIN_ERROR"))
             dl(
@@ -757,7 +1255,7 @@ var defly = (function () {
               dl(
                 "This nickname is reserved by a premium account, please choose another one",
                 "",
-                function () {
+                () => {
                   document.getElementById("username").value = "";
                 },
               );
@@ -778,7 +1276,7 @@ var defly = (function () {
           }
         else 4 == P.readyState && 200 != P.status && P.onerror(P.status);
       }),
-        (P.onerror = function (z) {
+        (P.onerror = (z) => {
           xD(
             new Date().toLocaleTimeString() + " - Error selecting server",
             "error",
@@ -814,9 +1312,9 @@ var defly = (function () {
         (cl = {}),
         (Tz = {}),
         ((q = new WebSocket(Jl(k))).binaryType = "arraybuffer"),
-        q.addEventListener("open", function (z) {
+        q.addEventListener("open", (z) => {
           console.log("socket connected"),
-            (function () {
+            (() => {
               0 ==
                 (m = document.getElementById("username").value.substring(0, 12))
                   .length && (m = "Player");
@@ -840,7 +1338,7 @@ var defly = (function () {
                 pV && hc(1, qc);
             })();
         }),
-        q.addEventListener("error", function (z) {
+        q.addEventListener("error", (z) => {
           console.error(z),
             xD(
               new Date().toLocaleTimeString() +
@@ -852,7 +1350,7 @@ var defly = (function () {
             ),
             z.type;
         }),
-        q.addEventListener("close", function (z) {
+        q.addEventListener("close", (z) => {
           if ((console.log("socket closed", z), !O))
             if ("no-session" === z.reason)
               dl("Your session was not found, try again", "", () => {
@@ -868,17 +1366,13 @@ var defly = (function () {
               );
             else if (0 == e)
               xz
-                ? dl(
-                    "You have been kicked out for inactivity.",
-                    "",
-                    function () {
-                      document.location.reload();
-                    },
-                  )
+                ? dl("You have been kicked out for inactivity.", "", () => {
+                    document.location.reload();
+                  })
                 : dl(
                     "Connection to the server failed. Please try again in a few minutes and contact us if the problem persists.",
                     "",
-                    function () {
+                    () => {
                       z.code, document.location.reload();
                     },
                   );
@@ -896,7 +1390,7 @@ var defly = (function () {
                   ? "You have been kicked out for inactivity."
                   : "The connection to the server has been lost.",
                 "",
-                function () {
+                () => {
                   (document.getElementById("internet-issue").style.display =
                     "none"),
                     (document.getElementById("respawn-buttons").style.display =
@@ -923,7 +1417,7 @@ var defly = (function () {
   function _l() {
     if (!N) {
       if (Fl && !nl) {
-        !(function () {
+        !(() => {
           try {
             document.body.requestFullscreen
               ? document.body.requestFullscreen()
@@ -991,7 +1485,7 @@ var defly = (function () {
               gtag("event", "BlockedAdInPlayVideo", { event_category: "Ads" }),
             !1
           );
-        aiptag.cmd.player.push(function () {
+        aiptag.cmd.player.push(() => {
           adplayer.startPreRoll();
         }),
           "undefined" != typeof gtag &&
@@ -1035,7 +1529,7 @@ var defly = (function () {
           Al++,
           (0 != hz && 1 != hz && 3 != hz) || 1 != e
             ? 1 == hz && -1 != yv
-              ? setTimeout(function () {
+              ? setTimeout(() => {
                   bv(yv);
                 }, 250)
               : ((O = !0), q.close(), (Rl = setTimeout(Xl, 250)))
@@ -1044,7 +1538,7 @@ var defly = (function () {
             (document.getElementById("spawn-warning").style.display = "block");
         break;
       case 2:
-        !(function (z) {
+        !((z) => {
           try {
             var V = document.getElementById("cp-iframe");
             V.parentNode.replaceChild(V.cloneNode(), V);
@@ -1304,7 +1798,7 @@ var defly = (function () {
             document.getElementById("skill-plus-" + c).style.display = "block";
           document.getElementById("map-vote") &&
             (document.getElementById("map-vote").style.display = "none");
-          (function () {
+          (() => {
             P = new Date().getTime();
             var z = new Uint8Array(1);
             z.set([99], 0), q.send(z);
@@ -1312,7 +1806,7 @@ var defly = (function () {
             (1 != hz && 2 != hz) ||
               Fl ||
               mc ||
-              (XD(
+              XD(
                 "Welcome to Team " +
                   NV[MV - 1] +
                   "." +
@@ -1324,14 +1818,7 @@ var defly = (function () {
                       "] to show your teammates positions"
                     : ""),
                 PV ? "info-dark" : "info",
-              ),
-              LV ||
-                XD(
-                  sz || Jz
-                    ? "Press ENTER to chat with your teammates"
-                    : "Chat is disabled for anonymous players. Sign-in with an account to use the chat.",
-                  PV ? "info-dark" : "info",
-                ));
+              );
           if (2 != hz || mc) {
             if (!L && 3 == hz) {
               var I = document.getElementById("choose-superpower"),
@@ -1354,7 +1841,7 @@ var defly = (function () {
             hD ||
             (0 != hz && 3 != hz) ||
             (hc(5),
-            (hD = setInterval(function () {
+            (hD = setInterval(() => {
               hc(5);
             }, 6e4)));
           w && (clearInterval(w), (w = null));
@@ -1380,9 +1867,9 @@ var defly = (function () {
               O.setAttribute("id", "countdown-1v1"),
                 (O.innerText = "5"),
                 document.body.appendChild(O);
-              let z = Date.now(),
-                V = setInterval(function () {
-                  let l = Date.now() - z;
+              const z = Date.now(),
+                V = setInterval(() => {
+                  const l = Date.now() - z;
                   l >= 5e3
                     ? (clearInterval(V),
                       (O.innerText = "GO!"),
@@ -1391,7 +1878,7 @@ var defly = (function () {
                         easing: "linear",
                         duration: 1e3,
                         opacity: 0,
-                        complete: function () {
+                        complete: () => {
                           document.body.removeChild(O);
                         },
                       }))
@@ -1404,7 +1891,7 @@ var defly = (function () {
         el(new Date().getTime() - Lz.shift());
         break;
       case 4:
-        !(function (z) {
+        !((z) => {
           oD = new Date().getTime();
           var V = z.getInt32(1);
           if (lz - (Vz = V) >= 4) {
@@ -1424,7 +1911,7 @@ var defly = (function () {
         })(V);
         break;
       case 5:
-        !(function (z) {
+        !((z) => {
           var V = z.getUint8(1);
           if (3 == V) return;
           if (2 == V && ++TD > 10) return;
@@ -1440,9 +1927,9 @@ var defly = (function () {
             (l.style.opacity = 1),
             clearTimeout(ZD),
             clearInterval(FD),
-            (ZD = setTimeout(function () {
+            (ZD = setTimeout(() => {
               var z = new Date().getTime();
-              FD = setInterval(function () {
+              FD = setInterval(() => {
                 var V = new Date().getTime() - z;
                 V > 500
                   ? (clearInterval(FD), window.document.body.removeChild(l))
@@ -1455,7 +1942,7 @@ var defly = (function () {
         Pv(V);
         break;
       case 49:
-        !(function (z) {
+        !((z) => {
           for (var V = Iz, l = z.getInt16(1), D = 3, v = 0; v < l; v++) {
             var c = z.getInt32(D),
               P = z.getInt32(D + 4),
@@ -1510,7 +1997,7 @@ var defly = (function () {
         gv(V);
         break;
       case 50:
-        !(function (z) {
+        !((z) => {
           for (var V = z.getInt16(1), l = 3, D = 0; D < V; D++) {
             var v = z.getInt32(l),
               c = z.getInt32(l + 4),
@@ -1560,7 +2047,7 @@ var defly = (function () {
         hv(V, !1);
         break;
       case 51:
-        !(function (z) {
+        !((z) => {
           for (var V = z.getInt16(1), l = 3, D = 0; D < V; D++)
             l = Uv(z, l, !1, !1);
           var v = z.getInt16(l);
@@ -1581,12 +2068,12 @@ var defly = (function () {
         xv(V);
         break;
       case 52:
-        !(function (z) {
+        !((z) => {
           sv(z.getInt32(1));
         })(V);
         break;
       case 11:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt16(1),
             l = z.getInt16(3),
             D = z.getInt32(5),
@@ -1647,7 +2134,7 @@ var defly = (function () {
         })(V);
         break;
       case 12:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1);
           if (0 == V) (Nc = null), (iz.visible = !1);
           else {
@@ -1657,7 +2144,7 @@ var defly = (function () {
         })(V);
         break;
       case 13:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = z.getInt32(5),
             D = z.getInt32(9),
@@ -1701,7 +2188,7 @@ var defly = (function () {
         })(V);
         break;
       case 14:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1);
           if (Uz[V]) {
             var l = Uz[V];
@@ -1728,7 +2215,7 @@ var defly = (function () {
         iv(V, !1, !0);
         break;
       case 21:
-        !(function (z) {
+        !((z) => {
           var V = T;
           T = z.getUint8(1);
           (Q = z.getFloat32(2)), (jz = z.getUint8(6));
@@ -1740,7 +2227,7 @@ var defly = (function () {
                 wv("<span></span>", Mz[D] - Bz[D])),
               (document.getElementById("skill-plus-" + D).style.display =
                 0 == jz || Bz[D] >= Mz[D] ? "none" : "block");
-          (function () {
+          (() => {
             for (let z = 0; z < Bz.length; z++)
               Bz[z] != Cz[z] && az.push(z), (Cz[z] = Bz[z]);
           })(),
@@ -1753,7 +2240,7 @@ var defly = (function () {
                   easing: "easeInQuad",
                   left: "16px",
                   duration: 250,
-                  complete: function () {
+                  complete: () => {
                     jz <= 0 &&
                       ((document.getElementById("upgrade-block").style.left =
                         "-264px"),
@@ -1764,7 +2251,7 @@ var defly = (function () {
               : (document.getElementById("upgrade-points").innerHTML = jz);
           jz > 0 &&
             0 == l &&
-            (function () {
+            (() => {
               if (az.length > 0) {
                 document
                   .getElementById("upgrade-block")
@@ -1788,7 +2275,7 @@ var defly = (function () {
           var v = V == T ? Q : 1,
             c = !0,
             P = 1e3 / (T - V + 1),
-            L = function () {
+            L = () => {
               !c &&
                 V < T &&
                 ((document.getElementById("xp-value").style.width = "0%"),
@@ -1819,7 +2306,7 @@ var defly = (function () {
         })(V);
         break;
       case 22:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = z.getInt32(5);
           0;
@@ -1841,7 +2328,7 @@ var defly = (function () {
         })(V);
         break;
       case 30:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1);
           0;
           if (RV[V]) {
@@ -1867,7 +2354,7 @@ var defly = (function () {
         document.getElementById("choose-superpower").style.display = "block";
         break;
       case 24:
-        !(function (z) {
+        !((z) => {
           Zz = z.getFloat32(1);
           var V = Fz;
           (Fz = 1 == z.getUint8(5)),
@@ -1884,13 +2371,14 @@ var defly = (function () {
               });
         })(V);
         break;
-      case 25:
+      case 25: {
         var D = V.getInt32(1),
           v = V.getInt32(5);
         cl[v] || Pl(v), (cl[D] = cl[v]), v == HV && (rV = D);
         break;
+      }
       case 26:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = z.getFloat32(5),
             D = z.getFloat32(9),
@@ -1915,22 +2403,20 @@ var defly = (function () {
             y: c,
             rotation: 2 * Math.PI,
             easing: "easeOutCubic",
-            complete: (function (z) {
-              return function () {
-                o.removeChild(z),
-                  anime({
-                    targets: U,
-                    alpha: [L, 1],
-                    easing: "easeInQuint",
-                    duration: 5e3,
-                  });
-              };
+            complete: ((z) => () => {
+              o.removeChild(z),
+                anime({
+                  targets: U,
+                  alpha: [L, 1],
+                  easing: "easeInQuint",
+                  duration: 5e3,
+                });
             })(P),
           });
         })(V);
         break;
       case 43:
-        !(function (z) {
+        !((z) => {
           z.getInt32(1);
           var V = z.getFloat32(5),
             l = z.getFloat32(9),
@@ -1949,18 +2435,16 @@ var defly = (function () {
               y: v,
               rotation: 2 * Math.PI,
               easing: "easeOutCubic",
-              complete: (function (z) {
-                return function () {
-                  setTimeout(function () {
-                    o.removeChild(z), $v(z.x, z.y, 6);
-                  }, 1400);
-                };
+              complete: ((z) => () => {
+                setTimeout(() => {
+                  o.removeChild(z), $v(z.x, z.y, 6);
+                }, 1400);
               })(c),
             });
         })(V);
         break;
       case 53:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = z.getFloat32(5),
             D = z.getFloat32(9),
@@ -1980,18 +2464,16 @@ var defly = (function () {
               y: c,
               rotation: 2 * Math.PI,
               easing: "easeOutCubic",
-              complete: (function (z) {
-                return function () {
-                  setTimeout(function () {
-                    o.removeChild(z), $v(z.x, z.y, 6);
-                  }, 1400);
-                };
+              complete: ((z) => () => {
+                setTimeout(() => {
+                  o.removeChild(z), $v(z.x, z.y, 6);
+                }, 1400);
               })(P),
             });
         })(V);
         break;
       case 27:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = z.getFloat32(5),
             D = z.getFloat32(9),
@@ -2017,31 +2499,27 @@ var defly = (function () {
             y: 0,
             easing: "easeInCubic",
             duration: 500 * Dl[5],
-            complete: (function (z, v) {
-              return function () {
-                Z.removeChild(z),
-                  XV[V]
-                    ? (XV[V] && XV[V].position.set(l, D),
-                      anime({
-                        targets: XV[V] ? XV[V].scale : { x: 0, y: 0 },
-                        x: P,
-                        y: L,
-                        easing: "easeOutCubic",
-                        duration: 500 * Dl[5],
-                        complete: (function (z) {
-                          return function () {
-                            Z.removeChild(z), XV[V] && XV[V].scale.set(1, 1);
-                          };
-                        })(v),
-                      }))
-                    : Z.removeChild(v);
-              };
+            complete: ((z, v) => () => {
+              Z.removeChild(z),
+                XV[V]
+                  ? (XV[V] && XV[V].position.set(l, D),
+                    anime({
+                      targets: XV[V] ? XV[V].scale : { x: 0, y: 0 },
+                      x: P,
+                      y: L,
+                      easing: "easeOutCubic",
+                      duration: 500 * Dl[5],
+                      complete: ((z) => () => {
+                        Z.removeChild(z), XV[V] && XV[V].scale.set(1, 1);
+                      })(v),
+                    }))
+                  : Z.removeChild(v);
             })(v, c),
           });
         })(V);
         break;
       case 28:
-        !(function (z) {
+        !((z) => {
           (Kz = z.getInt32(1)),
             2 != hz || n
               ? 4 == hz &&
@@ -2064,7 +2542,7 @@ var defly = (function () {
                 (Xz = -1),
                 (document.getElementById("buy-screen").style.display = "none"),
                 showAlert("You are spectating until end of round", 1e4),
-                (Gv = setTimeout(function () {
+                (Gv = setTimeout(() => {
                   2 == JV &&
                     showAlert(
                       (Fl ? "Tap" : "Click") +
@@ -2077,13 +2555,13 @@ var defly = (function () {
             hD &&
             mc &&
             0 == Kz &&
-            setTimeout(function () {
+            setTimeout(() => {
               hc(2);
             }, 3e3);
         })(V);
         break;
       case 29:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = Nl(z, 5),
             D = z.getInt32(6 + 2 * l.length),
@@ -2107,7 +2585,7 @@ var defly = (function () {
         })(V);
         break;
       case 31:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1);
           if (0 != V)
             var l = 1 == hz || 2 == hz ? Ll(V) : Pl(V),
@@ -2129,7 +2607,7 @@ var defly = (function () {
             W.push({ y: g, x1: q, x2: m }), (L += 3);
           }
           0 != V || mc || x.data.set(J.data);
-          (function (z, V, l, D, v, c) {
+          ((z, V, l, D, v, c) => {
             for (var P = 0; P < z.length; P++)
               for (var L = z[P].x1; L <= z[P].x2; L++) {
                 var W = 4 * (z[P].y * J.width + L);
@@ -2145,12 +2623,12 @@ var defly = (function () {
               }
           })(W, D, v, c, P, FV),
             kv && clearTimeout(kv);
-          kv = setTimeout(function () {
+          kv = setTimeout(() => {
             if (
               (s.putImageData(J, 0, 0), Iv && clearInterval(Iv), 0 == V && !mc)
             ) {
               var z = 0;
-              Iv = setInterval(function () {
+              Iv = setInterval(() => {
                 z++,
                   s.putImageData(z % 2 == 0 ? J : x, 0, 0),
                   z >= 10 && clearInterval(Iv);
@@ -2160,7 +2638,7 @@ var defly = (function () {
         })(V);
         break;
       case 34:
-        !(function (z) {
+        !((z) => {
           z.getUint8(1);
           var V = z.getFloat32(2),
             l = z.getFloat32(6),
@@ -2206,7 +2684,7 @@ var defly = (function () {
         })(V);
         break;
       case 35:
-        !(function (z) {
+        !((z) => {
           var V = mc && 1 == e;
           2 == hz && ((AV = OV), (NV = Vl));
           var l = z.getUint8(1);
@@ -2306,12 +2784,12 @@ var defly = (function () {
                   "none");
           pV &&
             !hD &&
-            ((hD = setInterval(function () {
+            ((hD = setInterval(() => {
               hc(5);
             }, 6e4)),
-            (UD = setInterval(function () {
+            (UD = setInterval(() => {
               hc(8),
-                setTimeout(function () {
+                setTimeout(() => {
                   document.body.removeChild(
                     document.getElementById("admin-player-list"),
                   );
@@ -2326,7 +2804,7 @@ var defly = (function () {
         fv(V, !0);
         break;
       case 38:
-        !(function (z) {
+        !((z) => {
           var V = 1,
             l = Pz >= 1 ? 2 : 1;
           for (; V + 4 <= z.byteLength; ) {
@@ -2348,7 +2826,7 @@ var defly = (function () {
         })(V);
         break;
       case 39:
-        !(function (z) {
+        !((z) => {
           if (WV) return;
           var V = Cl(ol(Nl(z, 1), ""));
           if (mc) {
@@ -2359,7 +2837,7 @@ var defly = (function () {
         })(V);
         break;
       case 40:
-        !(function (z) {
+        !((z) => {
           if (4 == hz) {
             var V = z.getInt32(1),
               l = z.getInt32(5),
@@ -2433,7 +2911,7 @@ var defly = (function () {
                 j.appendChild(a),
                 j.appendChild(B),
                 c.appendChild(j),
-                a.addEventListener("click", function () {
+                a.addEventListener("click", () => {
                   (L.style.display = "none"), (j.style.display = "none");
                 }),
                 B.addEventListener("click", Il);
@@ -2445,7 +2923,7 @@ var defly = (function () {
               easing: "linear",
               duration: 500,
             }),
-              setInterval(function () {
+              setInterval(() => {
                 v--,
                   (P.innerHTML =
                     (n
@@ -2456,7 +2934,7 @@ var defly = (function () {
                     " seconds...)</div>");
               }, 1e3),
               n ||
-                (!(function () {
+                (!(() => {
                   eD = new PIXI.Container();
                   window.innerWidth, window.innerHeight;
                   for (
@@ -2500,7 +2978,7 @@ var defly = (function () {
                   }
                   var q, m;
                   clearInterval(ND),
-                    (ND = setInterval(function () {
+                    (ND = setInterval(() => {
                       for (var z = 0; z < eD.children.length; z++) {
                         var V = eD.children[z];
                         (V.x += V.sx),
@@ -2520,14 +2998,14 @@ var defly = (function () {
                       }
                     }, 20));
                 })(),
-                setTimeout(function () {
+                setTimeout(() => {
                   clearInterval(ND), (eD = null);
                 }, 1e4));
           }
         })(V);
         break;
       case 54:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1);
           V == HV
             ? showAlert("You reached 80%, now kill everyone to win!", 2e4, !0)
@@ -2545,7 +3023,7 @@ var defly = (function () {
         })(V);
         break;
       case 41:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = Nl(z, 5);
           if (-2 == V) return void showAlert(l, 5e3);
@@ -2596,17 +3074,19 @@ var defly = (function () {
         })(V);
         break;
       case 42:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = z.getFloat32(5),
             D = z.getFloat32(9),
             v = z.getFloat32(13);
           switch (V) {
-            case 0:
+            case 0: {
               var c = "capture-blue-A";
               break;
-            case 1:
+            }
+            case 1: {
               var c = "capture-blue-B";
+            }
           }
           var P = new PIXI.Graphics();
           P.position.set(l, D),
@@ -2638,7 +3118,7 @@ var defly = (function () {
         })(V);
         break;
       case 44:
-        !(function (z) {
+        !((z) => {
           var V = JV;
           (JV = z.getUint8(1)), (xV = z.getFloat32(2)), 0;
           if (
@@ -2704,7 +3184,7 @@ var defly = (function () {
         })(V);
         break;
       case 45:
-        !(function (z) {
+        !((z) => {
           var V = z.getUint8(1),
             l = rD[z.getUint8(2)],
             D = z.getInt32(3),
@@ -2714,7 +3194,7 @@ var defly = (function () {
               (v.visible = !0),
               v.animInterval && clearInterval(v.animInterval),
               (v.startTime = new Date().getTime()),
-              (v.animInterval = setInterval(function () {
+              (v.animInterval = setInterval(() => {
                 var z = new Date().getTime() - v.startTime;
                 v.clear();
                 var V = Math.min(z, D) / D;
@@ -2747,7 +3227,7 @@ var defly = (function () {
         })(V);
         break;
       case 46:
-        !(function (z) {
+        !((z) => {
           var V = z.getFloat32(1);
           document.getElementById("money-left-gm2").innerHTML = V;
           var l = z.getFloat32(5);
@@ -2770,14 +3250,14 @@ var defly = (function () {
         })(V);
         break;
       case 47:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1);
           document.getElementById("respawn-button").innerHTML =
             V > 0 ? "Respawn<div>at level " + V + "</div>" : "Respawn";
         })(V);
         break;
       case 48:
-        !(function (z) {
+        !((z) => {
           var V = z.getUint8(1);
           uD = [];
           for (var l = 2, D = "", v = 0; v < V; v++) {
@@ -2798,7 +3278,7 @@ var defly = (function () {
           (document.getElementById("respawn-button").style.display = "none");
         break;
       case 56:
-        !(function (z) {
+        !((z) => {
           (jV = {
             x1: z.getFloat32(1),
             y1: z.getFloat32(5),
@@ -2810,7 +3290,7 @@ var defly = (function () {
         })(V);
         break;
       case 57:
-        !(function (z) {
+        !((z) => {
           if (Rv) return;
           for (
             var V = Nl(z, 1).replace(/ +/g, "").split("-"), l = 0;
@@ -2826,7 +3306,7 @@ var defly = (function () {
         })(V);
         break;
       case 58:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = z.getFloat32(5),
             D = z.getFloat32(9),
@@ -2851,7 +3331,7 @@ var defly = (function () {
                 alpha: 0,
                 easing: "linear",
                 duration: 500,
-                complete: function () {
+                complete: () => {
                   Z.removeChild(L);
                 },
               });
@@ -2867,7 +3347,7 @@ var defly = (function () {
         })(V);
         break;
       case 59:
-        !(function (z) {
+        !((z) => {
           if (Rv) return;
           for (var V = Nl(z, 1).split(";"), l = 0; l < V.length; l++)
             NV[l] = V[l];
@@ -2875,20 +3355,13 @@ var defly = (function () {
         })(V);
         break;
       case 60:
-        !(function (z) {
+        !((z) => {
           var V = !1;
           if (!wD) {
             if (
               ((document.getElementById("homepage").style.display = "none"),
               (document.getElementById("homepage").style.display = "none"),
               _D(),
-              LV ||
-                XD(
-                  sz || Jz
-                    ? "Welcome to the 1v1 lobby. Press ENTER to chat."
-                    : "Welcome to the 1v1 lobby. Chat is disabled for anonymous players. Sign-in with an account to use the chat.",
-                  PV ? "info-dark" : "info",
-                ),
               (V = !0),
               document
                 .getElementById("gm-1v1-button-continue")
@@ -2901,42 +3374,42 @@ var defly = (function () {
                 .addEventListener("click", Il),
               document
                 .getElementById("back-to-1v1-lobby-button")
-                .addEventListener("click", function () {
+                .addEventListener("click", () => {
                   Tc(-1),
                     _D(),
                     "undefined" != typeof aiptag &&
                       aiptag.cmd.display.push &&
                       !_P &&
                       Date.now() - uz > 3e4 &&
-                      (aiptag.cmd.display.push(function () {
+                      (aiptag.cmd.display.push(() => {
                         aipDisplayTag.display("defly-io_300x250");
                       }),
                       (uz = Date.now()));
                 }),
               document
                 .getElementById("spectate-1v1-previous-button")
-                .addEventListener("click", function () {
+                .addEventListener("click", () => {
                   Tc(0, !0);
                 }),
               document
                 .getElementById("spectate-1v1-next-button")
-                .addEventListener("click", function () {
+                .addEventListener("click", () => {
                   Tc(0, !1);
                 }),
               document.getElementById("gm-1v1-players-header"))
             ) {
-              let z = document
+              const z = document
                 .getElementById("gm-1v1-players-header")
                 .getElementsByTagName("th");
               for (let V = 0; V < z.length; V++)
-                z[V].addEventListener("click", function () {
+                z[V].addEventListener("click", () => {
                   AD(V);
                 });
             }
             "undefined" != typeof aiptag &&
               aiptag.cmd.display.push &&
               !_P &&
-              (aiptag.cmd.display.push(function () {
+              (aiptag.cmd.display.push(() => {
                 aipDisplayTag.display("defly-io_300x250");
               }),
               (uz = Date.now())),
@@ -2963,7 +3436,7 @@ var defly = (function () {
         })(V);
         break;
       case 61:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1);
           XD(Cl(EV[V].name) + " left the lobby", PV ? "info-dark" : "info"),
             delete EV[V],
@@ -2976,13 +3449,13 @@ var defly = (function () {
         })(V);
         break;
       case 62:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1);
           V && XD(Cl(EV[V].name) + " is challenging you!", "bold");
           var l = z.getInt32(5),
             D = "";
           for (let V = 0; V < l; V++) {
-            let l = z.getInt32(9 + 4 * V);
+            const l = z.getInt32(9 + 4 * V);
             D +=
               '<div><div class="duel-text">' +
               Cl(EV[l].name) +
@@ -2996,7 +3469,7 @@ var defly = (function () {
         })(V);
         break;
       case 63:
-        !(function (z) {
+        !((z) => {
           var V = z.getInt32(1),
             l = z.getUint8(5);
           l < 2 &&
@@ -3013,7 +3486,7 @@ var defly = (function () {
         })(V);
         break;
       case 64:
-        !(function (z) {
+        !((z) => {
           var V = Nl(z, 1)
             .replace(/[ ,-]+/g, " ")
             .split(" ");
@@ -3031,10 +3504,11 @@ var defly = (function () {
         } catch (z) {}
         (n || vv) && document.location.reload();
         break;
-      case 99:
+      case 99: {
         var c = new Date().getTime() - P;
         el(c), console.log("ping is", c), 0;
         break;
+      }
       default:
         console.log("unhandled message code", l);
     }
@@ -3071,7 +3545,7 @@ var defly = (function () {
       l.anchor.set(0.5),
       (l.height = dV),
       (l.width =
-        Math.sqrt(Math.pow(V.x - z.x, 2) + Math.pow(V.y - z.y, 2)) -
+        Math.sqrt((V.x - z.x) ** 2 + (V.y - z.y) ** 2) -
         0.9 * (z.size + V.size)),
       z.lines.push(l),
       V.lines.push(l),
@@ -3781,7 +4255,7 @@ var defly = (function () {
       } else {
         var m = new PIXI.loaders.Loader();
         m.add("badge-" + fz[z], "img/badges/" + fz[z] + ".png"),
-          m.load(function (V, D) {
+          m.load((V, D) => {
             if (
               ((F["badge-" + fz[z]] = D["badge-" + fz[z]].texture), l.parent)
             ) {
@@ -3804,7 +4278,7 @@ var defly = (function () {
   function jD() {
     (tD =
       1 == iV
-        ? ((3 * Math.sqrt(3)) / 2) * Math.pow(Oz / 2, 2)
+        ? ((3 * Math.sqrt(3)) / 2) * (Oz / 2) ** 2
         : 2 == iV
           ? (((Math.PI * Oz) / 2) * ez) / 2
           : Oz * ez),
@@ -3848,7 +4322,7 @@ var defly = (function () {
         z.x < v && (z.x = v);
       }
     } else if (2 == iV) {
-      if (z.dst2XY(Oz / 2, Oz / 2) > Math.pow(Oz / 2, 2)) {
+      if (z.dst2XY(Oz / 2, Oz / 2) > (Oz / 2) ** 2) {
         var c = Math.atan2(z.y - ez / 2, z.x - Oz / 2);
         (z.x = Oz / 2 + (Math.cos(c) * Oz) / 2),
           (z.y = ez / 2 + (Math.sin(c) * ez) / 2);
@@ -3914,7 +4388,7 @@ var defly = (function () {
       : document.body.classList.remove("dark-theme");
   }
   function pD(z, V, l) {
-    var D = Math.pow(l.x - z, 2) + Math.pow(l.y - V, 2);
+    var D = (l.x - z) ** 2 + (l.y - V) ** 2;
     if (D < 0.01 || D > 1) (l.x = z), (l.y = V);
     else {
       var v = 0.01 / D;
@@ -4006,9 +4480,9 @@ var defly = (function () {
       (D.style.opacity = 1),
       clearTimeout(KD),
       clearInterval(nD),
-      (KD = setTimeout(function () {
+      (KD = setTimeout(() => {
         var z = new Date().getTime();
-        nD = setInterval(function () {
+        nD = setInterval(() => {
           var V = new Date().getTime() - z;
           V > 500
             ? (clearInterval(nD), window.document.body.removeChild(D))
@@ -4037,7 +4511,7 @@ var defly = (function () {
         opacity: [1, 0],
         easing: "linear",
         duration: 500,
-        complete: function () {
+        complete: () => {
           window.document.body.removeChild(V), "function" == typeof z && z();
         },
       });
@@ -4182,10 +4656,10 @@ var defly = (function () {
       v: 0,
       easing: "easeOutQuad",
       duration: 500,
-      update: function () {
+      update: () => {
         z.style.gridTemplateRows = 50 + 50 * V.v + "% 50%";
       },
-      complete: function () {
+      complete: () => {
         (z.style.gridTemplateRows = "50% 50%"),
           (document.getElementById("gm-1v1-continue-spinner").style.display =
             "none"),
@@ -4204,7 +4678,7 @@ var defly = (function () {
     GD == z ? (kD = (kD + 1) % 3) : ((GD = z), (kD = 1)), OD();
   }
   function OD() {
-    let z = [];
+    const z = [];
     for (var V in EV) {
       z.push(V);
       var l = EV[V];
@@ -4215,20 +4689,20 @@ var defly = (function () {
           : "Arena";
     }
     0 != kD &&
-      (function (z, V, l) {
-        z.sort(function (z, D) {
-          return "string" == typeof EV[z][V]
+      ((z, V, l) => {
+        z.sort((z, D) =>
+          "string" == typeof EV[z][V]
             ? EV[z][V].localeCompare(EV[D][V]) * (l ? 1 : -1)
-            : (EV[z][V] - EV[D][V]) * (l ? 1 : -1);
-        });
+            : (EV[z][V] - EV[D][V]) * (l ? 1 : -1),
+        );
       })(z, ID[GD], 1 == kD);
-    let D = document
+    const D = document
       .getElementById("gm-1v1-players-header")
       .getElementsByTagName("th");
     for (let z = 0; z < D.length; z++)
       D[z].classList = GD == z && 0 != kD ? (1 == kD ? "sortA" : "sortD") : "";
     for (var v = "", c = 0; c < z.length; c++) {
-      let V = z[c];
+      const V = z[c];
       l = EV[V];
       v +=
         '<tr id="gm1-player-"+id ' +
@@ -4648,7 +5122,7 @@ var defly = (function () {
         (W.zoneBounds = { minX: n, maxX: f, minY: T, maxY: $ }),
           i.addZone(W, n, f, T, $),
           3 == hz &&
-            (function (z) {
+            ((z) => {
               for (
                 var V = E.getAllInRect(
                     z.zoneBounds.minX,
@@ -4744,7 +5218,7 @@ var defly = (function () {
       alpha: 0,
       duration: 300,
       easing: "linear",
-      complete: function () {
+      complete: () => {
         (z.shield.width = V), (z.shield.height = V), (z.dotBlastAnim = null);
       },
     });
@@ -4766,10 +5240,8 @@ var defly = (function () {
             alpha: 0,
             duration: 250,
             easing: "linear",
-            complete: (function (z) {
-              return function () {
-                C.removeChild(z);
-              };
+            complete: ((z) => () => {
+              C.removeChild(z);
             })(z),
           })
         : C.removeChild(z),
@@ -4902,7 +5374,7 @@ var defly = (function () {
       (W += 3), Kv(h, U, m, c, P, L, 255);
     }
     kv && clearTimeout(kv),
-      (kv = setTimeout(function () {
+      (kv = setTimeout(() => {
         s.putImageData(J, 0, 0);
       }, 100));
   }
@@ -4937,10 +5409,8 @@ var defly = (function () {
             alpha: 0,
             duration: 250,
             easing: "linear",
-            complete: (function (z) {
-              return function () {
-                B.removeChild(z);
-              };
+            complete: ((z) => () => {
+              B.removeChild(z);
             })(P),
           }),
           P.leftZoneId && bV[P.leftZoneId] && ov(bV[P.leftZoneId], !0),
@@ -4949,7 +5419,7 @@ var defly = (function () {
         L.lines.splice(L.lines.indexOf(P), 1), Fv(L);
       }
     } else if (z.byteLength >= 21) {
-      let V = z.getInt32(9),
+      const V = z.getInt32(9),
         l = z.getFloat32(13),
         v = z.getFloat32(17);
       Hv(
@@ -4982,10 +5452,8 @@ var defly = (function () {
         height: [0, 2 * l * 1.2],
         duration: 500,
         easing: "linear",
-        complete: (function (z) {
-          return function () {
-            p.removeChild(z);
-          };
+        complete: ((z) => () => {
+          p.removeChild(z);
         })(D),
       });
   }
@@ -5009,7 +5477,7 @@ var defly = (function () {
         alpha: [1, 0],
         y: 0.02 * window.innerHeight,
         duration: 2e3,
-        complete: function () {
+        complete: () => {
           S.removeChild(D);
         },
       }),
@@ -5035,10 +5503,8 @@ var defly = (function () {
         alpha: 0,
         duration: 250,
         easing: "linear",
-        complete: (function (z) {
-          return function () {
-            C.removeChild(z);
-          };
+        complete: ((z) => () => {
+          C.removeChild(z);
         })(bV[v]),
       });
       var c = bV[v];
@@ -5060,10 +5526,8 @@ var defly = (function () {
         alpha: 0,
         duration: 250,
         easing: "linear",
-        complete: (function (z) {
-          return function () {
-            B.removeChild(z);
-          };
+        complete: ((z) => () => {
+          B.removeChild(z);
         })(P),
       }),
         delete yV[v],
@@ -5078,10 +5542,8 @@ var defly = (function () {
           alpha: 0,
           duration: 250,
           easing: "linear",
-          complete: (function (z) {
-            return function () {
-              a.removeChild(z);
-            };
+          complete: ((z) => () => {
+            a.removeChild(z);
           })(RV[v]),
         });
       var L = RV[v];
@@ -5248,18 +5710,20 @@ var defly = (function () {
         !XV[HV] || (4 == hz && 4 == l) || (XV[HV].visible = !1),
         l)
       ) {
-        case 0:
+        case 0: {
           var P = "The connection with the server has been lost";
           break;
+        }
         case 1:
           P =
             "You were killed by " + (nz[D] ? Cl(nz[D]) : " an unknown player");
           break;
-        case 2:
+        case 2: {
           var L = nz[D] ? Cl(nz[D]) : "somebody";
           (1 != hz && 2 != hz) || (L = "Team " + NV[D - 1]);
           P = "You crashed into " + L + "'s wall";
           break;
+        }
         case 3:
           P = "You collided with " + (nz[D] ? Cl(nz[D]) : " an unknown player");
           break;
@@ -5309,14 +5773,14 @@ var defly = (function () {
         (document.getElementById("xp-block").style.display = "none"),
         (document.getElementById("upgrade-block").style.display = "none"),
         (Qv = !0),
-        setTimeout(function () {
+        setTimeout(() => {
           mc || 4 != hz
             ? mc ||
               (2 == hz && 3 == JV) ||
               (document.getElementById(
                 "respawn" + (2 == hz ? "-gm2" : ""),
               ).style.display = "block")
-            : (QD(function () {
+            : (QD(() => {
                 (document.getElementById("gm-1v1-button-back").style.display =
                   "none"),
                   (document.getElementById(
@@ -5339,7 +5803,7 @@ var defly = (function () {
                 aiptag.cmd.display.push &&
                 !_P &&
                 Date.now() - uz > 3e4 &&
-                (aiptag.cmd.display.push(function () {
+                (aiptag.cmd.display.push(() => {
                   aipDisplayTag.display("defly-io_300x250");
                 }),
                 (uz = Date.now()))),
@@ -5351,10 +5815,10 @@ var defly = (function () {
         "undefined" != typeof aiptag &&
           aiptag.cmd.display.push &&
           !_P &&
-          (aiptag.cmd.display.push(function () {
+          (aiptag.cmd.display.push(() => {
             aipDisplayTag.display("defly-io_300x250");
           }),
-          aiptag.cmd.display.push(function () {
+          aiptag.cmd.display.push(() => {
             aipDisplayTag.display("defly-io_728x90");
           })),
         parseInt(document.getElementById("lb-player-points").innerHTML),
@@ -5452,10 +5916,8 @@ var defly = (function () {
           alpha: 0,
           duration: 2e3,
           easing: "easeOutQuart",
-          complete: (function (z) {
-            return function () {
-              Z.removeChild(z);
-            };
+          complete: ((z) => () => {
+            Z.removeChild(z);
           })(q),
         });
     }
@@ -5480,9 +5942,7 @@ var defly = (function () {
   }
   function iv(z, V, l) {
     var D = z.getFloat32(1);
-    var v = function (z) {
-        return V ? (l ? z.x >= D : z.x < D) : l ? z.y >= D : z.y < D;
-      },
+    var v = (z) => (V ? (l ? z.x >= D : z.x < D) : l ? z.y >= D : z.y < D),
       c = {},
       P = {},
       L = {};
@@ -5612,11 +6072,10 @@ var defly = (function () {
       XV[z].position.set(V.x, V.y),
       (XV[z].rotation = V.rotation);
   }
-  anime.easings.flashbangCurve = function (z) {
-    return z < 0.5
+  anime.easings.flashbangCurve = (z) =>
+    z < 0.5
       ? anime.easings.easeInQuad(2 * z) / 2
       : anime.easings.easeInQuad(2 * (0.5 - (z - 0.5))) + 0.5;
-  };
   var Vc = [],
     lc = !1;
   function Dc() {
@@ -5712,7 +6171,7 @@ var defly = (function () {
         BD(!1),
       jz <= 0)
     )
-      setTimeout(function () {
+      setTimeout(() => {
         (document.getElementById("upgrade-block").style.left = "-264px"),
           (document.getElementById("upgrade-block").style.display = "none");
       }, 300);
@@ -5728,7 +6187,7 @@ var defly = (function () {
             easing: "easeInQuad",
             left: "-264px",
             duration: 250,
-            complete: function () {
+            complete: () => {
               jz <= 0 &&
                 ((document.getElementById("upgrade-block").style.left =
                   "-264px"),
@@ -5819,8 +6278,8 @@ var defly = (function () {
           (K.aimDirection = V),
           (K.aimDistance =
             Math.sqrt(
-              Math.pow(cz - window.innerHeight / 2, 2) +
-                Math.pow(vz - window.innerWidth / 2, 2),
+              (cz - window.innerHeight / 2) ** 2 +
+                (vz - window.innerWidth / 2) ** 2,
             ) / U.scale.x),
           1 == gz &&
             ((K.moveDirection = V + (Rc ? Math.PI : 0)), (K.moving = !0)),
@@ -5838,10 +6297,7 @@ var defly = (function () {
     }
   }
   function nc(z) {
-    return (
-      Math.pow(z.clientX - M.x, 2) + Math.pow(z.clientY - M.y, 2) <=
-      Math.pow(M.width, 2)
-    );
+    return (z.clientX - M.x) ** 2 + (z.clientY - M.y) ** 2 <= M.width ** 2;
   }
   function fc(z) {
     if (0 != e)
@@ -5877,16 +6333,16 @@ var defly = (function () {
               )
                 if (
                   (W = Math.sqrt(
-                    Math.pow(Yc.clientX - v.clientX, 2) +
-                      Math.pow(Yc.clientY - v.clientY, 2),
+                    (Yc.clientX - v.clientX) ** 2 +
+                      (Yc.clientY - v.clientY) ** 2,
                   )) <
                   0.2 * jl
                 ) {
                   if (oc && V - oc.time < 250)
                     if (
                       (W = Math.sqrt(
-                        Math.pow(oc.clientX - v.clientX, 2) +
-                          Math.pow(oc.clientY - v.clientY, 2),
+                        (oc.clientX - v.clientX) ** 2 +
+                          (oc.clientY - v.clientY) ** 2,
                       )) <
                       0.2 * jl
                     ) {
@@ -5898,8 +6354,8 @@ var defly = (function () {
                       )),
                         (K.aimDistance =
                           Math.sqrt(
-                            Math.pow(window.innerWidth / 2 - v.clientX, 2) +
-                              Math.pow(window.innerHeight / 2 - v.clientY, 2),
+                            (window.innerWidth / 2 - v.clientX) ** 2 +
+                              (window.innerHeight / 2 - v.clientY) ** 2,
                           ) / U.scale.x),
                         ev(),
                         (c = K.aimDirection = c),
@@ -5980,8 +6436,8 @@ var defly = (function () {
                   (X.x = ac.clientX),
                   (X.y = ac.clientY),
                   (W = Math.sqrt(
-                    Math.pow(ac.clientX - jc.clientX, 2) +
-                      Math.pow(ac.clientY - jc.clientY, 2),
+                    (ac.clientX - jc.clientX) ** 2 +
+                      (ac.clientY - jc.clientY) ** 2,
                   )) >=
                     0.2 * l)
                 ) {
@@ -6013,8 +6469,8 @@ var defly = (function () {
                   (r.x = pc.clientX),
                   (r.y = pc.clientY);
                 var W = Math.sqrt(
-                  Math.pow(pc.clientX - Cc.clientX, 2) +
-                    Math.pow(pc.clientY - Cc.clientY, 2),
+                  (pc.clientX - Cc.clientX) ** 2 +
+                    (pc.clientY - Cc.clientY) ** 2,
                 );
                 L = Math.atan2(
                   pc.clientY - Cc.clientY,
@@ -6041,23 +6497,10 @@ var defly = (function () {
       z && l.setInt32(2, z),
       q.send(l.buffer);
   }
-  function $c(z) {
-    Sz = z ? 1 : -1;
-    try {
-      localStorage.setItem("chatGuidelines", Sz);
-    } catch (z) {}
-    (LV = !z), (document.getElementById("settings-disablechat").checked = LV);
-    try {
-      localStorage.setItem("chatDisabled", LV ? 1 : 0);
-    } catch (z) {}
-    document
-      .getElementById("chat-guidelines-popup")
-      .classList.remove("visible");
-  }
   function Qc() {
     if (1 == Sz) return;
     if (-1 == Sz && !settings.chatEnabled) return;
-    let z = document.getElementById("chat-guidelines-popup");
+    const z = document.getElementById("chat-guidelines-popup");
     z &&
       (z.classList.add("visible"),
       document.activeElement == document.getElementById("chat-input") &&
@@ -6256,31 +6699,30 @@ var defly = (function () {
   var Ec = 0;
   function _c(z) {
     if (z.isTrusted && z instanceof KeyboardEvent) {
-      var V = 4 == hz && !!n;
-      if (0 != e || SL || V) {
+      var V = hz == 4 && !!n;
+      if (e != 0 || SL || V) {
         var l = document.getElementById("chat-input"),
           D = l && document.activeElement == l,
-          v = "string" == typeof z.code && z.code.length > 0;
-        if (V)
-          13 == z.keyCode &&
-            (D
-              ? (l.value.length > 0 && HD(l.value), (l.value = ""), l.blur())
-              : ic());
-        else if (D)
-          13 == z.keyCode &&
-            (l.value.length > 0 && HD(l.value),
-            (l.value = ""),
-            l.blur(),
-            document.getElementById("chat-block").classList.remove("typing"));
-        else if (v && dL[z.code]) Mc(dL[z.code]);
-        else if (mc && ((v && "KeyJ" == z.code) || (!v && 74 == z.keyCode))) {
+          v = typeof z.code == "string" && z.code.length > 0;
+
+        if (D) {
+          if (z.keyCode == 13) {
+            l.value.length > 0 && HD(l.value);
+            l.value = "";
+            l.blur();
+            document.getElementById("chat-block").classList.remove("typing");
+          }
+        } else if (v && dL[z.code]) {
+          Mc(dL[z.code]);
+        } else if (mc && ((v && z.code == "KeyJ") || (!v && z.keyCode == 74))) {
           var c = document.getElementById("xp-block");
-          (c.style.display = "block" == c.style.display ? "none" : "block"),
-            (c.getElementsByClassName("xp-bar")[0].style.display = "none"),
-            (c.getElementsByClassName("text")[1].style.display = "none");
-          for (var P = "", L = 0; L < _V; L++) {
+          c.style.display = c.style.display == "block" ? "none" : "block";
+          c.getElementsByClassName("xp-bar")[0].style.display = "none";
+          c.getElementsByClassName("text")[1].style.display = "none";
+          var P = "";
+          for (var L = 0; L < _V; L++) {
             var W = AV[L + (Pz >= 1 ? 1 : 0)];
-            16252714 == W && (W = 13817893);
+            if (W == 16252714) W = 13817893;
             var g = Bl(W, 0.2);
             P +=
               '<div class="bar" id="map-control-bar-team-' +
@@ -6292,90 +6734,53 @@ var defly = (function () {
               ');"></div>';
           }
           document.getElementById("score-bars").innerHTML = P;
-        } else if (mc && ((v && "KeyI" == z.code) || (!v && 73 == z.keyCode))) {
+        } else if (mc && ((v && z.code == "KeyI") || (!v && z.keyCode == 73))) {
           var q = document.getElementById("fps");
-          q.style.display = "block" == q.style.display ? "none" : "block";
-        } else if (mc && ((v && "KeyO" == z.code) || (!v && 79 == z.keyCode)))
+          q.style.display = q.style.display == "block" ? "none" : "block";
+        } else if (mc && ((v && z.code == "KeyO") || (!v && z.keyCode == 79))) {
           hc(2);
-        else if (mc && ((v && "KeyR" == z.code) || (!v && 82 == z.keyCode)))
+        } else if (mc && ((v && z.code == "KeyR") || (!v && z.keyCode == 82))) {
           hc(5);
-        else if (mc && ((v && "KeyT" == z.code) || (!v && 84 == z.keyCode)))
-          clearInterval(hD), (hD = null);
-        else if (mc && ((v && "KeyY" == z.code) || (!v && 89 == z.keyCode)))
+        } else if (mc && ((v && z.code == "KeyT") || (!v && z.keyCode == 84))) {
+          clearInterval(hD);
+          hD = null;
+        } else if (mc && ((v && z.code == "KeyY") || (!v && z.keyCode == 89))) {
           clearInterval(UD);
-        else if (mc && ((v && "KeyN" == z.code) || (!v && 78 == z.keyCode)))
+        } else if (mc && ((v && z.code == "KeyN") || (!v && z.keyCode == 78))) {
           hc(6);
-        else if (mc && ((v && 77 == z.keyCode) || (!v && 77 == z.keyCode)))
-          "none" == d.style.transform
-            ? ((document.getElementById("minimap").style.width =
-                0.375 * d.width + "px"),
-              (document.getElementById("minimap").style.height =
-                0.375 * d.height + "px"),
-              (d.style.transform = "scale(0.375)"))
-            : ((document.getElementById("minimap").style.width =
-                d.width + "px"),
-              (document.getElementById("minimap").style.height =
-                d.height + "px"),
-              (d.style.transform = "none"));
-        else if (mc && ((v && 70 == z.keyCode) || (!v && 70 == z.keyCode))) {
+        } else if (mc && z.keyCode == 77) {
+          if (d.style.transform == "none") {
+            document.getElementById("minimap").style.width =
+              0.375 * d.width + "px";
+            document.getElementById("minimap").style.height =
+              0.375 * d.height + "px";
+            d.style.transform = "scale(0.375)";
+          } else {
+            document.getElementById("minimap").style.width = d.width + "px";
+            document.getElementById("minimap").style.height = d.height + "px";
+            d.style.transform = "none";
+          }
+        } else if (mc && z.keyCode == 70) {
           var m = Math.min(window.innerWidth, window.innerHeight) - 32;
-          (document.getElementById("minimap").style.width = m + "px"),
-            (document.getElementById("minimap").style.height =
-              (m / d.width) * d.height + "px"),
-            (d.style.transform = "scale(" + m / 256 + ")");
-        } else if (mc && ((v && "KeyH" == z.code) || (!v && 72 == z.keyCode)))
-          document.getElementById("admin-player-list")
-            ? document.body.removeChild(
-                document.getElementById("admin-player-list"),
-              )
-            : hc(8);
-        else {
-          13 == z.keyCode
-            ? ic()
-            : "KeyP" == z.code
-              ? (showAlert("grid version = " + (Gc = (Gc + 1) % 2), 3e3), kc())
-              : "KeyO" != z.code ||
-                SL ||
-                showAlert("interpolation = " + (CP = !CP), 3e3);
+          document.getElementById("minimap").style.width = m + "px";
+          document.getElementById("minimap").style.height =
+            (m / d.width) * d.height + "px";
+          d.style.transform = "scale(" + m / 256 + ")";
+        } else if (mc && ((v && z.code == "KeyH") || (!v && z.keyCode == 72))) {
+          var a = document.getElementById("admin-player-list");
+          a ? document.body.removeChild(a) : hc(8);
+        } else {
+          if (z.code == "KeyP") {
+            showAlert("grid version = " + (Gc = (Gc + 1) % 2), 3000);
+            kc();
+          } else if (z.code == "KeyO" && !SL) {
+            showAlert("interpolation = " + (CP = !CP), 3000);
+          }
         }
       }
     }
   }
-  function ic() {
-    var z = document.getElementById("chat-input");
-    if (!LV && (1 == hz || 2 == hz || 4 == hz || mc)) {
-      if (!sz && !Jz)
-        return void XD(
-          "Chat is disabled for anonymous players. Sign-in with an account to use the chat.",
-          PV ? "info-dark" : "info",
-        );
-      bD(),
-        document.getElementById("chat-block").classList.add("typing"),
-        (document.getElementById("chat-history-full").scrollTop =
-          document.getElementById("chat-history-full").scrollHeight),
-        z.focus(),
-        (Sc = [!1, !1, !1, !1]),
-        Xc(),
-        4 == hz &&
-          document
-            .getElementById("chat-block")
-            .classList.contains("gm-1v1-lobby") &&
-          anime
-            .timeline({
-              targets: "#chat-input",
-              delay: 200,
-              duration: 0,
-              easing: "linear",
-              loop: 2,
-            })
-            .add({ targets: "#chat-input", backgroundColor: "#b4d9fc" })
-            .add({
-              targets: "#chat-input",
-              backgroundColor: "rgba(180, 217, 252, 0)",
-            }),
-        Qc();
-    }
-  }
+
   function wc(z) {}
   var Gc = 0;
   function kc() {
@@ -6502,10 +6907,8 @@ var defly = (function () {
         alpha: { value: 0, easing: "easeInQuad" },
         easing: "linear",
         duration: 1e3,
-        complete: (function (z) {
-          return function () {
-            a.removeChild(z);
-          };
+        complete: ((z) => () => {
+          a.removeChild(z);
         })(D),
       });
   }
@@ -6634,7 +7037,7 @@ var defly = (function () {
       1 == V.shield.state &&
       z.lastPosition
     ) {
-      var l = (function (z, V, l, D) {
+      var l = ((z, V, l, D) => {
         var v = V.x - z.x,
           c = V.y - z.y,
           P = l.x - z.x,
@@ -6761,12 +7164,12 @@ var defly = (function () {
             v + P < this.grid.length &&
             c + L >= 0 &&
             c + L < this.grid[0].length &&
-            this.grid[v + P][c + L].forEach(function (z) {
+            this.grid[v + P][c + L].forEach((z) => {
               D.add(z);
             });
       var W = [];
       return (
-        D.forEach(function (z) {
+        D.forEach((z) => {
           W.push(z);
         }),
         W
@@ -6784,12 +7187,12 @@ var defly = (function () {
         g++
       )
         for (var q = P; q <= W; q++)
-          this.grid[g][q].forEach(function (z) {
+          this.grid[g][q].forEach((z) => {
             v.add(z);
           });
       var m = [];
       return (
-        v.forEach(function (z) {
+        v.forEach((z) => {
           m.push(z);
         }),
         m
@@ -6858,7 +7261,7 @@ var defly = (function () {
     (PIXI.Point.prototype.dot = PIXI.ObservablePoint.prototype.dot);
   var PP = new PIXI.Point();
   function LP(z, V) {
-    var l = (function (z, V, l, D, v) {
+    var l = ((z, V, l, D, v) => {
       var c = (l.x - z.x) * (V.x - z.x) + (l.y - z.y) * (V.y - z.y),
         P = z.dst(V);
       if ((c /= P * P) < 0 || c > 1) return 1 / 0;
@@ -7059,11 +7462,9 @@ var defly = (function () {
                 alpha: 1,
                 duration: 250,
                 easing: "linear",
-                complete: (function (z) {
-                  return function () {
-                    0 != z.state || c.dotBlastAnim || (z.alpha = 0),
-                      (c.shieldAppearAnim = null);
-                  };
+                complete: ((z) => () => {
+                  0 != z.state || c.dotBlastAnim || (z.alpha = 0),
+                    (c.shieldAppearAnim = null);
                 })(P),
               })),
             (P.state = 1),
@@ -7114,9 +7515,8 @@ var defly = (function () {
     )
       for (var W = 0; W < rD.length; W++) {
         if (4 != JV || rD[W].progress.visible)
-          Math.sqrt(
-            Math.pow(rD[W].x - XV[HV].x, 2) + Math.pow(rD[W].y - XV[HV].y, 2),
-          ) < rD[W].radius &&
+          Math.sqrt((rD[W].x - XV[HV].x) ** 2 + (rD[W].y - XV[HV].y) ** 2) <
+            rD[W].radius &&
             showAlert(
               2 == MV
                 ? "Stay still to defuse the bomb"
@@ -7207,7 +7607,7 @@ var defly = (function () {
               Math.sin(D.rotation) * ((0.9 * wz.width) / 2)) /
             2),
           (D.width =
-            Math.sqrt(Math.pow(v.x - Nv(c.x), 2) + Math.pow(v.y - Nv(c.y), 2)) -
+            Math.sqrt((v.x - Nv(c.x)) ** 2 + (v.y - Nv(c.y)) ** 2) -
             0.9 * (v.size + wz.width / 2));
         var Q = Nc.position.dst($);
         (iz.visible = !n && !K.shooting && Q < VV),
@@ -7280,7 +7680,7 @@ var defly = (function () {
         ((XV[HV].usernameText.alpha = lz > 360 ? 0 : 1 - (lz - 300) / 60),
         XV[HV].badge && (XV[HV].badge.alpha = XV[HV].usernameText.alpha)),
       (1 != hz && 2 != hz) ||
-        (function () {
+        (() => {
           if (lc) {
             for (var z in XV)
               if (uV[z] == MV) {
@@ -7387,28 +7787,7 @@ var defly = (function () {
           (document.getElementById("internet-issue").style.display = "block"))
         : tP &&
           ((document.getElementById("internet-issue").style.display = "none"),
-          (tP = !1)),
-      (0 == hz || 3 == hz) &&
-        qz < 3 &&
-        lz >= 600 &&
-        !mc &&
-        (jP
-          ? !aP && lz >= 1800
-            ? showAlert("Level up by enclosing big areas with your towers", 100)
-            : T >= 1 &&
-              !BP &&
-              showAlert(
-                "Upgrade your copter! " +
-                  (Fl ? "Tap" : "Click") +
-                  ' a <img src="img/plus-4-64.png">',
-                100,
-              )
-          : showAlert(
-              Fl
-                ? "Build a tower by pressing the BUILD button"
-                : "Build a tower with right-click or SPACE key",
-              100,
-            ));
+          (tP = !1));
   }
   var oP,
     ZP,
@@ -7433,9 +7812,7 @@ var defly = (function () {
         window
           .atob(V)
           .split("")
-          .map(function (z) {
-            return "%" + ("00" + z.charCodeAt(0).toString(16)).slice(-2);
-          })
+          .map((z) => "%" + ("00" + z.charCodeAt(0).toString(16)).slice(-2))
           .join(""),
       );
     return JSON.parse(l);
@@ -7468,7 +7845,7 @@ var defly = (function () {
       }
   }
   function xP() {
-    google.accounts.id.revoke(KP, function (z) {
+    google.accounts.id.revoke(KP, (z) => {
       console.log("User signed out from google."),
         z.successful ||
           (alert("Google logout error: " + z.error),
@@ -7487,7 +7864,7 @@ var defly = (function () {
       if ("connected" === z.status) {
         (Jz = !0),
           (ZP = z.authResponse.accessToken),
-          FB.api("/me?fields=picture,email&redirect=false", function (z) {
+          FB.api("/me?fields=picture,email&redirect=false", (z) => {
             z && z.picture && z.picture.data && (FP = z.picture.data.url),
               z && z.email && (KP = z.email),
               yP();
@@ -7499,7 +7876,7 @@ var defly = (function () {
   }
   function RP() {
     var z = new XMLHttpRequest();
-    (z.onreadystatechange = function () {
+    (z.onreadystatechange = () => {
       if (4 == z.readyState && 200 == z.status)
         if (-1 != z.responseText.indexOf("ERROR"))
           console.error("loginOnServer returned ERROR"), bP();
@@ -7519,7 +7896,6 @@ var defly = (function () {
                 (document.getElementById("banner-on-homepage").style.display =
                   "none")),
             V.length >= 7 && (iP = parseInt(V[6])),
-            (document.getElementById("coins-owned").innerHTML = Math.floor(EP)),
             "undefined" != typeof Storage)
           )
             try {
@@ -7533,7 +7909,7 @@ var defly = (function () {
               : "?tourney-mgr" == window.location.search
                 ? kL()
                 : 0 == window.location.search.indexOf("?tourney-join") &&
-                  (function () {
+                  (() => {
                     var z = document
                       .getElementById("username")
                       .value.substring(0, 14);
@@ -7544,7 +7920,7 @@ var defly = (function () {
                       ))
                     ) {
                       var V = new XMLHttpRequest();
-                      (V.onreadystatechange = function () {
+                      (V.onreadystatechange = () => {
                         4 == V.readyState && 200 == V.status
                           ? -1 != V.responseText.indexOf("ERROR")
                             ? alert(V.responseText.replace("ERROR\n", ""))
@@ -7553,7 +7929,7 @@ var defly = (function () {
                             200 != V.status &&
                             V.onerror(V.status);
                       }),
-                        (V.onerror = function (z) {
+                        (V.onerror = (z) => {
                           xD(
                             new Date().toLocaleTimeString() +
                               " - Error joining team",
@@ -7589,7 +7965,7 @@ var defly = (function () {
         }
       else 4 == z.readyState && 200 != z.status && z.onerror(z.status);
     }),
-      (z.onerror = function (z) {
+      (z.onerror = (z) => {
         bP(),
           xD(
             new Date().toLocaleTimeString() + " - Error at login on server",
@@ -7656,7 +8032,7 @@ var defly = (function () {
       ")"
     );
   }
-  window.onGoogleLibraryLoad = function () {
+  window.onGoogleLibraryLoad = () => {
     try {
       var z = localStorage.getItem("previousGoogleCredential");
       if (z) {
@@ -7666,12 +8042,12 @@ var defly = (function () {
         } catch (z) {}
         V && Date.now() / 1e3 < V.exp - 60
           ? sP(z, V)
-          : google.accounts.id.prompt(function (z) {
+          : google.accounts.id.prompt((z) => {
               0;
             });
       } else
         localStorage.getItem("wasLoggedInWithGoogle") &&
-          google.accounts.id.prompt(function (z) {
+          google.accounts.id.prompt((z) => {
             0;
           });
     } catch (z) {}
@@ -7697,7 +8073,7 @@ var defly = (function () {
       (W.className = "button " + v),
       z.appendChild(W),
       L ||
-        W.addEventListener("click", function () {
+        W.addEventListener("click", () => {
           if (
             ((z.className = "card"),
             (z.getElementsByTagName("a")[0].style.display = "none"),
@@ -7712,34 +8088,7 @@ var defly = (function () {
             gtag("event", P, { event_category: "Click" });
         });
   }
-  function GP(z, V) {
-    document.getElementById("skin-popup").style.pointerEvents = "none";
-    var D = new XMLHttpRequest();
-    (D.onreadystatechange = function () {
-      if (4 == D.readyState && 200 == D.status) {
-        if (
-          ((document.getElementById("skin-popup").style.pointerEvents = "auto"),
-          "OK" != D.responseText)
-        )
-          return void alert(
-            "An error occured during the transation, please try again or contact us",
-          );
-        (EP -= V),
-          uP.push(z),
-          VL(!0),
-          (document.getElementById("coins-owned").innerHTML = Math.floor(EP));
-      } else 4 == D.readyState && 200 != D.status && D.onerror(D.status);
-    }),
-      (D.onerror = function (z) {
-        (document.getElementById("skin-popup").style.pointerEvents = "auto"),
-          console.log(z),
-          alert(
-            "An error occured during the transation, please try again or contact us",
-          );
-      }),
-      D.open("POST", G + "/buyskin?s=" + l + "&skin=" + z, !0),
-      D.send(null);
-  }
+
   var kP = [
       { name: "Holidays", list: [68, 64, 65, 66, 67, 69, 70] },
       { name: "Helicopter", list: [1, 3, 4, 5, 6, 21, 26] },
@@ -7805,372 +8154,120 @@ var defly = (function () {
       D.setAttribute("id", "skin-tab-" + z),
       (D.className = "skin-tab" + (l ? " selected" : "")),
       (D.innerHTML = V),
-      D.addEventListener("click", function () {
+      D.addEventListener("click", () => {
         NP(z);
       }),
       D
     );
   }
   function VL(z) {
-    z &&
-      ((document.getElementById("skin-homepage-canvas").innerHTML = ""),
-      (document.getElementById("skin-popup-canvas").innerHTML = ""),
-      (document.getElementById("skin-list").innerHTML = "")),
-      (cl[-1] = kV[Qz >= 0 ? Qz : 0]),
-      (Tz[-1] = $z);
-    var V = WD(-1, 50);
-    document.getElementById("skin-homepage-canvas").appendChild(V);
-    var l = WD(-1, 100);
-    document.getElementById("skin-popup-canvas").appendChild(l), (rP = [V, l]);
-    for (var D = document.getElementById("skin-tabs"); D.firstChild; )
-      D.removeChild(D.firstChild);
-    D.appendChild(zL(-1, "All", -1 == IP));
-    for (var v = 0; v < kP.length; v++)
-      D.appendChild(zL(v, kP[v].name, IP == v));
-    var c,
-      P,
-      L,
-      W,
-      g =
-        ((c = new Date()),
-        (P = c.getMonth() + 1),
-        (L = c.getDate()),
-        (W = []),
-        2 == P && W.push(64),
-        ((3 == P && L >= 15) || (4 == P && L <= 14)) && W.push(65),
-        4 == P && W.push(66),
-        ((10 == P && L >= 15) || (11 == P && L <= 14)) && W.push(67),
-        12 == P && W.push(68),
-        1 == P && W.push(69),
-        W),
-      q = [71, 79, 80, 96, 97, 98, 99, 136, 137, 138, 139],
-      m = [64, 65, 66, 67, 68, 69],
-      h = g.concat([
-        1, 2, 3, 4, 5, 6, 8, 7, 9, 10, 107, 13, 14, 18, 108, 81, 19, 11, 12, 89,
-        109, 110, 90, 122, 123, 124, 91, 17, 40, 33, 34, 16, 50, 51, 111, 125,
-        92, 20, 21, 93, 15, 29, 41, 35, 46, 52, 53, 94, 112, 126, 127, 42, 43,
-        36, 37, 24, 25, 47, 54, 44, 38, 23, 30, 31, 55, 57, 58, 59, 60, 61, 62,
-        95, 113, 128, 48, 22, 26, 27, 28, 32, 45, 39, 49, 56, 63,
-      ]);
-    -1 != IP && (h = kP[IP].list);
-    for (v = 0; v < h.length; v++) {
-      var U = h[v];
-      if (DD[U]) {
-        (cl[-1] = kV[Qz >= 0 ? Qz : 0]), (Tz[-1] = U);
-        var t = WD(-1, 64);
-      } else {
-        ((t = document.createElement("div")).innerHTML = "?"),
-          (t.style.width = "64px"),
-          (t.style.height = t.style.width),
-          (t.style.position = "relative"),
-          (t.style.display = "inline-block"),
-          (t.style.lineHeight = t.style.height),
-          (t.style.fontSize = "3vh");
-      }
-      var j = document.createElement("div"),
-        a =
-          -1 !==
-          [26, 27, 28, 32, 39, 45, 49, 56, 63, 70, 95, 113, 128].indexOf(U);
-      (j.className =
-        "card" +
-        (a ? " highlight" : "") +
-        (U >= 64 && U <= 70 ? " season" : "")),
-        (j.style.cursor = "pointer"),
-        j.appendChild(t);
-      var B = -1 == uP.indexOf(U);
-      if (
-        !DD[U] ||
-        (B &&
-          (-1 !== q.indexOf(U) || (-1 !== m.indexOf(U) && -1 === g.indexOf(U))))
-      )
-        -1 != q.indexOf(U)
-          ? wP(j, 0, void 0, "Tourney prize", "disabled", void 0, void 0, !0)
-          : wP(j, 0, void 0, "Unavailable", "disabled", void 0, void 0, !0);
-      else if (2 != U || MP.skinFacebookLiked)
-        if (4 != U || MP.skinTwitterFollow)
-          if (5 != U || MP.skinTwitterTweet)
-            if (6 != U || MP.skinYoutubeSubscribe)
-              if (8 != U || MP.skinDiscordJoin)
-                if (7 != U || sz || Jz) {
-                  if (((U >= 81 && U <= 88) || (U >= 100 && U <= 106)) && B)
-                    sz || Jz
-                      ? _P
-                        ? (function (z) {
-                            wP(
-                              j,
-                              0,
-                              void 0,
-                              "Premium",
-                              "login",
-                              void 0,
-                              "SkinActivatePremiumSkin",
-                              !0,
-                            ),
-                              j
-                                .getElementsByTagName("a")[0]
-                                .addEventListener("click", function () {
-                                  return GP(z, 0), !1;
-                                });
-                          })(U)
-                        : (wP(
-                            j,
-                            0,
-                            void 0,
-                            "Premium",
-                            "login",
-                            void 0,
-                            "SkinShowAccount",
-                            !0,
-                          ),
-                          j
-                            .getElementsByTagName("a")[0]
-                            .addEventListener("click", function () {
-                              return BL(), !1;
-                            }))
-                      : (wP(
-                          j,
-                          0,
-                          void 0,
-                          "Premium",
-                          "login",
-                          void 0,
-                          "SkinCreateAccount",
-                          !0,
-                        ),
-                        j
-                          .getElementsByTagName("a")[0]
-                          .addEventListener("click", function () {
-                            return XP(), !1;
-                          }));
-                  else if (U >= 9 && B) {
-                    var C = 1e6;
-                    if (
-                      ((9 != U && 10 != U) || (C = 500),
-                      (13 != U && 14 != U) || (C = 1e3),
-                      (11 != U && 12 != U) || (C = 2e3),
-                      17 == U && (C = 5e3),
-                      18 == U && (C = 1e3),
-                      19 == U && (C = 2e3),
-                      64 == U && (C = 5e3),
-                      65 == U && (C = 5e3),
-                      66 == U && (C = 5e3),
-                      67 == U && (C = 5e3),
-                      68 == U && (C = 5e3),
-                      69 == U && (C = 5e3),
-                      70 == U && (C = 1e4),
-                      20 == U && (C = 7500),
-                      21 == U && (C = 7500),
-                      15 == U && (C = 1e4),
-                      29 == U && (C = 1e4),
-                      24 == U && (C = 15e3),
-                      25 == U && (C = 15e3),
-                      30 == U && (C = 2e4),
-                      26 == U && (C = 2e4),
-                      27 == U && (C = 2e4),
-                      28 == U && (C = 2e4),
-                      31 == U && (C = 2e4),
-                      32 == U && (C = 3e4),
-                      16 == U && (C = 5e3),
-                      46 == U && (C = 1e4),
-                      47 == U && (C = 15e3),
-                      23 == U && (C = 2e4),
-                      48 == U && (C = 25e3),
-                      22 == U && (C = 25e3),
-                      49 == U && (C = 3e4),
-                      40 == U && (C = 5e3),
-                      41 == U && (C = 1e4),
-                      42 == U && (C = 15e3),
-                      43 == U && (C = 15e3),
-                      44 == U && (C = 2e4),
-                      45 == U && (C = 3e4),
-                      33 == U && (C = 5e3),
-                      34 == U && (C = 5e3),
-                      35 == U && (C = 1e4),
-                      36 == U && (C = 15e3),
-                      37 == U && (C = 15e3),
-                      38 == U && (C = 2e4),
-                      39 == U && (C = 3e4),
-                      50 == U && (C = 5e3),
-                      51 == U && (C = 5e3),
-                      52 == U && (C = 1e4),
-                      53 == U && (C = 1e4),
-                      54 == U && (C = 15e3),
-                      55 == U && (C = 2e4),
-                      56 == U && (C = 25e3),
-                      U >= 57 && U <= 62 && (C = 2e4),
-                      63 == U && (C = 2e4),
-                      89 == U && (C = 2e3),
-                      90 == U && (C = 3e3),
-                      91 == U && (C = 4e3),
-                      92 == U && (C = 6e3),
-                      93 == U && (C = 8e3),
-                      94 == U && (C = 1e4),
-                      95 == U && (C = 2e4),
-                      107 == U && (C = 500),
-                      108 == U && (C = 1e3),
-                      109 == U && (C = 2e3),
-                      110 == U && (C = 2e3),
-                      111 == U && (C = 5e3),
-                      112 == U && (C = 1e4),
-                      113 == U && (C = 2e4),
-                      122 == U && (C = 3e3),
-                      123 == U && (C = 3e3),
-                      124 == U && (C = 3e3),
-                      125 == U && (C = 5e3),
-                      126 == U && (C = 1e4),
-                      127 == U && (C = 1e4),
-                      128 == U && (C = 2e4),
-                      a && !eP(U))
-                    ) {
-                      !(function (z) {
-                        wP(
-                          j,
-                          0,
-                          void 0,
-                          "Unavailable",
-                          "disabled",
-                          void 0,
-                          void 0,
-                          !0,
-                        ),
-                          j
-                            .getElementsByTagName("a")[0]
-                            .addEventListener("click", function () {
-                              alert(
-                                "You must buy all skins in " +
-                                  kP[AP(z)].name +
-                                  " to unlock this skin",
-                              );
-                            });
-                      })(U);
-                    } else
-                      wP(
-                        j,
-                        0,
-                        void 0,
-                        '<img src="img/coin.png"> <span>' + C + "</span>",
-                        "buy",
-                        void 0,
-                        "SkinBuy",
-                        !0,
-                      );
-                  }
-                } else
-                  wP(
-                    j,
-                    0,
-                    void 0,
-                    "Sign up",
-                    "login",
-                    void 0,
-                    "SkinCreateAccount",
-                    !0,
-                  ),
-                    j
-                      .getElementsByTagName("a")[0]
-                      .addEventListener("click", function () {
-                        return XP(), !1;
-                      });
-              else
-                wP(
-                  j,
-                  0,
-                  "https://discord.gg/NXuuhv7",
-                  "Join discord",
-                  "discord",
-                  "skinDiscordJoin",
-                  "SkinDiscordJoin",
-                );
-            else
-              wP(
-                j,
-                0,
-                "https://www.youtube.com/channel/UCJw-612ZzkWmZuU5QsP_T-g?sub_confirmation=1",
-                "Subscribe",
-                "youtube",
-                "skinYoutubeSubscribe",
-                "SkinYoutubeSubscribe",
-              );
-          else {
-            var p = [
-              "I've played this game way too much today",
-              "I'm loving this game!",
-              "don't play this game it will ruin your social life",
-              "this game is going to ruin my social life",
-              "I'm addicted to this game",
-              "This game is so addictive",
-              "Best game ever!",
-            ];
-            wP(
-              j,
-              0,
-              "https://twitter.com/intent/tweet?url=http%3A%2F%2Fdefly.io&hashtags=gaming,indiegames,deflyio&text=" +
-                encodeURIComponent(p[Math.floor(Math.random() * p.length)]),
-              "Tweet",
-              "twitter",
-              "skinTwitterTweet",
-              "SkinTwitterTweet",
-            );
-          }
-        else
-          wP(
-            j,
-            0,
-            "https://twitter.com/DeflyIo",
-            "Follow",
-            "twitter",
-            "skinTwitterFollow",
-            "SkinTwitterFollow",
-          );
-      else
-        wP(
-          j,
-          0,
-          "https://www.facebook.com/deflyiogame/",
-          "Like",
-          "facebook",
-          "skinFacebookLiked",
-          "SkinFacebookLiked",
-        );
-      document.getElementById("skin-list").appendChild(j),
-        rP.push(t),
-        j.addEventListener(
-          "click",
-          (function (z) {
-            return function () {
-              (2 != z || MP.skinFacebookLiked) &&
-                (4 != z || MP.skinTwitterFollow) &&
-                (5 != z || MP.skinTwitterTweet) &&
-                (6 != z || MP.skinYoutubeSubscribe) &&
-                (8 != z || MP.skinDiscordJoin) &&
-                (7 != z || sz || Jz) &&
-                ((z >= 9 && !sz && !Jz) ||
-                  (z >= 9 && -1 == uP.indexOf(z)) ||
-                  lL(z));
-            };
-          })(U),
-        );
+    if (z) {
+      document.getElementById("skin-homepage-canvas").innerHTML = "";
+      document.getElementById("skin-popup-canvas").innerHTML = "";
+      document.getElementById("skin-list").innerHTML = "";
     }
-    if (!z)
-      for (v = 0; v < kV.length; v++) {
-        var Y = document.createElement("div");
-        (Y.style.backgroundColor = HP(kV[v])),
-          (Y.style.width = "32px"),
-          (Y.style.height = "32px"),
-          (Y.style.display = "inline-block"),
-          (Y.style.cursor = "pointer"),
-          (Y.style.marginLeft = "2px"),
-          Y.addEventListener(
-            "click",
-            (function (z) {
-              return function () {
-                DL(z);
-              };
-            })(v),
-          ),
-          document.getElementById("color-list").appendChild(Y);
+
+    cl[-1] = kV[Qz >= 0 ? Qz : 0];
+    Tz[-1] = $z;
+
+    const V = WD(-1, 50);
+    document.getElementById("skin-homepage-canvas").appendChild(V);
+    const l = WD(-1, 100);
+    document.getElementById("skin-popup-canvas").appendChild(l);
+    rP = [V, l];
+
+    const D = document.getElementById("skin-tabs");
+    while (D.firstChild) D.removeChild(D.firstChild);
+    D.appendChild(zL(-1, "All", IP == -1));
+    for (let v = 0; v < kP.length; v++)
+      D.appendChild(zL(v, kP[v].name, IP == v));
+
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const seasonal = [];
+    if (month == 2) seasonal.push(64);
+    if ((month == 3 && day >= 15) || (month == 4 && day <= 14))
+      seasonal.push(65);
+    if (month == 4) seasonal.push(66);
+    if ((month == 10 && day >= 15) || (month == 11 && day <= 14))
+      seasonal.push(67);
+    if (month == 12) seasonal.push(68);
+    if (month == 1) seasonal.push(69);
+
+    const q = [71, 79, 80, 96, 97, 98, 99, 136, 137, 138, 139];
+    const m = [64, 65, 66, 67, 68, 69];
+    let h = seasonal.concat([
+      1, 2, 3, 4, 5, 6, 8, 7, 9, 10, 107, 13, 14, 18, 108, 81, 19, 11, 12, 89,
+      109, 110, 90, 122, 123, 124, 91, 17, 40, 33, 34, 16, 50, 51, 111, 125, 92,
+      20, 21, 93, 15, 29, 41, 35, 46, 52, 53, 94, 112, 126, 127, 42, 43, 36, 37,
+      24, 25, 47, 54, 44, 38, 23, 30, 31, 55, 57, 58, 59, 60, 61, 62, 95, 113,
+      128, 48, 22, 26, 27, 28, 32, 45, 39, 49, 56, 63,
+    ]);
+    if (IP != -1) h = kP[IP].list;
+
+    for (let v = 0; v < h.length; v++) {
+      const U = h[v];
+      let t;
+      if (DD[U]) {
+        cl[-1] = kV[Qz >= 0 ? Qz : 0];
+        Tz[-1] = U;
+        t = WD(-1, 64);
+      } else {
+        t = document.createElement("div");
+        t.innerHTML = "?";
+        t.style.width = "64px";
+        t.style.height = "64px";
+        t.style.position = "relative";
+        t.style.display = "inline-block";
+        t.style.lineHeight = "64px";
+        t.style.fontSize = "3vh";
       }
+
+      const j = document.createElement("div");
+      const highlight = [
+        26, 27, 28, 32, 39, 45, 49, 56, 63, 70, 95, 113, 128,
+      ].includes(U);
+      j.className =
+        "card" +
+        (highlight ? " highlight" : "") +
+        (U >= 64 && U <= 70 ? " season" : "");
+      j.style.cursor = "pointer";
+      j.appendChild(t);
+
+      const B = uP.indexOf(U) === -1;
+
+      document.getElementById("skin-list").appendChild(j);
+      rP.push(t);
+      j.addEventListener(
+        "click",
+        ((z) => () => {
+          lL(z);
+        })(U),
+      );
+    }
+
+    if (!z) {
+      for (let v = 0; v < kV.length; v++) {
+        const Y = document.createElement("div");
+        Y.style.backgroundColor = HP(kV[v]);
+        Y.style.width = "32px";
+        Y.style.height = "32px";
+        Y.style.display = "inline-block";
+        Y.style.cursor = "pointer";
+        Y.style.marginLeft = "2px";
+        Y.addEventListener(
+          "click",
+          (
+            (z) => () =>
+              DL(z)
+          )(v),
+        );
+        document.getElementById("color-list").appendChild(Y);
+      }
+    }
   }
+
   function lL(z, V) {
     $z = z;
     for (var l = 0; l < 2; l++) {
@@ -8212,7 +8309,7 @@ var defly = (function () {
     LL = {};
   function WL(z) {
     var V = new FileReader();
-    (V.onload = function () {
+    (V.onload = () => {
       var l =
         "data:image/png;base64," +
         btoa(String.fromCharCode.apply(null, new Uint8Array(V.result)));
@@ -8375,7 +8472,7 @@ var defly = (function () {
       Y.addEventListener("input", f),
       Z.addEventListener("input", f),
       K.addEventListener("input", f),
-      n.addEventListener("click", function () {
+      n.addEventListener("click", () => {
         DD[PL].rotors.splice(V, 1), gL(), mL();
       }),
       v
@@ -8397,7 +8494,7 @@ var defly = (function () {
     (v.innerHTML = "Add rotor"),
       (v.className = "button"),
       l.appendChild(v),
-      v.addEventListener("click", function () {
+      v.addEventListener("click", () => {
         DD[PL].rotors.push({
           img: "rotor1",
           x: 0,
@@ -8444,7 +8541,7 @@ var defly = (function () {
       (cl[-2] = kV[Qz >= 0 ? Qz : 0]),
       setTimeout(gL, 0),
       (cL.stance = 1),
-      (vL = setInterval(function () {
+      (vL = setInterval(() => {
         for (var l = XV[-2], D = 0; D < l.rotors.length; D++) {
           var v = l.rotors[D];
           v.noRotation
@@ -8463,7 +8560,7 @@ var defly = (function () {
       }, 1e3 / 60)),
       (defly.closeSkinEditor = UL),
       (defly.saveSkin = tL),
-      (defly.clearSkin = function () {
+      (defly.clearSkin = () => {
         localStorage.removeItem("skinEditorImages"),
           localStorage.removeItem("skinEditorSkinModel"),
           (DD[PL] = { base: "", notint: "", rotors: [], size: 1 }),
@@ -8476,14 +8573,14 @@ var defly = (function () {
         .addEventListener("change", jL),
       document
         .getElementById("skin-editor-input")
-        .addEventListener("change", function () {
-          !(function (z) {
+        .addEventListener("change", () => {
+          !((z) => {
             for (var V = 0; V < z.files.length; V++) WL(z.files[V]);
           })(document.getElementById("skin-editor-input"));
         }),
       document
         .getElementById("skin-editor-size")
-        .addEventListener("input", function () {
+        .addEventListener("input", () => {
           (DD[PL].size = parseFloat(
             document.getElementById("skin-editor-size").value,
           )),
@@ -8491,42 +8588,38 @@ var defly = (function () {
         }),
       document
         .getElementById("skin-editor-base")
-        .addEventListener("change", function () {
+        .addEventListener("change", () => {
           (DD[PL].base = document.getElementById("skin-editor-base").value),
             gL();
         }),
       document
         .getElementById("skin-editor-notint")
-        .addEventListener("change", function () {
+        .addEventListener("change", () => {
           (DD[PL].notint = document.getElementById("skin-editor-notint").value),
             gL();
         }),
       document
         .getElementById("show-collision-circle")
         .addEventListener("change", gL),
-      document
-        .getElementById("stance-idle")
-        .addEventListener("click", function () {
-          (cL.stance = 0),
-            document.getElementById("stance-idle").classList.remove("back"),
-            document.getElementById("stance-moving").classList.add("back");
-        }),
-      document
-        .getElementById("stance-moving")
-        .addEventListener("click", function () {
-          (cL.stance = 1),
-            document.getElementById("stance-idle").classList.add("back"),
-            document.getElementById("stance-moving").classList.remove("back");
-        });
+      document.getElementById("stance-idle").addEventListener("click", () => {
+        (cL.stance = 0),
+          document.getElementById("stance-idle").classList.remove("back"),
+          document.getElementById("stance-moving").classList.add("back");
+      }),
+      document.getElementById("stance-moving").addEventListener("click", () => {
+        (cL.stance = 1),
+          document.getElementById("stance-idle").classList.add("back"),
+          document.getElementById("stance-moving").classList.remove("back");
+      });
     var D = "";
     for (var l in F) D += '<option name="' + l + '">' + l + "</option>";
     (document.getElementById("skin-editor-game-sprites").innerHTML = D),
       document
         .getElementById("skin-editor-input2")
-        .addEventListener("change", function () {
+        .addEventListener("change", () => {
           var z = document.getElementById("skin-editor-input2").files[0],
             V = new FileReader();
-          (V.onload = function () {
+          (V.onload = () => {
             var z =
                 "data:image/png;base64," +
                 btoa(String.fromCharCode.apply(null, new Uint8Array(V.result))),
@@ -8559,7 +8652,7 @@ var defly = (function () {
   function jL() {
     var z = document.getElementById("skin-upload-input").files[0],
       V = new FileReader();
-    (V.onload = function () {
+    (V.onload = () => {
       var z = JSON.parse(V.result);
       for (var l in (console.log(z), (DD[PL] = z.spec), z.images)) {
         var D = document.createElement("img");
@@ -8577,10 +8670,10 @@ var defly = (function () {
   function aL(z) {
     var V = z,
       D = new XMLHttpRequest();
-    (D.onreadystatechange = function () {
+    (D.onreadystatechange = () => {
       4 == D.readyState && D.status;
     }),
-      (D.onerror = function (z) {
+      (D.onerror = (z) => {
         dl("Error updating badge"), console.log(z);
       }),
       D.open("POST", G + "/account/updateBadge?s=" + l + "&b=" + V, !0),
@@ -8589,7 +8682,7 @@ var defly = (function () {
   function BL() {
     if (sz || Jz) {
       var z = new XMLHttpRequest();
-      (z.onreadystatechange = function () {
+      (z.onreadystatechange = () => {
         if (4 == z.readyState && 200 == z.status) {
           var V = z.responseText.split("\n");
           (_P = parseInt(V[0]) > 0),
@@ -8629,14 +8722,14 @@ var defly = (function () {
             ((document.getElementById("badge-select").innerHTML = D),
             document
               .getElementById("badge-select")
-              .addEventListener("click", function (z) {
+              .addEventListener("click", (z) => {
                 if ((console.log(z), "IMG" == z.target.tagName)) {
                   var V = z.target.src.split("/");
                   aL(parseInt(V[V.length - 1]));
                 } else aL(0);
                 document
                   .getElementById("badge-select")
-                  .childNodes.forEach(function (z) {
+                  .childNodes.forEach((z) => {
                     z.classList.remove("selected");
                   }),
                   z.target.classList.add("selected");
@@ -8654,7 +8747,7 @@ var defly = (function () {
           }
         } else 4 == z.readyState && 200 != z.status && z.onerror(z.status);
       }),
-        (z.onerror = function (z) {
+        (z.onerror = (z) => {
           xD(
             new Date().toLocaleTimeString() + " - Error getting account info",
             "error",
@@ -8976,7 +9069,7 @@ var defly = (function () {
     var V = [];
     for (var l in yV) (yV[l].dot1 != z && yV[l].dot2 != z) || V.push(yV[l]);
     return (
-      V.sort(function (V, l) {
+      V.sort((V, l) => {
         var D = ec(ML(V, z));
         return ec(ML(l, z)) - D;
       }),
@@ -9107,7 +9200,7 @@ var defly = (function () {
       kc(),
       window.addEventListener(
         "wheel",
-        function (z) {
+        (z) => {
           z.deltaY < 0 &&
             ((Nz /= 1.1),
             (zV /= 1.1),
@@ -9129,7 +9222,7 @@ var defly = (function () {
     U.addChildAt(l, 0),
       window.addEventListener(
         "keydown",
-        function (z) {
+        (z) => {
           if ("+" == z.key)
             (Nz /= 1.1),
               (zV /= 1.1),
@@ -9158,12 +9251,12 @@ var defly = (function () {
           } else if ("b" == z.key)
             (o = document.createElement("input")).setAttribute("type", "file"),
               o.setAttribute("accept", "image/*"),
-              o.addEventListener("change", function () {
+              o.addEventListener("change", () => {
                 var z = new FileReader();
-                (z.onload = function () {
+                (z.onload = () => {
                   var D = z.result,
                     v = new Image();
-                  (v.onload = function () {
+                  (v.onload = () => {
                     var z = new PIXI.Texture(new PIXI.BaseTexture(v));
                     (V = new PIXI.Sprite(z)).anchor.set(0.5, 0.5),
                       (V.width = Oz),
@@ -9180,7 +9273,7 @@ var defly = (function () {
                 }),
                   z.readAsDataURL(o.files[0]);
               }),
-              setTimeout(function () {
+              setTimeout(() => {
                 o.click();
               }, 200);
           else if ("y" == z.key) {
@@ -9255,7 +9348,7 @@ var defly = (function () {
         !0,
       ),
       (window.defly.editor = {
-        downloadMap: function () {
+        downloadMap: () => {
           var z = "MAP_WIDTH " + Oz + "\nMAP_HEIGHT " + ez + "\n";
           tV &&
             (z +=
@@ -9302,13 +9395,13 @@ var defly = (function () {
           var P = new Blob([z], { type: "text/plain;charset=utf-8" });
           saveAs(P, new Date().toISOString() + " defly.io defuse map.txt");
         },
-        loadMap: function () {
+        loadMap: () => {
           var z = document.createElement("input");
           z.setAttribute("type", "file"),
             z.setAttribute("accept", ".txt"),
-            z.addEventListener("change", function () {
+            z.addEventListener("change", () => {
               var V = new FileReader();
-              (V.onload = function () {
+              (V.onload = () => {
                 var l = V.result.split(/\r?\n/);
                 a.removeChildren(),
                   B.removeChildren(),
@@ -9380,7 +9473,7 @@ var defly = (function () {
                         Pv(c),
                         (RL = Math.max(RL, parseInt(v[1]) + 1));
                       break;
-                    case "l":
+                    case "l": {
                       var c,
                         P = RV[parseInt(v[1])],
                         L = RV[parseInt(v[2])];
@@ -9396,6 +9489,7 @@ var defly = (function () {
                         c.setInt32(21, 0),
                         gv(c));
                       break;
+                    }
                     case "z":
                       for (var W = [], g = 1; g < v.length; g++) {
                         var q = RV[parseInt(v[g])];
@@ -9410,11 +9504,11 @@ var defly = (function () {
               }),
                 V.readAsText(z.files[0]);
             }),
-            setTimeout(function () {
+            setTimeout(() => {
               z.click();
             }, 200);
         },
-        mapDim: function () {
+        mapDim: () => {
           var z = parseInt(prompt("Map Width?", Oz));
           if (z) {
             var V = parseInt(prompt("Map Height?", ez));
@@ -9426,14 +9520,14 @@ var defly = (function () {
               kc());
           }
         },
-        mapShape: function () {
+        mapShape: () => {
           1 == (iV = (iV + 1) % 3)
             ? (ez = (Math.sqrt(3) * Oz) / 2)
             : 2 == iV && (ez = Oz),
             jD(),
             kc();
         },
-        kothBounds: function () {
+        kothBounds: () => {
           var z = prompt(
             "Upper-left X coordinate? (empty to remove KOTH bounds)",
             jV ? jV.x1 : "",
@@ -9495,7 +9589,7 @@ var defly = (function () {
     (document.getElementById("homepage-loading").style.display = "block"),
       (document.getElementById("homepage-loaded").style.display = "none");
     var z = new XMLHttpRequest();
-    (z.onreadystatechange = function () {
+    (z.onreadystatechange = () => {
       if (4 == z.readyState && 200 == z.status) {
         var V = z.responseText.split("\n"),
           D = document.createElement("div");
@@ -9518,34 +9612,32 @@ var defly = (function () {
               L.appendChild(W),
               W.addEventListener(
                 "click",
-                (function (z) {
-                  return function () {
-                    if (
-                      window.confirm("Really remove this player from the team?")
-                    ) {
-                      var V = new XMLHttpRequest();
-                      (V.onreadystatechange = function () {
-                        4 == V.readyState && 200 == V.status
-                          ? kL()
-                          : 4 == V.readyState &&
-                            200 != V.status &&
-                            V.onerror(V.status);
+                ((z) => () => {
+                  if (
+                    window.confirm("Really remove this player from the team?")
+                  ) {
+                    var V = new XMLHttpRequest();
+                    (V.onreadystatechange = () => {
+                      4 == V.readyState && 200 == V.status
+                        ? kL()
+                        : 4 == V.readyState &&
+                          200 != V.status &&
+                          V.onerror(V.status);
+                    }),
+                      (V.onerror = (z) => {
+                        xD(
+                          new Date().toLocaleTimeString() +
+                            " - Error removing member",
+                          "error",
+                        );
                       }),
-                        (V.onerror = function (z) {
-                          xD(
-                            new Date().toLocaleTimeString() +
-                              " - Error removing member",
-                            "error",
-                          );
-                        }),
-                        V.open(
-                          "GET",
-                          G + "/tourney/remove?s=" + (l || "") + "&u=" + z,
-                          !0,
-                        ),
-                        V.send(null);
-                    }
-                  };
+                      V.open(
+                        "GET",
+                        G + "/tourney/remove?s=" + (l || "") + "&u=" + z,
+                        !0,
+                      ),
+                      V.send(null);
+                  }
                 })(V[P]),
               );
           }
@@ -9555,9 +9647,9 @@ var defly = (function () {
           ((v = document.createElement("div")).className = "bottom button"),
             (v.innerHTML = "Generate invite link"),
             D.appendChild(v),
-            v.addEventListener("click", function () {
+            v.addEventListener("click", () => {
               var z = new XMLHttpRequest();
-              (z.onreadystatechange = function () {
+              (z.onreadystatechange = () => {
                 if (4 == z.readyState && 200 == z.status) {
                   D.removeChild(v);
                   var V = document.createElement("div");
@@ -9571,7 +9663,7 @@ var defly = (function () {
                 } else
                   4 == z.readyState && 200 != z.status && z.onerror(z.status);
               }),
-                (z.onerror = function (z) {
+                (z.onerror = (z) => {
                   xD(
                     new Date().toLocaleTimeString() +
                       " - Error changing invite code",
@@ -9588,7 +9680,7 @@ var defly = (function () {
         document.body.appendChild(D);
       }
     }),
-      (z.onerror = function (z) {
+      (z.onerror = (z) => {
         xD(
           new Date().toLocaleTimeString() + " - Error fetching team members",
           "error",
@@ -9623,18 +9715,16 @@ var defly = (function () {
       (h.view.style.left = 0),
       (h.autoResize = !0),
       (h.view.style.display = z),
-      (h.view.oncontextmenu = function (z) {
-        return z.preventDefault(), !1;
-      }),
+      (h.view.oncontextmenu = (z) => (z.preventDefault(), !1)),
       document.body.appendChild(h.view),
       kc(),
       h.view.addEventListener(
         "webglcontextlost",
-        function (z) {
+        (z) => {
           console.error("WebGL context lost", z),
             z.preventDefault(),
             MainLoop.stop(),
-            setTimeout(function () {
+            setTimeout(() => {
               h.view.getContext("webgl").isContextLost() &&
                 (console.error(
                   "Context was not restored after 1 second, recreating",
@@ -9647,7 +9737,7 @@ var defly = (function () {
       ),
       h.view.addEventListener(
         "webglcontextrestored",
-        function () {
+        () => {
           console.error("WebGL context restored, recreating"),
             IL(),
             MainLoop.start();
@@ -9762,19 +9852,15 @@ var defly = (function () {
                 : "&nbsp;"),
             m.addEventListener(
               "click",
-              (function (z, V, l) {
-                return function () {
-                  fL(z, V, 0);
-                };
+              ((z, V, l) => () => {
+                fL(z, V, 0);
               })(m, L),
               !1,
             ),
             n.addEventListener(
               "click",
-              (function (z, V, l) {
-                return function () {
-                  fL(z, V, 1);
-                };
+              ((z, V, l) => () => {
+                fL(z, V, 1);
               })(n, L),
               !1,
             );
@@ -9793,17 +9879,15 @@ var defly = (function () {
       window.addEventListener("wheel", wc, !0),
       window.addEventListener("keydown", uc, !0),
       window.addEventListener("keyup", _c, !0),
-      (window.oncontextmenu = function (z) {
-        return z.preventDefault(), !1;
-      }),
+      (window.oncontextmenu = (z) => (z.preventDefault(), !1)),
       window.addEventListener(
         "blur",
-        function () {
+        () => {
           0 != e && ((Sc = [!1, !1, !1, !1]), Xc());
         },
         !0,
       ),
-      (document.getElementById("chat-input").onpaste = function (z) {
+      (document.getElementById("chat-input").onpaste = (z) => {
         z.preventDefault();
       }),
       (U = new PIXI.Container()),
@@ -9833,7 +9917,7 @@ var defly = (function () {
         .add("img/spritesheet92.json")
         .add("wall-line", "img/line1.png")
         .add("gridpixel", "img/gridpixel.png")
-        .load(function (z, V) {
+        .load((z, V) => {
           for (var l in ((-1 ==
             window.location.search.indexOf("playEpicTourney") &&
             -1 == window.location.search.indexOf("streamEpicTourney")) ||
@@ -9949,38 +10033,36 @@ var defly = (function () {
               ((F.dot1 = PIXI.loader.resources["tower-winter"].texture),
               (F.debris = PIXI.loader.resources["debris-winter"].texture)),
             "?skin-editor" == window.location.search && hL(),
-            PIXI.loader
-              .add("add-skins", "img/add-skins.js")
-              .load(function (z, V) {
-                var l = JSON.parse(V["add-skins"].data),
-                  D = [];
-                for (var v in l.images)
-                  F[v] = PIXI.Texture.fromImage(l.images[v]);
-                for (var c in l.specs)
-                  (DD[parseInt(c)] = l.specs[c]), D.push(parseInt(c));
-                setTimeout(function () {
-                  for (var z in (VL(!0), Tz))
-                    if (XV[z] && -1 !== D.indexOf(Tz[z])) {
-                      var V = XV[z];
-                      Z.removeChild(V),
-                        Y.removeChild(V.usernameText),
-                        V.shield && Z.removeChild(V.shield),
-                        V.badge && Y.removeChild(V.badge),
-                        gD(z),
-                        (XV[z].x = V.x),
-                        (XV[z].y = V.y),
-                        (XV[z].sx = V.sx),
-                        (XV[z].sy = V.sy);
-                    }
-                });
-              }),
+            PIXI.loader.add("add-skins", "img/add-skins.js").load((z, V) => {
+              var l = JSON.parse(V["add-skins"].data),
+                D = [];
+              for (var v in l.images)
+                F[v] = PIXI.Texture.fromImage(l.images[v]);
+              for (var c in l.specs)
+                (DD[parseInt(c)] = l.specs[c]), D.push(parseInt(c));
+              setTimeout(() => {
+                for (var z in (VL(!0), Tz))
+                  if (XV[z] && -1 !== D.indexOf(Tz[z])) {
+                    var V = XV[z];
+                    Z.removeChild(V),
+                      Y.removeChild(V.usernameText),
+                      V.shield && Z.removeChild(V.shield),
+                      V.badge && Y.removeChild(V.badge),
+                      gD(z),
+                      (XV[z].x = V.x),
+                      (XV[z].y = V.y),
+                      (XV[z].sx = V.sx),
+                      (XV[z].sy = V.sy);
+                  }
+              });
+            }),
             ("?defuse-editor" != window.location.search &&
               "?map-editor" != window.location.search) ||
               wL(),
             document
               .getElementById("preferred-server-block")
               .getElementsByClassName("close")[0]
-              .addEventListener("click", function () {
+              .addEventListener("click", () => {
                 history.replaceState(
                   "",
                   document.title,
@@ -9991,30 +10073,32 @@ var defly = (function () {
             document.getElementById("redo-last-upgrade-yes-button") &&
               document
                 .getElementById("redo-last-upgrade-yes-button")
-                .addEventListener("click", function () {
+                .addEventListener("click", () => {
                   BD(!0);
                 }),
             document.getElementById("redo-last-upgrade-no-button") &&
               document
                 .getElementById("redo-last-upgrade-no-button")
-                .addEventListener("click", function () {
+                .addEventListener("click", () => {
                   BD(!1);
                 });
         }),
-      $(function () {
-        ($("#server").selectmenu().data("ui-selectmenu")._renderItem =
-          function (z, V) {
-            var l = $("<li>"),
-              D = $("<div>", { text: V.label });
-            return (
-              V.element.attr("data-ping") &&
-                $("<span>", {
-                  class: "ping",
-                  text: "(ping: " + V.element.attr("data-ping") + ")",
-                }).appendTo(D),
-              l.append(D).appendTo(z)
-            );
-          }),
+      $(() => {
+        ($("#server").selectmenu().data("ui-selectmenu")._renderItem = (
+          z,
+          V,
+        ) => {
+          var l = $("<li>"),
+            D = $("<div>", { text: V.label });
+          return (
+            V.element.attr("data-ping") &&
+              $("<span>", {
+                class: "ping",
+                text: "(ping: " + V.element.attr("data-ping") + ")",
+              }).appendTo(D),
+            l.append(D).appendTo(z)
+          );
+        }),
           $("#server-button").removeAttr("aria-owns");
       });
     try {
@@ -10048,7 +10132,7 @@ var defly = (function () {
     } catch (z) {
       console.log(z);
     }
-    (Zl = (function () {
+    (Zl = (() => {
       var z = !1,
         V = document.createElement("div");
       if (
@@ -10100,7 +10184,7 @@ var defly = (function () {
     document.getElementById("gsignin-blocker") &&
       (document.getElementById("gsignin-blocker").addEventListener(
         "click",
-        function (z) {
+        (z) => {
           document.getElementById("privacy-policy-checkbox").checked ||
             dl("You must accept the terms of service and privacy policy");
         },
@@ -10108,7 +10192,7 @@ var defly = (function () {
       ),
       document
         .getElementById("privacy-policy-checkbox")
-        .addEventListener("click", function () {
+        .addEventListener("click", () => {
           document.getElementById("gsignin-blocker").style.pointerEvents =
             document.getElementById("privacy-policy-checkbox").checked
               ? "none"
@@ -10118,13 +10202,13 @@ var defly = (function () {
   "loading" !== document.readyState
     ? OL()
     : document.addEventListener("DOMContentLoaded", OL, !1),
-    window.addEventListener("beforeunload", function (z) {
+    window.addEventListener("beforeunload", (z) => {
       if ((0 != e && !n && !xz) || mc || SL) {
         return (z.returnValue = "Exit the game?"), "Exit the game?";
       }
     });
   var eL = {
-    selectMode: function (V) {
+    selectMode: (V) => {
       BV ||
         ("none" !== document.getElementById("play-button").style.display &&
           ((hz = V),
@@ -10138,7 +10222,7 @@ var defly = (function () {
             ),
             GL())));
     },
-    clickPlay: function () {
+    clickPlay: () => {
       if (pV && !qc) {
         qc = window.prompt("?", "");
       }
@@ -10162,17 +10246,13 @@ var defly = (function () {
         }
       } else {
         // Prompt sign-in requirement
-        dl(
-          "You must sign-in to participate in the tournament",
-          "",
-          function () {
-            XP();
-          },
-        );
+        dl("You must sign-in to participate in the tournament", "", () => {
+          XP();
+        });
       }
     },
     backToHomepage: Il,
-    respawn: function () {
+    respawn: () => {
       (Ml = Wc),
         !BV && (mz > 600 || 2 == qz || (qz > 2 && (qz - 2) % 2 == 0)) && Gl()
           ? "undefined" != typeof gtag &&
@@ -10192,7 +10272,7 @@ var defly = (function () {
         (document.getElementById("respawn-button").style.display = "none"),
         (document.getElementById("xp-bar").style.display = "block");
     },
-    spectate: function () {
+    spectate: () => {
       2 == hz
         ? xV >= 30
           ? ((Ml = gc),
@@ -10207,7 +10287,7 @@ var defly = (function () {
         : (document.getElementById("respawn").style.display = "none");
     },
     upgrade: Lc,
-    selectSuperpower: function (z) {
+    selectSuperpower: (z) => {
       document.getElementById("choose-superpower").style.display = "none";
       var V = new DataView(new ArrayBuffer(2));
       V.setUint8(0, 6),
@@ -10220,13 +10300,13 @@ var defly = (function () {
     },
     promoComplete: kl,
     setQuality: al,
-    chooseSkin: function () {
+    chooseSkin: () => {
       (document.getElementById("skin-popup").style.display = "block"),
         document.getElementById("homepage").classList.add("blurred"),
         "undefined" != typeof gtag &&
           gtag("event", "SelectSkin", { event_category: "Click" });
     },
-    closeSkinSelector: function () {
+    closeSkinSelector: () => {
       (document.getElementById("skin-popup").style.display = "none"),
         document.getElementById("homepage").classList.remove("blurred"),
         "undefined" != typeof gtag &&
@@ -10239,7 +10319,7 @@ var defly = (function () {
     changeSkinColor: DL,
     changeSkinTab: NP,
     sac: hc,
-    onGoogleSignIn: function (z) {
+    onGoogleSignIn: (z) => {
       if (!Jz) {
         var V = QP(z.credential);
         if (!V.email_verified)
@@ -10261,7 +10341,7 @@ var defly = (function () {
             localStorage.setItem("previousGoogleCredential", oP),
             l &&
               l != V.sub &&
-              google.accounts.id.revoke(l, function (z) {
+              google.accounts.id.revoke(l, (z) => {
                 console.log("User signed out from previous google account."),
                   z.successful ||
                     console.error(
@@ -10274,14 +10354,14 @@ var defly = (function () {
     googleSignOut: xP,
     onFacebookLoginStatus: SP,
     logout: bP,
-    clickFacebookLogin: function () {
+    clickFacebookLogin: () => {
       document.getElementById("privacy-policy-checkbox").checked
         ? FB.login(SP, { scope: "email" })
         : dl("You must accept the terms of service and privacy policy", "");
     },
-    showMyStats: function () {
+    showMyStats: () => {
       var z = new XMLHttpRequest();
-      (z.onreadystatechange = function () {
+      (z.onreadystatechange = () => {
         if (4 == z.readyState && 200 == z.status) {
           for (
             var V = z.responseText.split("\n"),
@@ -10302,7 +10382,7 @@ var defly = (function () {
                     : (100 * P.max_area) /
                       (P.map_area
                         ? P.map_area
-                        : Math.pow(3 == P.game_mode ? 500 : 800, 2));
+                        : (3 == P.game_mode ? 500 : 800) ** 2);
             L = rv(L);
             var W = 4 == P.game_mode ? "" : "Disconnect";
             switch (P.kill_reason) {
@@ -10367,7 +10447,7 @@ var defly = (function () {
         } else 4 == z.readyState && 200 != z.status && z.onerror(z.status);
         var g, q, m, h;
       }),
-        (z.onerror = function (z) {
+        (z.onerror = (z) => {
           xD(
             new Date().toLocaleTimeString() + " - Error getting stats",
             "error",
@@ -10382,15 +10462,15 @@ var defly = (function () {
     },
     showMyAccount: BL,
     selectTeam: bv,
-    buyGear: function (z) {
+    buyGear: (z) => {
       var V = new DataView(new ArrayBuffer(3));
       V.setUint8(0, 11), V.setUint8(1, z), V.setUint8(2, 0), q.send(V.buffer);
     },
-    sellGear: function (z) {
+    sellGear: (z) => {
       var V = new DataView(new ArrayBuffer(3));
       V.setUint8(0, 11), V.setUint8(1, z), V.setUint8(2, 1), q.send(V.buffer);
     },
-    changeControls: function () {
+    changeControls: () => {
       (aV = document.getElementById("controls-colorblind").checked),
         (vV = document.getElementById("controls-mwm").checked),
         (cV = vV);
@@ -10404,7 +10484,7 @@ var defly = (function () {
         for (var z in RV)
           RV[z].texture = F[Wv(RV[z].owner, RV[z].hp, RV[z].maxHP)];
     },
-    changeTheme: function () {
+    changeTheme: () => {
       (PV = document.getElementById("theme-radio2").checked),
         (h.backgroundColor = PV ? 0 : 15923199);
       try {
@@ -10416,7 +10496,7 @@ var defly = (function () {
         for (var z in XV) XV[z].usernameText._style.fill = PV ? 16777215 : 0;
       CD();
     },
-    changeChatSettings: function () {
+    changeChatSettings: () => {
       (LV = document.getElementById("settings-disablechat").checked),
         (WV = document.getElementById("settings-disableinfolog").checked);
       for (
@@ -10435,7 +10515,7 @@ var defly = (function () {
       }
     },
     showLoginPopup: XP,
-    joinTourney: function () {
+    joinTourney: () => {
       if (pV || sz || Jz) {
         if (!N) {
           (N = !0),
@@ -10454,7 +10534,7 @@ var defly = (function () {
         }
       } else dl("Log-in first to participate the tournament", "", XP);
     },
-    buyPremium: function (z) {
+    buyPremium: (z) => {
       if (
         (sz &&
           dP(KP) &&
@@ -10467,7 +10547,7 @@ var defly = (function () {
         (V.textContent = "Please wait..."), (V.disabled = !0);
         var D = new XMLHttpRequest();
         return (
-          (D.onreadystatechange = function () {
+          (D.onreadystatechange = () => {
             if (4 == D.readyState && 200 == D.status) {
               var V = D.responseText.split("\n"),
                 l = V[0],
@@ -10475,7 +10555,7 @@ var defly = (function () {
               console.log("Got xsolla token", v);
               var c = { access_token: v, sandbox: -1 !== l.indexOf("sandbox") };
               if (5 == z) {
-                let z =
+                const z =
                   "https://" +
                   (-1 !== l.indexOf("sandbox") ? "sandbox-" : "") +
                   "secure.xsolla.com/paystation3/?access_token=" +
@@ -10486,7 +10566,7 @@ var defly = (function () {
                     'Payment link (valid 24 hours): <div class="button" onclick="document.getElementById(\'xsolla-share-link\').select();        document.execCommand(\'copy\');alert(\'Link copied\');">Copy</div><input id="xsolla-share-link" value="' +
                     z +
                     '" size="85">');
-                let V = document.getElementById("after-buy-message");
+                const V = document.getElementById("after-buy-message");
                 return void V.parentNode.insertBefore(P, V);
               }
               var L = document.createElement("script");
@@ -10496,9 +10576,9 @@ var defly = (function () {
                   "https://static.xsolla.com/embed/paystation/1.0.7/widget.min.js"),
                 L.addEventListener(
                   "load",
-                  function (z) {
+                  (z) => {
                     XPayStationWidget.init(c),
-                      XPayStationWidget.on("close", function () {
+                      XPayStationWidget.on("close", () => {
                         window.location.search = "?my-account";
                       }),
                       XPayStationWidget.open();
@@ -10508,7 +10588,7 @@ var defly = (function () {
                 document.getElementsByTagName("head")[0].appendChild(L);
             } else 4 == D.readyState && 200 != D.status && D.onerror(D.status);
           }),
-          (D.onerror = function (z) {
+          (D.onerror = (z) => {
             console.log(z),
               alert(
                 "An error occured during the transation, please try again or contact us",
@@ -10531,26 +10611,26 @@ var defly = (function () {
             v +
             "&currency_code=USD&country=US&lc=US&no_shipping=1&amount=5",
         );
-      var P = setInterval(function () {
+      var P = setInterval(() => {
         c.closed &&
           (clearInterval(P),
           (document.getElementById("after-buy-message").style.display =
             "block"));
       }, 100);
     },
-    updateReservedNickname: function () {
+    updateReservedNickname: () => {
       var z = document.getElementById("reserved-nickname").value,
         V = document.getElementById("reserved-nickname-button");
       (V.disabled = !0), (V.innerHTML = "Updating...");
       var D = new XMLHttpRequest();
-      (D.onreadystatechange = function () {
+      (D.onreadystatechange = () => {
         if (4 == D.readyState && 200 == D.status) {
           (V.disabled = !1), (V.innerHTML = "Update");
           var z = D.responseText.split("\n");
           "ERROR" == z[0] && alert(z[1]);
         } else 4 == D.readyState && 200 != D.status && D.onerror(D.status);
       }),
-        (D.onerror = function (z) {
+        (D.onerror = (z) => {
           (V.disabled = !1),
             (V.innerHTML = "Update"),
             dl("Error updating reserved nickname"),
@@ -10563,11 +10643,11 @@ var defly = (function () {
         ),
         D.send(null);
     },
-    updateDiscordID: function () {
+    updateDiscordID: () => {
       var z = document.getElementById("discord-id-button"),
         V = z.innerHTML;
       (z.disabled = !0), (z.innerHTML = "Authorizing...");
-      let D = Math.min(400, window.innerWidth),
+      const D = Math.min(400, window.innerWidth),
         v = Math.min(800, window.innerHeight),
         c = (screen.availWidth - D) / 2,
         P = (screen.availHeight - v) / 2,
@@ -10578,7 +10658,7 @@ var defly = (function () {
           "_blank",
           "popup=1,width=" + D + ",height=" + v + ",left=" + c + ",top=" + P,
         ),
-        W = setInterval(function () {
+        W = setInterval(() => {
           try {
             if (L.closed)
               clearInterval(W), (z.disabled = !1), (z.innerHTML = V);
@@ -10587,7 +10667,7 @@ var defly = (function () {
               var D = new URLSearchParams(L.location.hash).get("access_token");
               if ((L.close(), D)) {
                 var v = new XMLHttpRequest();
-                (v.onreadystatechange = function () {
+                (v.onreadystatechange = () => {
                   if (4 == v.readyState && 200 == v.status) {
                     (z.disabled = !1), (z.innerHTML = V);
                     var l = v.responseText.split("\n");
@@ -10602,7 +10682,7 @@ var defly = (function () {
                   } else
                     4 == v.readyState && 200 != v.status && v.onerror(v.status);
                 }),
-                  (v.onerror = function (l) {
+                  (v.onerror = (l) => {
                     (z.disabled = !1),
                       (z.innerHTML = V),
                       dl("Error updating discord ID"),
@@ -10623,21 +10703,14 @@ var defly = (function () {
           } catch (z) {}
         }, 100);
     },
-    showChatInput: ic,
-    toggleChatInput: function () {
-      document.getElementById("chat-block").classList.contains("typing")
-        ? (document.getElementById("chat-input").blur(),
-          document.getElementById("chat-block").classList.remove("typing"))
-        : ic();
-    },
-    voteForMap: function (z) {
+    voteForMap: (z) => {
       document.getElementById("map-vote").style.display = "none";
       var V = new DataView(new ArrayBuffer(2));
       V.setUint8(0, 13), V.setUint8(1, uD[z].id), q.send(V.buffer);
     },
-    addStatsFilters: function () {
+    addStatsFilters: () => {
       $(".button.filters").hide(),
-        $.getScript("tablefilter/tablefilter.js", function () {
+        $.getScript("tablefilter/tablefilter.js", () => {
           new TableFilter(
             document.querySelector("#my-statistics-table"),
             { base_path: "./tablefilter/" },
@@ -10696,7 +10769,7 @@ var defly = (function () {
         });
     },
     recreateRenderer: IL,
-    select1v1Player: function (z) {
+    select1v1Player: (z) => {
       if (z && z != HV) {
         zv = z;
         var V = EV[z];
@@ -10720,7 +10793,7 @@ var defly = (function () {
           "hidden";
       return !1;
     },
-    confirmChallenge: function (z) {
+    confirmChallenge: (z) => {
       if (Vv) {
         if (z) {
           XD("You challenged " + Cl(EV[zv].name), "bold");
@@ -10736,7 +10809,7 @@ var defly = (function () {
         (document.getElementById("gm-1v1-confirm-duel").style.visibility =
           "hidden");
     },
-    answerChallenge: function (z, V) {
+    answerChallenge: (z, V) => {
       var l = new DataView(new ArrayBuffer(6));
       l.setUint8(0, 15),
         l.setInt32(1, z),
