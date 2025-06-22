@@ -16356,38 +16356,7 @@
           function f() {
             X = !0;
           }
-          function p(t) {
-            if (!X) {
-              if (navigator.userAgent.toLowerCase().indexOf("chrome") > -1) {
-                var e = [
-                  "\n %c %c %c PixiJS " +
-                    w.VERSION +
-                    " - âœ° " +
-                    t +
-                    " âœ°  %c  %c  http://www.pixijs.com/  %c %c â™¥%câ™¥%câ™¥ \n\n",
-                  "background: #ff66a5; padding:5px 0;",
-                  "background: #ff66a5; padding:5px 0;",
-                  "color: #ff66a5; background: #030307; padding:5px 0;",
-                  "background: #ff66a5; padding:5px 0;",
-                  "background: #ffc3dc; padding:5px 0;",
-                  "background: #ff66a5; padding:5px 0;",
-                  "color: #ff2424; background: #fff; padding:5px 0;",
-                  "color: #ff2424; background: #fff; padding:5px 0;",
-                  "color: #ff2424; background: #fff; padding:5px 0;",
-                ];
-                window.console.log.apply(console, e);
-              } else
-                window.console &&
-                  window.console.log(
-                    "PixiJS " +
-                      w.VERSION +
-                      " - " +
-                      t +
-                      " - http://www.pixijs.com/",
-                  );
-              X = !0;
-            }
-          }
+          function p(t) {}
           function v() {
             var t = { stencil: !0, failIfMajorPerformanceCaveat: !0 };
             try {

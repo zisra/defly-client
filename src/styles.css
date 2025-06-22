@@ -201,7 +201,7 @@ body {
     border-radius: 4px;
 }
 #toasts div.error {
-    background-color: var(-error);
+    background-color: var(--error);
 }
 #internet-issue {
     display: none;
@@ -213,7 +213,7 @@ body {
     font-size: 24px;
     padding: 8px 16px;
     color: var(--white);
-    background-color: var(-error);
+    background-color: var(--error);
     border-radius: 4px;
     animation-iteration-count: infinite;
 }
