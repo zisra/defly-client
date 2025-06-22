@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
+    "serve": "node ./server",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -15,6 +16,10 @@
   "dependencies": {
     "pixi.js": "4.8.6",
     "vite": "^6.3.5",
+    "vite-plugin-pwa": "^1.0.0",
     "ws": "^8.18.2"
+  },
+  "devDependencies": {
+    "workbox-build": "^7.3.0"
   }
 }

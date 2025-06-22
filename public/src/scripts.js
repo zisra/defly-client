@@ -435,7 +435,7 @@ var Fl =
     -1 !== document.referrer.indexOf("gamearter.com");
 function dl(z, V, l) {
   var D = document.createElement("div");
-  D.className = "alert-popup" + (V ? " " + V : "");
+  D.className = `alert-popup${V ? ` ${V}` : ""}`;
   var v = document.createElement("div");
   (v.className = "popup-outer"), D.appendChild(v);
   var c = document.createElement("div");
@@ -507,8 +507,8 @@ function sl(z, V, l) {
 function getWebsocketUri(z) {
   return "https:" === window.location.protocol.toLowerCase() ||
     z.includes("localhost")
-    ? z
-    : "wss://" + z.replace(":", "/");
+    ? `ws://${z}`
+    : `wss://${z.replace(":", "/")}`;
 }
 function checkServerPing(server) {
   websocketConnections[server] = new WebSocket(
@@ -523,13 +523,12 @@ function checkServerPing(server) {
   };
 
   websocketConnections[server].addEventListener("open", (z) => {
-    console.log(server);
     z.target.sendPing();
   });
 
   websocketConnections[server].addEventListener("error", function (z) {
     if (!this.cancelled)
-      xD(
+      console.log(
         `${new Date().toLocaleTimeString()} - Error reaching server in ${server} ${z.type} ${z.code}`,
         "",
       );
@@ -796,20 +795,9 @@ function Xl() {
   };
 
   if (D === "LOCAL") {
-    P.open("POST", "/servers/all.txt", true);
+    P.open("POST", `/servers/${hz}.txt`, true);
   } else {
-    var url =
-      G +
-      "?r=" +
-      (D || "") +
-      "&m=" +
-      hz +
-      "&u=" +
-      encodeURIComponent(c) +
-      "&fu=" +
-      encodeURIComponent(ol(c)) +
-      "&s=" +
-      (l || "");
+    var url = `${G}?r=${D || ""}&m=${hz}&u=${encodeURIComponent(c)}&fu=${encodeURIComponent(ol(c))}&s=${l || ""}`;
 
     if (sz) {
       url += "&a=1";
@@ -7789,16 +7777,16 @@ var vL,
   LL = {};
 function WL(z) {
   var V = new FileReader();
-  (V.onload = () => {
+  V.onload = () => {
     var l =
       "data:image/png;base64," +
       btoa(String.fromCharCode.apply(null, new Uint8Array(V.result)));
     (LL[z.name] = l),
       (F[z.name] = PIXI.Texture.fromImage(l)),
-      localStorage.setItem("skinEditorImages", JSON.stringify(LL)),
-      mL();
-  }),
-    V.readAsArrayBuffer(z);
+      localStorage.setItem("skinEditorImages", JSON.stringify(LL));
+    mL();
+  };
+  V.readAsArrayBuffer(z);
 }
 function gL() {
   if (
@@ -7957,32 +7945,33 @@ function qL(z, V) {
 }
 function mL() {
   var z = '<option name=""></option>';
-  for (var V in LL) z += '<option name="' + V + '">' + V + "</option>";
-  (document.getElementById("skin-editor-base").innerHTML = z),
-    (document.getElementById("skin-editor-notint").innerHTML = z),
-    (document.getElementById("skin-editor-size").value = DD[PL].size);
-  for (var l = document.getElementById("skin-editor-rotors"); l.firstChild; )
+  for (var V in LL) z += `<option name="${V}">${V}</option>`;
+  document.getElementById("skin-editor-base").innerHTML = z;
+  document.getElementById("skin-editor-notint").innerHTML = z;
+  document.getElementById("skin-editor-size").value = DD[PL].size;
+  for (var l = document.getElementById("skin-editor-rotors"); l.firstChild; ) {
     l.removeChild(l.firstChild);
+  }
   for (var V in DD[PL].rotors) {
     var D = qL(DD[PL].rotors[V], V);
     l.appendChild(D);
   }
   var v = document.createElement("button");
-  (v.innerHTML = "Add rotor"),
-    (v.className = "button"),
-    l.appendChild(v),
-    v.addEventListener("click", () => {
-      DD[PL].rotors.push({
-        img: "rotor1",
-        x: 0,
-        y: 0,
-        speed: 4 * Math.PI,
-        size: 1,
-      }),
-        mL();
-    }),
-    (document.getElementById("skin-editor-base").value = DD[PL].base),
-    (document.getElementById("skin-editor-notint").value = DD[PL].notint);
+  v.innerHTML = "Add rotor";
+  v.className = "button";
+  l.appendChild(v);
+  v.addEventListener("click", () => {
+    DD[PL].rotors.push({
+      img: "rotor1",
+      x: 0,
+      y: 0,
+      speed: 4 * Math.PI,
+      size: 1,
+    });
+    mL();
+  });
+  document.getElementById("skin-editor-base").value = DD[PL].base;
+  document.getElementById("skin-editor-notint").value = DD[PL].notint;
 }
 function hL() {
   kz = 64;
@@ -8010,7 +7999,7 @@ function hL() {
     )
       for (var l in (LL = JSON.parse(localStorage.getItem("skinEditorImages"))))
         F[l] = PIXI.Texture.fromImage(LL[l]);
-  } catch (z) {}
+  } catch (err) {}
   mL(),
     (Tz[-2] = PL),
     (cl[-2] = kV[Qz >= 0 ? Qz : 0]),
@@ -8032,59 +8021,55 @@ function hL() {
           : 2 == v.visibility && (v.sprite.visible = !c);
       }
       z.render(V);
-    }, 1e3 / 60)),
-    (defly.closeSkinEditor = UL),
-    (defly.saveSkin = tL),
-    (defly.clearSkin = () => {
-      localStorage.removeItem("skinEditorImages"),
-        localStorage.removeItem("skinEditorSkinModel"),
-        (DD[PL] = { base: "", notint: "", rotors: [], size: 1 }),
-        (LL = {}),
-        gL(),
-        mL();
-    }),
-    document.getElementById("skin-upload-input").addEventListener("change", jL),
+    }, 1e3 / 60));
+  defly.closeSkinEditor = UL;
+  defly.saveSkin = tL;
+  defly.clearSkin = () => {
+    localStorage.removeItem("skinEditorImages"),
+      localStorage.removeItem("skinEditorSkinModel"),
+      (DD[PL] = { base: "", notint: "", rotors: [], size: 1 }),
+      (LL = {}),
+      gL(),
+      mL();
+  };
+  document.getElementById("skin-upload-input").addEventListener("change", jL),
     document
       .getElementById("skin-editor-input")
       .addEventListener("change", () => {
         !((z) => {
           for (var V = 0; V < z.files.length; V++) WL(z.files[V]);
         })(document.getElementById("skin-editor-input"));
-      }),
-    document
-      .getElementById("skin-editor-size")
-      .addEventListener("input", () => {
-        (DD[PL].size = parseFloat(
-          document.getElementById("skin-editor-size").value,
-        )),
-          gL();
-      }),
-    document
-      .getElementById("skin-editor-base")
-      .addEventListener("change", () => {
-        (DD[PL].base = document.getElementById("skin-editor-base").value), gL();
-      }),
-    document
-      .getElementById("skin-editor-notint")
-      .addEventListener("change", () => {
-        (DD[PL].notint = document.getElementById("skin-editor-notint").value),
-          gL();
-      }),
-    document
-      .getElementById("show-collision-circle")
-      .addEventListener("change", gL),
-    document.getElementById("stance-idle").addEventListener("click", () => {
-      (cL.stance = 0),
-        document.getElementById("stance-idle").classList.remove("back"),
-        document.getElementById("stance-moving").classList.add("back");
-    }),
-    document.getElementById("stance-moving").addEventListener("click", () => {
-      (cL.stance = 1),
-        document.getElementById("stance-idle").classList.add("back"),
-        document.getElementById("stance-moving").classList.remove("back");
+      });
+  document.getElementById("skin-editor-size").addEventListener("input", () => {
+    (DD[PL].size = parseFloat(
+      document.getElementById("skin-editor-size").value,
+    )),
+      gL();
+  });
+  document.getElementById("skin-editor-base").addEventListener("change", () => {
+    (DD[PL].base = document.getElementById("skin-editor-base").value), gL();
+  });
+  document
+    .getElementById("skin-editor-notint")
+    .addEventListener("change", () => {
+      (DD[PL].notint = document.getElementById("skin-editor-notint").value),
+        gL();
     });
+  document
+    .getElementById("show-collision-circle")
+    .addEventListener("change", gL);
+  document.getElementById("stance-idle").addEventListener("click", () => {
+    (cL.stance = 0),
+      document.getElementById("stance-idle").classList.remove("back"),
+      document.getElementById("stance-moving").classList.add("back");
+  });
+  document.getElementById("stance-moving").addEventListener("click", () => {
+    (cL.stance = 1),
+      document.getElementById("stance-idle").classList.add("back"),
+      document.getElementById("stance-moving").classList.remove("back");
+  });
   var D = "";
-  for (var l in F) D += '<option name="' + l + '">' + l + "</option>";
+  for (var l in F) D += `<option name="${l}">${l}</option>`;
   (document.getElementById("skin-editor-game-sprites").innerHTML = D),
     document
       .getElementById("skin-editor-input2")
@@ -8148,7 +8133,7 @@ function aL(z) {
     (D.onerror = (z) => {
       dl("Error updating badge"), console.log(z);
     }),
-    D.open("POST", G + "/account/updateBadge?s=" + l + "&b=" + V, true),
+    D.open("POST", `${G}/account/updateBadge?s=${l}&b=${V}`, true),
     D.send(null);
 }
 function BL() {
@@ -9885,17 +9870,17 @@ var defly = (() => {
     },
     answerChallenge: (z, V) => {
       var l = new DataView(new ArrayBuffer(6));
-      l.setUint8(0, 15),
-        l.setInt32(1, z),
-        l.setUint8(5, V ? 1 : 0),
-        q.send(l.buffer),
-        XD(
-          "You " +
-            (V ? "accepted" : "rejected") +
-            " the challenge from " +
-            Cl(EV[z].name),
-          "bold",
-        );
+      l.setUint8(0, 15);
+      l.setInt32(1, z);
+      l.setUint8(5, V ? 1 : 0);
+      q.send(l.buffer);
+      XD(
+        "You " +
+          (V ? "accepted" : "rejected") +
+          " the challenge from " +
+          Cl(EV[z].name),
+        "bold",
+      );
     },
   };
 })();

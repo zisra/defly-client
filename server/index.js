@@ -26,20 +26,6 @@ function parseLoginPacket(buffer) {
   return { username, $z, qz, score: 0, moving: false, moveDirection: 0 };
 }
 
-function createSpawnPacket(playerId, x, y) {
-  const buffer = new ArrayBuffer(13);
-  const view = new DataView(buffer);
-  let offset = 0;
-  view.setUint8(offset++, 20); // opcode 20 = spawn
-  view.setInt32(offset, playerId);
-  offset += 4;
-  view.setFloat32(offset, x);
-  offset += 4;
-  view.setFloat32(offset, y);
-  offset += 4;
-  return buffer;
-}
-
 function createGameInitPacket(playerId) {
   const buffer = new ArrayBuffer(90);
   const view = new DataView(buffer);
@@ -184,8 +170,6 @@ wss.on("connection", (ws) => {
     const view = new DataView(arrayBuffer);
     const opcode = view.getUint8(0);
 
-    console.log("Opcode", opcode);
-
     switch (opcode) {
       case 1: {
         const login = parseLoginPacket(arrayBuffer);
@@ -195,9 +179,6 @@ wss.on("connection", (ws) => {
 
           const gameInitPacket = createGameInitPacket(login.$z || 1);
           ws.send(gameInitPacket);
-
-          const spawnPacket = createSpawnPacket(login.$z || 1, 4, 4);
-          ws.send(spawnPacket);
         }
         break;
       }
