@@ -437,11 +437,14 @@ function dl(z, V, l) {
   var D = document.createElement("div");
   D.className = `alert-popup${V ? ` ${V}` : ""}`;
   var v = document.createElement("div");
-  (v.className = "popup-outer"), D.appendChild(v);
+  v.className = "popup-outer";
+  D.appendChild(v);
   var c = document.createElement("div");
-  (c.className = "wrapper"), D.appendChild(c);
+  c.className = "wrapper";
+  D.appendChild(c);
   var P = document.createElement("div");
-  (P.innerHTML = z), c.appendChild(P);
+  P.innerHTML = z;
+  c.appendChild(P);
   var L = document.createElement("div");
   function W() {
     anime({
@@ -450,7 +453,10 @@ function dl(z, V, l) {
       easing: "easeInQuad",
       opacity: [1, 0],
       complete: () => {
-        document.body.removeChild(D), "function" == typeof l && l();
+        document.body.removeChild(D);
+        if ("function" == typeof l) {
+          l();
+        }
       },
     });
   }
@@ -790,7 +796,7 @@ function Xl() {
   };
 
   P.onerror = () => {
-    xD(new Date().toLocaleTimeString() + " - Error selecting server", "error");
+    xD(`${new Date().toLocaleTimeString()} - Error selecting server`, "error");
     Rl = setTimeout(Xl, 3000);
   };
 
@@ -808,7 +814,7 @@ function Xl() {
     }
 
     if (z) {
-      url += "&p=" + encodeURIComponent(z);
+      url += `&p=${encodeURIComponent(z)}`;
     }
 
     P.open("POST", url, true);
@@ -946,26 +952,36 @@ function pingServer() {
 var Ml,
   ul = false;
 function El() {
-  (N = true),
-    window.DEFLY_SERVER_URL
-      ? ((k = window.DEFLY_SERVER_URL), pingServer())
-      : Xl();
+  N = true;
+  if (window.DEFLY_SERVER_URL) {
+    k = window.DEFLY_SERVER_URL;
+    pingServer();
+  } else {
+    Xl();
+  }
 }
 function _l() {
   if (!N) {
     if (Fl && !nl) {
       !(() => {
         try {
-          document.body.requestFullscreen
-            ? document.body.requestFullscreen()
-            : document.body.mozRequestFullScreen
-              ? document.body.mozRequestFullScreen()
-              : document.body.webkitRequestFullscreen
-                ? document.body.webkitRequestFullscreen(
-                    Element.ALLOW_KEYBOARD_INPUT,
-                  )
-                : document.body.msRequestFullscreen &&
+          if (document.body.requestFullscreen) {
+            document.body.requestFullscreen();
+          } else {
+            if (document.body.mozRequestFullScreen) {
+              return document.body.mozRequestFullScreen();
+            } else {
+              if (document.body.webkitRequestFullscreen) {
+                return document.body.webkitRequestFullscreen(
+                  Element.ALLOW_KEYBOARD_INPUT,
+                );
+              } else {
+                if (document.body.msRequestFullscreen) {
                   document.body.msRequestFullscreen();
+                }
+              }
+            }
+          }
         } catch (z) {
           console.error(z);
         }
@@ -974,23 +990,23 @@ function _l() {
         screen.orientation.lock("landscape");
       } catch (z) {}
     }
-    (Ml = El),
-      (2 == hz || 2 == qz || (qz > 2 && (qz - 2) % 2 == 0)) && Gl()
-        ? "undefined" != typeof gtag &&
+    Ml = El;
+    (2 == hz || 2 == qz || (qz > 2 && (qz - 2) % 2 == 0)) && Gl()
+      ? "undefined" != typeof gtag &&
+        gtag("event", "StartGame", {
+          event_category: "Click",
+          event_label: "VideoAd",
+          playerSkin: $z,
+          playerSkinColor: Qz,
+        })
+      : (El(),
+        "undefined" != typeof gtag &&
           gtag("event", "StartGame", {
             event_category: "Click",
-            event_label: "VideoAd",
+            event_label: "NoVideoAd",
             playerSkin: $z,
             playerSkinColor: Qz,
-          })
-        : (El(),
-          "undefined" != typeof gtag &&
-            gtag("event", "StartGame", {
-              event_category: "Click",
-              event_label: "NoVideoAd",
-              playerSkin: $z,
-              playerSkinColor: Qz,
-            }));
+          }));
   }
 }
 function il() {
@@ -1615,20 +1631,7 @@ function Ol(z) {
           var q = l == g;
           if (!Fl || g < 5) {
             var m = 1 == hz || 2 == hz ? Ll(uV[P[g].id]) : Pl(P[g].id);
-            W +=
-              '<div class="lb-item' +
-              (q ? " is-self" : "") +
-              '"><span class="color" style="background-color: ' +
-              HP(m) +
-              '"></span><span class="rank">' +
-              (g + 1) +
-              '.</span><span class="player-name' +
-              (g + 1 >= 10 ? " l" : "") +
-              '">' +
-              Cl(nz[P[g].id]) +
-              '</span><span class="points">' +
-              P[g].points +
-              "</span></div>";
+            W += `<div class="lb-item${q ? " is-self" : ""}"><span class="color" style="background-color: ${HP(m)}"></span><span class="rank">${g + 1}.</span><span class="player-name${g + 1 >= 10 ? " l" : ""}">${Cl(nz[P[g].id])}</span><span class="points">${P[g].points}</span></div>`;
           }
         }
         if (
@@ -7777,15 +7780,19 @@ var vL,
   LL = {};
 function WL(z) {
   var V = new FileReader();
+
   V.onload = () => {
     var l =
       "data:image/png;base64," +
       btoa(String.fromCharCode.apply(null, new Uint8Array(V.result)));
-    (LL[z.name] = l),
-      (F[z.name] = PIXI.Texture.fromImage(l)),
-      localStorage.setItem("skinEditorImages", JSON.stringify(LL));
+
+    LL[z.name] = l;
+    F[z.name] = PIXI.Texture.fromImage(l);
+    localStorage.setItem("skinEditorImages", JSON.stringify(LL));
+
     mL();
   };
+
   V.readAsArrayBuffer(z);
 }
 function gL() {
@@ -8069,26 +8076,35 @@ function hL() {
       document.getElementById("stance-moving").classList.remove("back");
   });
   var D = "";
-  for (var l in F) D += `<option name="${l}">${l}</option>`;
-  (document.getElementById("skin-editor-game-sprites").innerHTML = D),
-    document
-      .getElementById("skin-editor-input2")
-      .addEventListener("change", () => {
-        var z = document.getElementById("skin-editor-input2").files[0],
-          V = new FileReader();
-        (V.onload = () => {
-          var z =
-              "data:image/png;base64," +
-              btoa(String.fromCharCode.apply(null, new Uint8Array(V.result))),
-            l = document.createElement("img");
-          (l.src = z),
-            (F[document.getElementById("skin-editor-game-sprites").value] =
-              PIXI.Texture.fromImage(l.src)),
-            (document.getElementById("skin-editor-input2").value = "");
-        }),
-          V.readAsArrayBuffer(z);
-      }),
-    (document.getElementById("skin-editor").style.display = "block");
+  for (var l in F) {
+    D += `<option name="${l}">${l}</option>`;
+  }
+
+  document.getElementById("skin-editor-game-sprites").innerHTML = D;
+
+  document
+    .getElementById("skin-editor-input2")
+    .addEventListener("change", () => {
+      var z = document.getElementById("skin-editor-input2").files[0];
+      var V = new FileReader();
+
+      V.onload = () => {
+        var z =
+          "data:image/png;base64," +
+          btoa(String.fromCharCode.apply(null, new Uint8Array(V.result)));
+        var l = document.createElement("img");
+        l.src = z;
+
+        F[document.getElementById("skin-editor-game-sprites").value] =
+          PIXI.Texture.fromImage(l.src);
+
+        document.getElementById("skin-editor-input2").value = "";
+      };
+
+      V.readAsArrayBuffer(z);
+    });
+
+  document.getElementById("skin-editor").style.display = "block";
 }
 function UL() {
   clearInterval(vL),
@@ -8161,10 +8177,7 @@ function BL() {
             V[5].length > 0 &&
             (document.getElementById("discord-id").value = "@" + V[5]));
         for (
-          var D =
-              '<span class="empty' +
-              (0 == l ? " selected" : "") +
-              '">NONE</span>',
+          var D = `<span class="empty${0 == l ? " selected" : ""}">NONE</span>`,
             v = 1;
           v <= 47;
           v++
@@ -8211,7 +8224,7 @@ function BL() {
         ),
           console.log(z);
       }),
-      z.open("POST", G + "/account/myInfo?s=" + l, true),
+      z.open("POST", `${G}/account/myInfo?s=${l}`, true),
       z.send(null),
       document.getElementById("my-account-button") &&
         ((document.getElementById("my-account-button").enabled = false),

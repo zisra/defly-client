@@ -6,10 +6,10 @@
     --white: #fff;
 
     /* Primary */
-    --primary: #800080; /* Purple */
-    --primary-hover: #993399; /* Lighter Purple */
-    --primary-shadow: #660066; /* Darker Purple */
-    --primary-shadow-hover: #732673; /* Slightly lighter than primary-shadow */
+    --primary: #800080;
+    --primary-hover: #993399;
+    --primary-shadow: #660066;
+    --primary-shadow-hover: #732673;
 
     /* Secondary */
     --secondary: #95a5a6;
@@ -18,15 +18,15 @@
     --secondary-shadow-hover: #647071;
 
     /* Accent */
-    --accent: #daa520; /* Goldenrod */
-    --accent-hover: #c49b1c; /* Slightly darker */
-    --accent-shadow: #b8860b; /* Dark Goldenrod */
-    --accent-shadow-hover: #a0780a; /* Darker */
-    --accent-darker: #bd9015; /* Even darker */
+    --accent: #daa520;
+    --accent-hover: #c49b1c;
+    --accent-shadow: #b8860b;
+    --accent-shadow-hover: #a0780a;
+    --accent-darker: #bd9015;
 
     /* Danger/Alert Color */
     --danger: #e80a0a;
-    --error: #dc143c; /* Shadow Color */
+    --error: #dc143c;
 
     --button-shadow: rgba(0, 0, 0, 0.2);
 }
@@ -2712,9 +2712,6 @@ body.dark-theme #homepage .content .middle-box #homepage-loaded {
     }
 }
 @media screen and (max-width: 640px), screen and (max-height: 400px) {
-    #homepage .featured-videos {
-        display: none;
-    }
     #homepage .bottom-bar {
         display: none;
     }
@@ -2723,19 +2720,6 @@ body.dark-theme #homepage .content .middle-box #homepage-loaded {
     }
 }
 @media screen and (max-height: 750px) {
-    #tuto-video {
-        width: 600px;
-        height: 337.5px;
-        max-width: 90vw;
-        max-height: 65vh;
-    }
-    #tuto-popup .box .tuto-text {
-        font-size: 24px;
-        padding-top: 16px;
-    }
-    #tuto-popup .box .tuto-text2 {
-        font-size: 16px;
-    }
     #respawn .kill-reason,
     #respawn-gm2 .kill-reason {
         margin-bottom: 16px;
@@ -2833,79 +2817,28 @@ body.dark-theme #homepage .content .middle-box #homepage-loaded {
         border: 3px solid var(--black);
         border-color: #fdfdfd transparent #fdfdfd transparent;
     }
-    #tuto-popup .box {
-        font-size: 14px;
-    }
-    #tuto-popup .box .tuto-text {
-        font-size: 20px;
-        padding: 16px;
-        padding-bottom: 8px;
-    }
-    #tuto-popup .box .tuto-text2 {
-        font-size: 16px;
-        padding: 16px;
-        padding-top: 0;
-    }
-    #tuto-popup .box .title {
-        display: none;
-    }
 }
-@media screen and (max-width: 520px) {
-    #skin-popup .box {
-        width: 100%;
-    }
-    #skin-popup .box .color-list {
-        min-width: inherit;
-    }
-    #skin-popup .box {
-        width: 100%;
-        padding: 8px 0;
-    }
-    #tuto-popup .box {
-        width: 100%;
-    }
+
+#skin-popup .box {
+    width: 90%;
 }
-@media screen and (max-height: 650px) {
-    #skin-popup .box {
-        width: 100%;
-    }
-    #skin-popup .box .skin-list {
-        padding: 8px 8px;
-    }
-    #skin-popup .box .color-list {
-        margin-top: 8px;
-        margin-bottom: 8px;
-    }
-    #skin-popup-canvas div {
-        width: 80px;
-        height: 80px;
-    }
-    #skin-popup .box {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    #tuto-popup .box {
-        padding: 8px 8px;
-    }
+#skin-popup .box .skin-list {
+    padding: 8px 8px;
 }
-@media screen and (max-height: 500px) {
-    #skin-popup .box .skin-list {
-        max-height: 125px;
-    }
-    #tuto-popup .box {
-        font-size: 12px;
-    }
-    #tuto-popup .box .tuto-text {
-        font-size: 16px;
-        padding: 8px;
-        padding-bottom: 4px;
-    }
-    #tuto-popup .box .tuto-text2 {
-        font-size: 12px;
-        padding: 8px;
-        padding-top: 0;
-    }
+#skin-popup .box .color-list {
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
+#skin-popup-canvas div {
+    width: 80px;
+    height: 80px;
+    margin-top: 20px;
+}
+#skin-popup .box {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 @media screen and (max-width: 800px) {
     #upgrade-block .line .bars span {
         width: 12px;
@@ -2952,6 +2885,7 @@ body.dark-theme #homepage .content .middle-box #homepage-loaded {
 .cc-revoke {
     display: none;
 }
+
 canvas {
     cursor: crosshair;
     touch-action: none;
