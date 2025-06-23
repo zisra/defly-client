@@ -3,7 +3,7 @@ import "import-jquery";
 import jquery from "jquery";
 import "jquery-ui-bundle";
 import "jquery-ui-bundle/jquery-ui.css";
-// import * as PIXI from "pixi.js";
+import * as PIXI from "pixi.js";
 window.$ = window.jQuery = jquery;
 
 const MainLoop = (() => {

@@ -1626,7 +1626,7 @@ body.dark-theme #countdown-1v1 {
 #homepage .background {
     width: 100%;
     height: 100%;
-    background-image: url(../../img/background-grid.png);
+    background-image: url("/img/background-grid.png");
     background-repeat: repeat;
 }
 #homepage .fade {
@@ -2042,7 +2042,7 @@ body.dark-theme #countdown-1v1 {
     vertical-align: middle;
 }
 body.dark-theme #homepage .background {
-    background-image: url(../../img/background-grid-dt.png);
+    background-image: url("/img/background-grid-dt.png");
 }
 body.dark-theme #homepage .content .left-box .inside {
     background-color: rgba(255, 255, 255, 0.2);

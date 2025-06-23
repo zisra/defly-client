@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
@@ -8,7 +9,15 @@ export default defineConfig({
       injectRegister: "auto",
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,json,txt}"],
-        maximumFileSizeToCacheInBytes: 10 * 1000 * 1000,
+        maximumFileSizeToCacheInBytes: 13 * 1000 * 1000,
+      },
+    }),
+    nodePolyfills({
+      include: [],
+      globals: {
+        Buffer: false,
+        global: true,
+        process: false,
       },
     }),
   ],
