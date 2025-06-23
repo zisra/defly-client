@@ -1,0 +1,8 @@
+{
+  "EU1": { "uri": "eu1-1.defly.io:3023" },
+  "SA1": { "uri": "sa8.defly.io:3013" },
+  "AU": { "uri": "au4.defly.io:3003" },
+  "TOK1": { "uri": "tok5.defly.io:3013" },
+  "USE1": { "uri": "use9.defly.io:3013" },
+  "USW1": { "uri": "usw4.defly.io:3013" }
+}

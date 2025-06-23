@@ -1,0 +1,6 @@
+{
+  "EU1": { "uri": "eu1-1.defly.io:3004" },
+  "AU": { "uri": "au4.defly.io:3004" },
+  "USE1": { "uri": "use9.defly.io:3004" },
+  "USW1": { "uri": "usw4.defly.io:3004" }
+}

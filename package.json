@@ -1,18 +1,26 @@
 {
-	"name": "defly-client",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview"
-	},
-	"keywords": [],
-	"author": "Isra",
-	"license": "ISC",
-	"dependencies": {
-		"pixi.js": "4.8.6",
-		"vite": "^6.3.5"
-	}
+  "name": "defly-client",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "serve": "node ./server",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "Isra",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "animejs": "2.2.0",
+    "import-jquery": "^1.0.1",
+    "jquery": "^3.7.1",
+    "jquery-ui-bundle": "1.12.1-migrate",
+    "pixi.js": "4.8.6",
+    "ws": "^8.18.2"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5",
+    "vite-plugin-pwa": "^1.0.0",
+    "vite-plugin-node-polyfills": "^0.23.0"
+  }
 }
