@@ -14,7 +14,10 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "animejs": "2.2.0",
+    "import-jquery": "^1.0.1",
     "jquery": "^3.7.1",
+    "jquery-ui-bundle": "1.12.1-migrate",
     "pixi.js": "4.8.6",
     "vite": "^6.3.5",
     "vite-plugin-pwa": "^1.0.0",

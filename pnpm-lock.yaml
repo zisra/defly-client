@@ -8,9 +8,18 @@ importers:
 
   .:
     dependencies:
+      animejs:
+        specifier: 2.2.0
+        version: 2.2.0
+      import-jquery:
+        specifier: ^1.0.1
+        version: 1.0.1
       jquery:
         specifier: ^3.7.1
         version: 3.7.1
+      jquery-ui-bundle:
+        specifier: 1.12.1-migrate
+        version: 1.12.1-migrate
       pixi.js:
         specifier: 4.8.6
         version: 4.8.6
@@ -868,6 +877,9 @@ packages:
   ajv@8.17.1:
     resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
 
+  animejs@2.2.0:
+    resolution: {integrity: sha512-suPqfRapTDhrfwxg1El8LlGz6qVGwoandR2uRQLQBxXavxkpIr9Uv2kNGrJIF7oa001jSxS5rRIXPHryKIshJg==}
+
   ansi-styles@4.3.0:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
     engines: {node: '>=8'}
@@ -1184,6 +1196,9 @@ packages:
   idb@7.1.1:
     resolution: {integrity: sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ==}
 
+  import-jquery@1.0.1:
+    resolution: {integrity: sha512-1m3WYkPq9QPhc0ObnfPM9OtPkRoQRbQpcrJOa63Jp64fFL4zODSTtip+1PXBwZ8Kc6T0udTMYAapHMgSPvGXBw==}
+
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
     deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
@@ -1308,6 +1323,9 @@ packages:
     resolution: {integrity: sha512-2P4SQ0HrLQ+fw6llpLnOaGAvN2Zu6778SJMrCUwns4fOoG9ayrTiZk3VV8sCPkVZF8ab0zksVpS8FDY5pRCNBA==}
     engines: {node: '>=10'}
     hasBin: true
+
+  jquery-ui-bundle@1.12.1-migrate:
+    resolution: {integrity: sha512-ihyHzL6NYkCg1SNIRFrQAkgEeAJmet2G6rrecCRwq6RcWNApV6w2NSjqfuJUUoiKywkvlU+pqHJ5NAAEuTet4w==}
 
   jquery@3.7.1:
     resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
@@ -2719,6 +2737,8 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
+  animejs@2.2.0: {}
+
   ansi-styles@4.3.0:
     dependencies:
       color-convert: 2.0.1
@@ -3119,6 +3139,8 @@ snapshots:
 
   idb@7.1.1: {}
 
+  import-jquery@1.0.1: {}
+
   inflight@1.0.6:
     dependencies:
       once: 1.4.0
@@ -3249,6 +3271,8 @@ snapshots:
       chalk: 4.1.2
       filelist: 1.0.4
       minimatch: 3.1.2
+
+  jquery-ui-bundle@1.12.1-migrate: {}
 
   jquery@3.7.1: {}
 

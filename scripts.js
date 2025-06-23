@@ -1,25 +1,13 @@
-!(function (a) {
-  function b(a) {
-    if (((x = q(b)), !(a < e + l))) {
-      for (
-        d += a - e,
-          e = a,
-          t(a, d),
-          a > i + h &&
-            ((f = (g * j * 1e3) / (a - i) + (1 - g) * f), (i = a), (j = 0)),
-          j++,
-          k = 0;
-        d >= c;
+import anime from "animejs";
+import "import-jquery";
+import jquery from "jquery";
+import "jquery-ui-bundle";
+import "jquery-ui-bundle/jquery-ui.css";
+// import * as PIXI from "pixi.js";
+window.$ = window.jQuery = jquery;
 
-      )
-        if ((u(c), (d -= c), ++k >= 240)) {
-          o = !0;
-          break;
-        }
-      v(d / c), w(f, o), (o = !1);
-    }
-  }
-  var c = 1e3 / 60,
+const MainLoop = (() => {
+  let c = 1e3 / 60,
     d = 0,
     e = 0,
     f = 60,
@@ -32,22 +20,20 @@
     m = !1,
     n = !1,
     o = !1,
-    p = "object" == typeof window ? window : a,
+    p = typeof window === "object" ? window : globalThis,
     q =
       p.requestAnimationFrame ||
       (function () {
-        var a = Date.now(),
+        let a = Date.now(),
           b,
           d;
         return function (e) {
-          return (
-            (b = Date.now()),
-            (d = Math.max(0, c - (b - a))),
-            (a = b + d),
-            setTimeout(function () {
-              e(b + d);
-            }, d)
-          );
+          b = Date.now();
+          d = Math.max(0, c - (b - a));
+          a = b + d;
+          return setTimeout(function () {
+            e(b + d);
+          }, d);
         };
       })(),
     r = p.cancelAnimationFrame || clearTimeout,
@@ -57,12 +43,41 @@
     v = s,
     w = s,
     x;
-  a.MainLoop = {
+
+  function mainLoopFrame(a) {
+    if (((x = q(mainLoopFrame)), !(a < e + l))) {
+      d += a - e;
+      e = a;
+      t(a, d);
+
+      if (a > i + h) {
+        f = (g * j * 1e3) / (a - i) + (1 - g) * f;
+        i = a;
+        j = 0;
+      }
+      j++;
+      k = 0;
+      while (d >= c) {
+        u(c);
+        d -= c;
+        if (++k >= 240) {
+          o = !0;
+          break;
+        }
+      }
+      v(d / c);
+      w(f, o);
+      o = !1;
+    }
+  }
+
+  return {
     getSimulationTimestep: function () {
       return c;
     },
     setSimulationTimestep: function (a) {
-      return (c = a), this;
+      c = a;
+      return this;
     },
     getFPS: function () {
       return f;
@@ -71,52 +86,60 @@
       return 1e3 / l;
     },
     setMaxAllowedFPS: function (a) {
-      return (
-        "undefined" == typeof a && (a = 1 / 0),
-        0 === a ? this.stop() : (l = 1e3 / a),
-        this
-      );
+      if (typeof a === "undefined") a = 1 / 0;
+      if (a === 0) {
+        this.stop();
+      } else {
+        l = 1e3 / a;
+      }
+      return this;
     },
     resetFrameDelta: function () {
       var a = d;
-      return (d = 0), a;
+      d = 0;
+      return a;
     },
     setBegin: function (a) {
-      return (t = a || t), this;
+      t = a || t;
+      return this;
     },
     setUpdate: function (a) {
-      return (u = a || u), this;
+      u = a || u;
+      return this;
     },
     setDraw: function (a) {
-      return (v = a || v), this;
+      v = a || v;
+      return this;
     },
     setEnd: function (a) {
-      return (w = a || w), this;
+      w = a || w;
+      return this;
     },
     start: function () {
-      return (
-        n ||
-          ((n = !0),
-          (x = q(function (a) {
-            v(1), (m = !0), (e = a), (i = a), (j = 0), (x = q(b));
-          }))),
-        this
-      );
+      if (!n) {
+        n = !0;
+        x = q(function (a) {
+          v(1);
+          m = !0;
+          e = a;
+          i = a;
+          j = 0;
+          x = q(mainLoopFrame);
+        });
+      }
+      return this;
     },
     stop: function () {
-      return (m = !1), (n = !1), r(x), this;
+      m = !1;
+      n = !1;
+      r(x);
+      return this;
     },
     isRunning: function () {
       return m;
     },
   };
-  "function" == typeof define && define.amd
-    ? define(a.MainLoop)
-    : "object" == typeof module &&
-      null !== module &&
-      "object" == typeof module.exports &&
-      (module.exports = a.MainLoop);
-})(this);
+})();
 
 var z,
   V,
@@ -125,6 +148,9 @@ var z,
   regions,
   L,
   W,
+  D,
+  P,
+  R,
   g,
   q,
   m,
@@ -326,6 +352,7 @@ function Pl(z) {
 function Ll(z) {
   return AV[z - 1];
 }
+
 var keyboardCommands = {
     MUP: "Move up",
     MDOWN: "Move down",
@@ -723,7 +750,6 @@ function bl() {
         for (const region in regions) {
           if (regions[region]) {
             checkServerPing(region);
-            anyServersLoaded = true;
           }
         }
 
@@ -8642,9 +8668,6 @@ function rL(z, V, l) {
       ? V
       : new PIXI.Point(z.x + v * (V.x - z.x), z.y + v * (V.y - z.y));
 }
-function vP(z, V, l) {
-  return (z.x - V.x) * (l.y - V.y) - (z.y - V.y) * (l.x - V.x);
-}
 function ML(z, V) {
   return z.dot1 == V
     ? z.rotation
@@ -9770,7 +9793,7 @@ function OL() {
     }
   });
 
-var defly = (() => {
+window.defly = (() => {
   return {
     selectMode: (V) => {
       BV ||
