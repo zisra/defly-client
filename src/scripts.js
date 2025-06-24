@@ -7,6 +7,69 @@ import * as PIXI from "pixi.js";
 
 window.$ = window.jQuery = jquery;
 
+const DAMPING = -0.05;
+
+function saveAs(data, filename = "download") {
+  // Get global context (window, self, global)
+  const globalScope =
+    typeof window === "object" && window.window === window
+      ? window
+      : typeof self === "object" && self.self === self
+        ? self
+        : typeof global === "object" && global.global === global
+          ? global
+          : undefined;
+
+  // Helper to trigger a click on an anchor
+  function triggerClick(node) {
+    setTimeout(() => node.dispatchEvent(new MouseEvent("click")), 0);
+  }
+
+  // Helper to check for cross-origin URLs
+  function isCrossOrigin(url) {
+    try {
+      const u = new URL(url, location);
+      return u.origin !== location.origin;
+    } catch {
+      return false;
+    }
+  }
+
+  if (
+    typeof HTMLAnchorElement !== "undefined" &&
+    "download" in HTMLAnchorElement.prototype
+  ) {
+    const a = document.createElement("a");
+    a.rel = "noopener";
+    a.download = filename;
+
+    if (typeof data === "string") {
+      a.href = data;
+      if (isCrossOrigin(data)) {
+        // Open cross-origin URLs in a new tab
+        a.target = "_blank";
+      }
+      triggerClick(a);
+    } else {
+      // Blob or File
+      const url = (globalScope.URL || globalScope.webkitURL).createObjectURL(
+        data,
+      );
+      a.href = url;
+      triggerClick(a);
+      setTimeout(() => {
+        (globalScope.URL || globalScope.webkitURL).revokeObjectURL(url);
+      }, 40000);
+    }
+    return;
+  }
+
+  // Fallback: Open in new tab/window
+  if (typeof data === "string") {
+    window.open(data, "_blank");
+  }
+}
+
 const MainLoop = (() => {
   let c = 1e3 / 60,
     d = 0,
@@ -652,7 +715,9 @@ function sl(z, V, l) {
 }
 function getWebsocketUri(z) {
   return "https:" === window.location.protocol.toLowerCase() ||
-    z.includes("localhost")
+    z.includes("localhost") ||
+    z.includes("192.") ||
+    z.includes("172.")
     ? `ws://${z}`
     : `wss://${z.replace(":", "/")}`;
 }
@@ -1236,66 +1301,65 @@ function Ol(z) {
           var V = document.getElementById("cp-iframe");
           V.parentNode.replaceChild(V.cloneNode(), V);
         } catch (z) {}
-        xL(),
-          t.removeChildren(),
-          j.removeChildren(),
-          Y.removeChildren(),
-          C.removeChildren(),
-          B.removeChildren(),
-          a.removeChildren(),
-          p.removeChildren(),
-          o.removeChildren(),
-          Z.removeChildren(),
-          S.removeChildren(),
-          (Al = 0),
-          (XV = {}),
-          (RV = {}),
-          (yV = {}),
-          (Uz = {}),
-          (bV = {}),
-          (n = null),
-          (JV = 0),
-          (T = 0),
-          (Q = 0),
-          (Bz = [0, 0, 0, 0, 0, 0, 0]),
-          (Cz = [0, 0, 0, 0, 0, 0, 0]),
-          (jz = 0),
-          (K = {
-            shooting: false,
-            moving: false,
-            aimDirection: 0,
-            moveDirection: 0,
-          }),
-          (Wz = []),
-          (Dz = []),
-          (rD = []),
-          (Nc = null),
-          (oz = -1),
-          (Fz = false),
-          (Kz = 0),
-          (lz = 0),
-          (Vz = 0),
-          (nP = 60),
-          (HV = z.getInt32(1)),
-          (lz = z.getInt32(5)),
-          (Oz = z.getFloat32(9)),
-          (ez = z.getFloat32(13)),
-          (kz = z.getFloat32(17)),
-          (kz *= GV),
-          (Iz = z.getFloat32(21)),
-          (Az = z.getFloat32(25)),
-          (QV = z.getFloat32(29)),
-          (dV = z.getFloat32(33)),
-          (84 * dV) / 128,
-          (fV = z.getFloat32(37)),
-          (TV = z.getFloat32(41)),
-          ($V = z.getFloat32(45)),
-          z.getFloat32(49),
-          (VV = z.getFloat32(53)),
-          (Nz = z.getFloat32(57)),
-          (zV = z.getFloat32(61));
-        var l = z.getFloat32(65),
-          D = z.getFloat32(69);
+        xL();
+        t.removeChildren();
+        j.removeChildren();
+        Y.removeChildren();
+        C.removeChildren();
+        B.removeChildren();
+        a.removeChildren();
+        p.removeChildren();
+        o.removeChildren();
+        Z.removeChildren();
+        S.removeChildren();
+        Al = 0;
+        XV = {};
+        RV = {};
+        yV = {};
+        Uz = {};
+        bV = {};
+        n = null;
+        JV = 0;
+        T = 0;
+        Q = 0;
+        Bz = [0, 0, 0, 0, 0, 0, 0];
+        Cz = [0, 0, 0, 0, 0, 0, 0];
+        jz = 0;
+        K = {
+          shooting: false,
+          moving: false,
+          aimDirection: 0,
+          moveDirection: 0,
+        };
+        Wz = [];
+        Dz = [];
+        rD = [];
+        Nc = null;
+        oz = -1;
+        Fz = false;
+        Kz = 0;
+        lz = 0;
+        Vz = 0;
+        nP = 60;
+        HV = z.getInt32(1);
+        lz = z.getInt32(5);
+        Oz = z.getFloat32(9);
+        ez = z.getFloat32(13);
+        kz = z.getFloat32(17);
+        kz *= GV;
+        Iz = z.getFloat32(21);
+        Az = z.getFloat32(25);
+        QV = z.getFloat32(29);
+        dV = z.getFloat32(33);
+        (84 * dV) / 128, (fV = z.getFloat32(37));
+        TV = z.getFloat32(41);
+        $V = z.getFloat32(45);
+        z.getFloat32(49);
+        VV = z.getFloat32(53);
+        Nz = z.getFloat32(57);
+        zV = z.getFloat32(61);
+        var l = z.getFloat32(65);
+        D = z.getFloat32(69);
         z.byteLength >= 76 && ((MV = z.getInt32(73)), (uV[HV] = MV));
         z.byteLength >= 80 && (iV = z.getInt32(77));
         z.byteLength >= 82 &&
@@ -1379,7 +1443,7 @@ function Ol(z) {
             (y.parentElement.removeChild(y),
             document
               .getElementById(
-                "respawn-promo" + (2 == hz ? "-gm2" : 4 == hz ? "-gm4" : ""),
+                `respawn-promo${2 == hz ? "-gm2" : 4 == hz ? "-gm4" : ""}`,
               )
               .appendChild(y));
         if (2 == hz && !_P) {
@@ -1534,39 +1598,39 @@ function Ol(z) {
         w && (clearInterval(w), (w = null));
         if (4 == hz)
           if (0 != ZV) {
-            (document.getElementById("spectate-1v1-ui").style.display = "none"),
-              (document.getElementById("gm-1v1-lobby").style.display = "none"),
-              document.getElementById("chat-block").classList.remove("typing"),
-              document
-                .getElementById("chat-block")
-                .classList.remove("gm-1v1-lobby"),
-              document.getElementById("chat-input").blur(),
-              (K.moving = false),
-              (Sc[0] = false),
-              (Sc[1] = false),
-              (Sc[2] = false),
-              (Sc[3] = false);
+            document.getElementById("spectate-1v1-ui").style.display = "none";
+            document.getElementById("gm-1v1-lobby").style.display = "none";
+            document.getElementById("chat-block").classList.remove("typing");
+            document
+              .getElementById("chat-block")
+              .classList.remove("gm-1v1-lobby");
+            document.getElementById("chat-input").blur();
+            K.moving = false;
+            Sc[0] = false;
+            Sc[1] = false;
+            Sc[2] = false;
+            Sc[3] = false;
             var O = document.createElement("div");
-            O.setAttribute("id", "countdown-1v1"),
-              (O.innerText = "5"),
-              document.body.appendChild(O);
-            const z = Date.now(),
-              V = setInterval(() => {
-                const l = Date.now() - z;
-                l >= 5e3
-                  ? (clearInterval(V),
-                    (O.innerText = "GO!"),
-                    anime({
-                      targets: O,
-                      easing: "linear",
-                      duration: 1e3,
-                      opacity: 0,
-                      complete: () => {
-                        document.body.removeChild(O);
-                      },
-                    }))
-                  : (O.innerText = Math.ceil((5e3 - l) / 1e3));
-              }, 100);
+            O.setAttribute("id", "countdown-1v1");
+            O.innerText = "5";
+            document.body.appendChild(O);
+            const z = Date.now();
+            V = setInterval(() => {
+              const l = Date.now() - z;
+              l >= 5e3
+                ? (clearInterval(V),
+                  (O.innerText = "GO!"),
+                  anime({
+                    targets: O,
+                    easing: "linear",
+                    duration: 1e3,
+                    opacity: 0,
+                    complete: () => {
+                      document.body.removeChild(O);
+                    },
+                  }))
+                : (O.innerText = Math.ceil((5e3 - l) / 1e3));
+            }, 100);
           } else (n = XV[HV].position), (XV[HV].visible = false);
       })(view);
       break;
@@ -5526,22 +5590,23 @@ function Hv(z, V, l, D, v, c, P, L) {
         : Math.random() * Math.PI * 2,
       h = Math.random() * kz * c,
       U = (Math.random() * Math.PI) / 4;
-    (q.x = V + Math.cos(m) * kz * 0.25),
-      (q.y = l + Math.sin(m) * kz * 0.25),
-      (q.rotation = Math.random() * Math.PI * 2),
-      Z.addChild(q),
-      anime({
-        targets: q,
-        x: V + Math.cos(m) * h + (P ? P.x : 0),
-        y: l + Math.sin(m) * h + (P ? P.y : 0),
-        rotation: q.rotation + U,
-        alpha: 0,
-        duration: 2e3,
-        easing: "easeOutQuart",
-        complete: ((z) => () => {
-          Z.removeChild(z);
-        })(q),
-      });
+
+    q.x = V + Math.cos(m) * kz * DAMPING;
+    q.y = l + Math.sin(m) * kz * DAMPING;
+    q.rotation = Math.random() * Math.PI * 2;
+    Z.addChild(q);
+    anime({
+      targets: q,
+      x: V + Math.cos(m) * h + (P ? P.x : 0),
+      y: l + Math.sin(m) * h + (P ? P.y : 0),
+      rotation: q.rotation + U,
+      alpha: 0,
+      duration: 2e3,
+      easing: "easeOutQuart",
+      complete: ((z) => () => {
+        Z.removeChild(z);
+      })(q),
+    });
   }
 }
 function rv(z) {

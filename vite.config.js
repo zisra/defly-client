@@ -3,6 +3,9 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+  build: {
+    chunkSizeWarningLimit: 13 * 1000 * 1000,
+  },
   plugins: [
     VitePWA({
       registerType: "autoUpdate",

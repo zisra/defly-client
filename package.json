@@ -3,9 +3,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "serve": "tsx ./server",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "socket": "tsx ./server",
+    "serve": "( vite build && vite preview --host=0.0.0.0 ) & pnpm socket"
   },
   "author": "Isra",
   "license": "ISC",

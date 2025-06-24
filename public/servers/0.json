@@ -4,5 +4,5 @@
   "TOK1": { "uri": "tok5.defly.io:3010" },
   "USE1": { "uri": "use5.defly.io:3010" },
   "USW1": { "uri": "usw4.defly.io:3010" },
-  "LOCAL": { "uri": "localhost:8000" }
+  "LOCAL": { "uri": "192.168.1.245:8000" }
 }
