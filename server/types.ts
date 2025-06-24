@@ -10,6 +10,11 @@ export enum Opcode {
   Tick = 4,
   Ping = 99,
   InitOK = 2,
+  BulletCreate = 13,
+  BulletRemove = 14,
+  DotCreate = 49,
+  LineCreate = 50,
+  BuildTower = 16,
 }
 
 export interface Player {
@@ -17,6 +22,7 @@ export interface Player {
   username: string;
   sessionId: string;
   skin: number;
+  badge: number;
   gamesPlayed: number;
   score: number;
 

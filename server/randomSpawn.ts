@@ -11,9 +11,10 @@ export function randomSpawn(): { x: number; y: number } {
   if (MAP_SHAPE === MapShape.Circle) {
     const radius = Math.min(MAP_WIDTH, MAP_HEIGHT) / 2 - SAFE_MARGIN_X;
     const angle = Math.random() * Math.PI * 2;
+    const r = Math.sqrt(Math.random()) * radius;
     return {
-      x: MAP_WIDTH / 2 + radius * Math.cos(angle),
-      y: MAP_HEIGHT / 2 + radius * Math.sin(angle),
+      x: MAP_WIDTH / 2 + r * Math.cos(angle),
+      y: MAP_HEIGHT / 2 + r * Math.sin(angle),
     };
   } else if (MAP_SHAPE === MapShape.Hexagon) {
     // Define the hexagon vertices (exactly as supplied in the drawing)
