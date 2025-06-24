@@ -3,7 +3,7 @@ import { type WebSocket, WebSocketServer } from "ws";
 const PORT = 8000;
 const wss = new WebSocketServer({ port: PORT });
 
-const TICK_RATE = 60; // 60-Hz like the client code
+const TICK_RATE = 100; // 60-Hz like the client code
 const TICK_INTERVAL_MS = 1_000 / TICK_RATE;
 
 const MAP_WIDTH = 50;
@@ -56,7 +56,7 @@ function randomSpawn(): { x: number; y: number } {
   };
 }
 
-const MOVE_SPEED = 10;
+const MOVE_SPEED = 7;
 
 function stepPlayer(p: Player) {
   if (p.moving) {
@@ -125,80 +125,54 @@ function parseLoginPacket(
   };
 }
 
-function dataViewToBase64(dataView) {
-  const uint8Array = new Uint8Array(dataView.buffer);
-  let binaryString = "";
-  for (let i = 0; i < uint8Array.length; i++) {
-    binaryString += String.fromCharCode(uint8Array[i]);
-  }
-  return btoa(binaryString);
-}
-
-function base64ToDataView(base64) {
-  const binaryString = atob(base64);
-  const length = binaryString.length;
-  const uint8Array = new Uint8Array(length);
-  for (let i = 0; i < length; i++) {
-    uint8Array[i] = binaryString.charCodeAt(i);
-  }
-  return new DataView(uint8Array.buffer);
-}
-
 function createGameInitPacket(
   playerId: number,
   SPAWN_X: number,
   SPAWN_Y: number,
 ): ArrayBuffer {
-  // const buffer = new ArrayBuffer(90);
-  // const view = new DataView(buffer);
-  // let offset = 0;
+  const buffer = new ArrayBuffer(90);
+  const view = new DataView(buffer);
 
-  // view.setUint8(offset++, 2); // Opcode: Game initialized
-  // view.setInt32(offset, playerId);
-  // offset += 4;
+  let offset = 0;
+  view.setUint8(offset++, 2); // Opcode: Game initialized
+  view.setInt32(offset, playerId);
+  offset += 4;
+  view.setInt32(offset, 1); // Unused/team id?
+  offset += 4;
 
-  // view.setInt32(offset, 1); // Unused/team id?
-  // offset += 4;
+  const PLAYER_SIZE = 1;
+  const COLLISION_RADIUS = 1;
+  const ZOOM = 30;
 
-  // const PLAYER_SIZE = 1;
-  // const COLLISION_RADIUS = 1;
-  // const ZOOM = 12.5;
+  const worldFloats = [
+    MAP_WIDTH,
+    MAP_HEIGHT,
+    PLAYER_SIZE,
+    COLLISION_RADIUS,
+    Math.PI * 2,
+    Math.PI * 2,
+    7,
+    96,
+    48,
+    1,
+    0,
+    ZOOM,
+    70,
+    40,
+    SPAWN_X,
+    SPAWN_Y,
+  ];
 
-  // const worldFloats = [
-  //   MAP_WIDTH,
-  //   MAP_HEIGHT,
-  //   PLAYER_SIZE,
-  //   COLLISION_RADIUS,
-  //   2,
-  //   0,
-  //   80,
-  //   20,
-  //   2,
-  //   1,
-  //   0,
-  //   ZOOM,
-  //   100,
-  //   100,
-  //   SPAWN_X,
-  //   SPAWN_Y,
-  // ];
+  for (const val of worldFloats) {
+    view.setFloat32(offset, val);
+    offset += 4;
+  }
 
-  // for (const val of worldFloats) {
-  //   view.setFloat32(offset, val);
-  //   offset += 4;
-  // }
-
-  // view.setInt32(offset, 0); // Color, 0 = Client color
-  // offset += 4;
-
-  // view.setUint8(offset++, 1); // flag?
-  // view.setUint8(offset++, 1); // another flag?
-
-  // return buffer;
-
-  return base64ToDataView(
-    "AgAABQYAAAAAREgAAERIAAA/gAAAPxmZmj6ZmZo/LSJvPxmZmkDgAABCwAAAQkAAAEAAAABB8AAAQowAAEIgAABCZpDmQC78OQAAAAAAAAAAAQAICAgICAYIBgABAgMEBQdBIAAAQfAAAEEgAABB8AAAQSAAAEHwAABBIAAAQfAAAA==",
-  );
+  view.setInt32(offset, 0); // Color, 0 = Client color
+  offset += 4;
+  view.setUint8(offset++, 1); // flag?
+  view.setUint8(offset++, 1); // another flag?
+  return buffer;
 }
 
 function handleInputPacket(ws: WebSocket, buf: ArrayBuffer): void {

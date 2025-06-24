@@ -6190,13 +6190,23 @@ function rc(z) {
       bc = true;
       break;
     case "SHOOT":
-      (K.shooting = true), tc(), (iz.visible = false);
+      K.shooting = true;
+      tc();
+      iz.visible = false;
       break;
     case "BUILD":
       if (!Hc && !K.shooting) {
         Hc = true;
-        var V = new Date().getTime();
-        V - dc > 200 ? (Pc(), (dc = V)) : (sc = true), 3 == hz && (sc = true);
+        const now = Date.now();
+        if (now - dc > 200) {
+          Pc();
+          dc = now;
+        } else {
+          sc = true;
+        }
+        if (hz === 3) {
+          sc = true;
+        }
       }
       break;
     case "SUPERPOWER":
