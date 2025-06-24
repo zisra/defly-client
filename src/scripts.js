@@ -4,6 +4,7 @@ import jquery from "jquery";
 import "jquery-ui-bundle";
 import "jquery-ui-bundle/jquery-ui.css";
 import * as PIXI from "pixi.js";
+
 window.$ = window.jQuery = jquery;
 
 const MainLoop = (() => {
@@ -72,19 +73,13 @@ const MainLoop = (() => {
   }
 
   return {
-    getSimulationTimestep: function () {
-      return c;
-    },
+    getSimulationTimestep: () => c,
     setSimulationTimestep: function (a) {
       c = a;
       return this;
     },
-    getFPS: function () {
-      return f;
-    },
-    getMaxAllowedFPS: function () {
-      return 1e3 / l;
-    },
+    getFPS: () => f,
+    getMaxAllowedFPS: () => 1e3 / l,
     setMaxAllowedFPS: function (a) {
       if (typeof a === "undefined") a = 1 / 0;
       if (a === 0) {
@@ -94,7 +89,7 @@ const MainLoop = (() => {
       }
       return this;
     },
-    resetFrameDelta: function () {
+    resetFrameDelta: () => {
       var a = d;
       d = 0;
       return a;
@@ -118,7 +113,7 @@ const MainLoop = (() => {
     start: function () {
       if (!n) {
         n = !0;
-        x = q(function (a) {
+        x = q((a) => {
           v(1);
           m = !0;
           e = a;
@@ -135,15 +130,13 @@ const MainLoop = (() => {
       r(x);
       return this;
     },
-    isRunning: function () {
-      return m;
-    },
+    isRunning: () => m,
   };
 })();
 
 var z,
   V,
-  l,
+  opcode,
   v,
   regions,
   L,
@@ -920,14 +913,14 @@ function Xl() {
 
         var parts = response.split(" ");
         k = parts[0];
-        l = parts[1];
+        opcode = parts[1];
         if (parts.length >= 3) {
           hz = parseInt(parts[2], 10);
         }
 
         if (typeof Storage !== "undefined") {
           try {
-            localStorage.setItem("sessionId", l);
+            localStorage.setItem("sessionId", opcode);
           } catch (err) {
             console.log(err);
           }
@@ -949,7 +942,7 @@ function Xl() {
   if (D === "LOCAL") {
     P.open("POST", `/servers/${hz}.txt`, true);
   } else {
-    var url = `${G}?r=${D || ""}&m=${hz}&u=${encodeURIComponent(c)}&fu=${encodeURIComponent(ol(c))}&s=${l || ""}`;
+    var url = `${G}?r=${D || ""}&m=${hz}&u=${encodeURIComponent(c)}&fu=${encodeURIComponent(ol(c))}&s=${opcode || ""}`;
 
     if (sz) {
       url += "&a=1";
@@ -1004,7 +997,7 @@ function pingServer() {
       }
     }
 
-    D = l || "";
+    D = opcode || "";
     const usernameLen = 2 * m.length;
     const tokenLen = 2 * D.length;
 
@@ -1220,9 +1213,10 @@ function Il() {
 }
 var Al = 0;
 function Ol(z) {
-  var V = new DataView(z.data),
-    l = V.getUint8(0);
-  switch (l) {
+  var view = new DataView(z.data);
+  opcode = view.getUint8(0);
+
+  switch (opcode) {
     case 1:
       console.error("received map unavailable"),
         Al++,
@@ -1574,7 +1568,7 @@ function Ol(z) {
                   : (O.innerText = Math.ceil((5e3 - l) / 1e3));
               }, 100);
           } else (n = XV[HV].position), (XV[HV].visible = false);
-      })(V);
+      })(view);
       break;
     case 3:
       el(new Date().getTime() - Lz.shift());
@@ -1597,7 +1591,7 @@ function Ol(z) {
             (2 == hz && 1 == JV) ||
               (4 == hz && lz < 300) ||
               (WP(true, false), XV[HV] && DP(XV[HV], true));
-      })(V);
+      })(view);
       break;
     case 5:
       !((z) => {
@@ -1625,10 +1619,10 @@ function Ol(z) {
                 : (l.style.opacity = 1 - V / 500);
             }, 20);
           }, 1e3));
-      })(V);
+      })(view);
       break;
     case 6:
-      Pv(V);
+      Pv(view);
       break;
     case 49:
       !((z) => {
@@ -1680,10 +1674,10 @@ function Ol(z) {
               E && (E.add(t, t.position), 3 == hz && av(t));
           }
         }
-      })(V);
+      })(view);
       break;
     case 7:
-      gv(V);
+      gv(view);
       break;
     case 50:
       !((z) => {
@@ -1727,13 +1721,13 @@ function Ol(z) {
                 : 3 == hz && q.isCaptured && (h.alpha = 0.6);
           }
         }
-      })(V);
+      })(view);
       break;
     case 8:
-      hv(V, true);
+      hv(view, true);
       break;
     case 20:
-      hv(V, false);
+      hv(view, false);
       break;
     case 51:
       !((z) => {
@@ -1748,18 +1742,18 @@ function Ol(z) {
           var P = 0 == z.getUint8(l);
           l = Uv(z, ++l, true, P);
         }
-      })(V);
+      })(view);
       break;
     case 9:
-      Tv(V);
+      Tv(view);
       break;
     case 10:
-      xv(V);
+      xv(view);
       break;
     case 52:
       !((z) => {
         sv(z.getInt32(1));
-      })(V);
+      })(view);
       break;
     case 11:
       !((z) => {
@@ -1807,7 +1801,7 @@ function Ol(z) {
         4 != hz &&
           (document.getElementById("leaderboard-block").style.display =
             n && !mc ? "none" : "block");
-      })(V);
+      })(view);
       break;
     case 12:
       !((z) => {
@@ -1817,7 +1811,7 @@ function Ol(z) {
           var l = RV[V];
           Nc = l;
         }
-      })(V);
+      })(view);
       break;
     case 13:
       !((z) => {
@@ -1861,7 +1855,7 @@ function Ol(z) {
           (q.lifetime = g);
         var h = lz - V;
         Ev(q, h), 0;
-      })(V);
+      })(view);
       break;
     case 14:
       !((z) => {
@@ -1870,25 +1864,25 @@ function Ol(z) {
           var l = Uz[V];
           delete Uz[V], o.removeChild(l);
         }
-      })(V);
+      })(view);
       break;
     case 15:
-      _v(V);
+      _v(view);
       break;
     case 32:
-      _v(V, true);
+      _v(view, true);
       break;
     case 16:
-      iv(V, true, false);
+      iv(view, true, false);
       break;
     case 17:
-      iv(V, true, true);
+      iv(view, true, true);
       break;
     case 18:
-      iv(V, false, false);
+      iv(view, false, false);
       break;
     case 19:
-      iv(V, false, true);
+      iv(view, false, true);
       break;
     case 21:
       !((z) => {
@@ -1978,7 +1972,7 @@ function Ol(z) {
             new Date().getTime() - Av > 6e4 &&
             (document.getElementById("xp-bar").style.display = "none");
         BP = l > 0;
-      })(V);
+      })(view);
       break;
     case 22:
       !((z) => {
@@ -2000,7 +1994,7 @@ function Ol(z) {
               : (v.healthBar.outer.width =
                   (v.healthBar.width * v.hp) / v.maxHP);
         }
-      })(V);
+      })(view);
       break;
     case 30:
       !((z) => {
@@ -2022,7 +2016,7 @@ function Ol(z) {
               ? (l.texture = F["dot" + l.hp + "-" + l.maxHP])
               : l.healthBar && (p.removeChild(l.healthBar), delete l.healthBar);
         }
-      })(V);
+      })(view);
       break;
     case 23:
       document.getElementById("choose-superpower").style.display = "block";
@@ -2043,11 +2037,11 @@ function Ol(z) {
               easing: "linear",
               duration: 1e3 * Dl[oz],
             });
-      })(V);
+      })(view);
       break;
     case 25: {
-      var D = V.getInt32(1),
-        v = V.getInt32(5);
+      var D = view.getInt32(1),
+        v = view.getInt32(5);
       cl[v] || Pl(v), (cl[D] = cl[v]), v == HV && (rV = D);
       break;
     }
@@ -2087,7 +2081,7 @@ function Ol(z) {
               });
           })(P),
         });
-      })(V);
+      })(view);
       break;
     case 43:
       !((z) => {
@@ -2115,7 +2109,7 @@ function Ol(z) {
               }, 1400);
             })(c),
           });
-      })(V);
+      })(view);
       break;
     case 53:
       !((z) => {
@@ -2144,7 +2138,7 @@ function Ol(z) {
               }, 1400);
             })(P),
           });
-      })(V);
+      })(view);
       break;
     case 27:
       !((z) => {
@@ -2190,7 +2184,7 @@ function Ol(z) {
                 : Z.removeChild(v);
           })(v, c),
         });
-      })(V);
+      })(view);
       break;
     case 28:
       !((z) => {
@@ -2229,7 +2223,7 @@ function Ol(z) {
           setTimeout(() => {
             hc(2);
           }, 3e3);
-      })(V);
+      })(view);
       break;
     case 29:
       !((z) => {
@@ -2252,7 +2246,7 @@ function Ol(z) {
           V == HV && ((iz.tint = Pl(HV)), (wz.tint = Pl(HV))),
           XV[V] && zc(V));
         c > 0 && V == HV && V > 0 && XV[HV] && zc(V);
-      })(V);
+      })(view);
       break;
     case 31:
       !((z) => {
@@ -2305,7 +2299,7 @@ function Ol(z) {
             }, 250);
           }
         }, 100);
-      })(V);
+      })(view);
       break;
     case 34:
       !((z) => {
@@ -2351,7 +2345,7 @@ function Ol(z) {
               "respawn-get-premium" + (2 == hz ? "-gm2" : ""),
             ).style.display = c ? "block" : "none");
         }
-      })(V);
+      })(view);
       break;
     case 35:
       !((z) => {
@@ -2465,13 +2459,13 @@ function Ol(z) {
                 );
               }, 1e4);
           }, 6e4)));
-      })(V);
+      })(view);
       break;
     case 36:
-      fv(V);
+      fv(view);
       break;
     case 37:
-      fv(V, true);
+      fv(view, true);
       break;
     case 38:
       !((z) => {
@@ -2493,7 +2487,7 @@ function Ol(z) {
           );
           v && (v.style.width = D + "%"), l++;
         }
-      })(V);
+      })(view);
       break;
     case 39:
       !((z) => {
@@ -2504,7 +2498,7 @@ function Ol(z) {
           l && (V = l[1] + colorNamesNew[parseInt(l[2]) - 1]);
         }
         XD(V, PV ? "info-dark" : "info");
-      })(V);
+      })(view);
       break;
     case 40:
       !((z) => {
@@ -2671,7 +2665,7 @@ function Ol(z) {
                 clearInterval(ND), (eD = null);
               }, 1e4));
         }
-      })(V);
+      })(view);
       break;
     case 54:
       !((z) => {
@@ -2689,7 +2683,7 @@ function Ol(z) {
                 true,
               );
         cv = V;
-      })(V);
+      })(view);
       break;
     case 41:
       !((z) => {
@@ -2740,7 +2734,7 @@ function Ol(z) {
                   "</span>",
               )
             : XD(l, PV ? "info-dark" : "info");
-      })(V);
+      })(view);
       break;
     case 42:
       !((z) => {
@@ -2784,7 +2778,7 @@ function Ol(z) {
             (g.style.top = (D / ez) * 100 + "%"),
             W.appendChild(g);
         }
-      })(V);
+      })(view);
       break;
     case 44:
       !((z) => {
@@ -2846,7 +2840,7 @@ function Ol(z) {
               (document.getElementById("countdown-bomb-message").style.display =
                 "block"));
         Gv && (clearTimeout(Gv), (Gv = null));
-      })(V);
+      })(view);
       break;
     case 45:
       !((z) => {
@@ -2889,7 +2883,7 @@ function Ol(z) {
               v.arc(0, 0, l.radius, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI),
               v.lineTo(0, 0),
               v.endFill());
-      })(V);
+      })(view);
       break;
     case 46:
       !((z) => {
@@ -2908,14 +2902,14 @@ function Ol(z) {
           (document.getElementById("gear-103-gm2").innerHTML = z.getUint8(17)),
           (document.getElementById("gear-104-gm2").innerHTML = z.getUint8(18)),
           dD();
-      })(V);
+      })(view);
       break;
     case 47:
       !((z) => {
         var V = z.getInt32(1);
         document.getElementById("respawn-button").innerHTML =
           V > 0 ? "Respawn<div>at level " + V + "</div>" : "Respawn";
-      })(V);
+      })(view);
       break;
     case 48:
       !((z) => {
@@ -2932,7 +2926,7 @@ function Ol(z) {
         console.log("received map to vote for", uD),
           (document.getElementById("map-vote-candidates").innerHTML = D),
           (document.getElementById("map-vote").style.display = "block");
-      })(V);
+      })(view);
       break;
     case 55:
       (document.getElementById("spawn-lose").style.display = "block"),
@@ -2948,7 +2942,7 @@ function Ol(z) {
         }),
           (tV = true),
           (F["tower-kh"] = PIXI.Texture.fromImage("img/tower-kh.png"));
-      })(V);
+      })(view);
       break;
     case 57:
       !((z) => {
@@ -2964,7 +2958,7 @@ function Ol(z) {
             D <= IV.length &&
             ((AV[l] = IV[D - 1]), zl || (colorNamesNew[l] = colorNames[D - 1]));
         }
-      })(V);
+      })(view);
       break;
     case 58:
       !((z) => {
@@ -3005,7 +2999,7 @@ function Ol(z) {
             (XV[Kz].filters = [W])),
             v ? W.brightness(2) : W.reset();
         }
-      })(V);
+      })(view);
       break;
     case 59:
       !((z) => {
@@ -3013,7 +3007,7 @@ function Ol(z) {
         for (var V = Nl(z, 1).split(";"), l = 0; l < V.length; l++)
           colorNamesNew[l] = V[l];
         zl = true;
-      })(V);
+      })(view);
       break;
     case 60:
       !((z) => {
@@ -3093,7 +3087,7 @@ function Ol(z) {
                 "hidden");
         }
         OD();
-      })(V);
+      })(view);
       break;
     case 61:
       !((z) => {
@@ -3106,7 +3100,7 @@ function Ol(z) {
           zv == V &&
             (document.getElementById("gm-1v1-confirm-duel").style.visibility =
               "hidden");
-      })(V);
+      })(view);
       break;
     case 62:
       !((z) => {
@@ -3126,7 +3120,7 @@ function Ol(z) {
             ', false);" class="button">NO</div></div>';
         }
         document.getElementById("gm-1v1-duel-list").innerHTML = D;
-      })(V);
+      })(view);
       break;
     case 63:
       !((z) => {
@@ -3143,7 +3137,7 @@ function Ol(z) {
           OD());
         if (1 == l || 2 == l)
           for (var V in ((ZV = V), EV)) EV[V].challenged = false;
-      })(V);
+      })(view);
       break;
     case 64:
       !((z) => {
@@ -3155,7 +3149,7 @@ function Ol(z) {
           var D = parseInt(V[l]);
           DD[D] ? Gz.push(D) : console.error("Skin id does not exists", D);
         }
-      })(V);
+      })(view);
       break;
     case 98:
       (xz = true), console.log("Received: kicked for inactivity");
@@ -3170,7 +3164,7 @@ function Ol(z) {
       break;
     }
     default:
-      console.log("unhandled message code", l);
+      console.log("unhandled message code", opcode);
   }
 }
 function el(z) {
@@ -4299,16 +4293,14 @@ function iD() {
     easing: "easeOutQuad",
     duration: 500,
     update: () => {
-      z.style.gridTemplateRows = 50 + 50 * V.v + "% 50%";
+      z.style.gridTemplateRows = `${50 + 50 * V.v}% 50%`;
     },
     complete: () => {
-      (z.style.gridTemplateRows = "50% 50%"),
-        (document.getElementById("gm-1v1-continue-spinner").style.display =
-          "none"),
-        (document.getElementById("gm-1v1-button-continue").style.display =
-          "none"),
-        (document.getElementById("gm-1v1-button-back").style.display =
-          "inline-block");
+      z.style.gridTemplateRows = "50% 50%";
+      document.getElementById("gm-1v1-continue-spinner").style.display = "none";
+      document.getElementById("gm-1v1-button-continue").style.display = "none";
+      document.getElementById("gm-1v1-button-back").style.display =
+        "inline-block";
     },
   });
 }
@@ -7457,7 +7449,7 @@ function sP(z, V) {
       (document.getElementById("account-warning").style.display = "block");
 }
 function JP() {
-  if (((l = null), "undefined" != typeof Storage))
+  if (((opcode = null), "undefined" != typeof Storage))
     try {
       localStorage.removeItem("sessionId");
     } catch (z) {
@@ -7502,7 +7494,7 @@ function RP() {
         console.error("loginOnServer returned ERROR"), bP();
       else {
         var V = z.responseText.split("\n");
-        l = V[0];
+        opcode = V[0];
         var v = V[1];
         uP = V[2].split(" ").map(Number);
         V[3];
@@ -7519,7 +7511,7 @@ function RP() {
           "undefined" != typeof Storage)
         )
           try {
-            localStorage.setItem("sessionId", l);
+            localStorage.setItem("sessionId", opcode);
           } catch (z) {
             console.log(z);
           }
@@ -7564,7 +7556,7 @@ function RP() {
                       "GET",
                       G +
                         "/tourney/useInviteCode?s=" +
-                        (l || "") +
+                        (opcode || "") +
                         "&c=" +
                         encodeURIComponent(D) +
                         "&n=" +
@@ -7576,7 +7568,7 @@ function RP() {
                 })(),
           v &&
             void 0 !== D &&
-            D != l &&
+            D != opcode &&
             xD(
               "Attention: your account was connected after you joined, your game won't be recorded and you won't earn coins",
               "error",
@@ -7597,7 +7589,7 @@ function RP() {
       "POST",
       G +
         "/login?s=" +
-        (l || "") +
+        (opcode || "") +
         (sz ? "&a=1" : "") +
         (!sz && Jz ? "&a=2" : "") +
         "&app=" +
@@ -8295,7 +8287,7 @@ function aL(z) {
     (D.onerror = (z) => {
       dl("Error updating badge"), console.log(z);
     }),
-    D.open("POST", `${G}/account/updateBadge?s=${l}&b=${V}`, true),
+    D.open("POST", `${G}/account/updateBadge?s=${opcode}&b=${V}`, true),
     D.send(null);
 }
 function BL() {
@@ -8370,7 +8362,7 @@ function BL() {
         ),
           console.log(z);
       }),
-      z.open("POST", `${G}/account/myInfo?s=${l}`, true),
+      z.open("POST", `${G}/account/myInfo?s=${opcode}`, true),
       z.send(null),
       document.getElementById("my-account-button") &&
         ((document.getElementById("my-account-button").enabled = false),
@@ -9219,7 +9211,7 @@ function kL() {
                     }),
                     V.open(
                       "GET",
-                      G + "/tourney/remove?s=" + (l || "") + "&u=" + z,
+                      G + "/tourney/remove?s=" + (opcode || "") + "&u=" + z,
                       true,
                     ),
                     V.send(null);
@@ -9258,7 +9250,7 @@ function kL() {
               }),
               z.open(
                 "GET",
-                G + "/tourney/changeInviteCode?s=" + (l || ""),
+                G + "/tourney/changeInviteCode?s=" + (opcode || ""),
                 true,
               ),
               z.send(null);
@@ -9272,7 +9264,7 @@ function kL() {
         "error",
       );
     }),
-    z.open("GET", G + "/tourney/members?s=" + (l || ""), true),
+    z.open("GET", G + "/tourney/members?s=" + (opcode || ""), true),
     z.send(null);
 }
 function IL() {
@@ -9353,7 +9345,7 @@ function OL() {
           (document.getElementById("username").value =
             localStorage.getItem("username")),
         localStorage.getItem("sessionId") &&
-          (l = localStorage.getItem("sessionId")),
+          (opcode = localStorage.getItem("sessionId")),
         localStorage.getItem("keyBindings")
           ? (customKeyboardCommands = JSON.parse(
               localStorage.getItem("keyBindings"),
@@ -9769,7 +9761,7 @@ function OL() {
   document.getElementById("gsignin-blocker") &&
     (document.getElementById("gsignin-blocker").addEventListener(
       "click",
-      (z) => {
+      () => {
         document.getElementById("privacy-policy-checkbox").checked ||
           dl("You must accept the terms of service and privacy policy");
       },
@@ -9814,7 +9806,6 @@ window.defly = (() => {
         qc = window.prompt("?", "");
       }
 
-      // Main condition check
       if (pV || !BV || sz || Jz) {
         _l();
         if (typeof gtag !== "undefined") {
@@ -9825,14 +9816,12 @@ window.defly = (() => {
           });
         }
 
-        // Attempt to save game mode to localStorage
         try {
           localStorage.setItem("gameMode", hz);
         } catch (error) {
           console.error(error);
         }
       } else {
-        // Prompt sign-in requirement
         dl("You must sign-in to participate in the tournament", "", () => {
           XP();
         });
@@ -9877,13 +9866,13 @@ window.defly = (() => {
     selectSuperpower: (z) => {
       document.getElementById("choose-superpower").style.display = "none";
       var V = new DataView(new ArrayBuffer(2));
-      V.setUint8(0, 6),
-        V.setUint8(1, z),
-        q.send(V.buffer),
-        (oz = z),
-        (Zz = 0),
-        (document.getElementById("superpower-fuel").style.display = "block"),
-        window.event && window.event.preventDefault();
+      V.setUint8(0, 6);
+      V.setUint8(1, z);
+      q.send(V.buffer);
+      oz = z;
+      Zz = 0;
+      document.getElementById("superpower-fuel").style.display = "block";
+      if (window.event) window.event.preventDefault();
     },
     promoComplete: kl,
     setQuality: al,
@@ -9950,7 +9939,7 @@ window.defly = (() => {
         V++
       )
         z[V].checked && (gV = z[V].value);
-      document.getElementById("chat-history").className = "size" + gV;
+      document.getElementById("chat-history").className = `size${gV}`;
       try {
         localStorage.setItem("chatDisabled", LV ? 1 : 0),
           localStorage.setItem("infologDisabled", WV ? 1 : 0),
@@ -9981,7 +9970,8 @@ window.defly = (() => {
     voteForMap: (z) => {
       document.getElementById("map-vote").style.display = "none";
       var V = new DataView(new ArrayBuffer(2));
-      V.setUint8(0, 13), V.setUint8(1, uD[z].id), q.send(V.buffer);
+      V.setUint8(0, 13), V.setUint8(1, uD[z].id);
+      q.send(V.buffer);
     },
     recreateRenderer: IL,
     select1v1Player: (z) => {
@@ -9992,14 +9982,14 @@ window.defly = (() => {
         switch (V.status) {
           case 0:
           case 2:
-            (document.getElementById("gm-1v1-confirm-duel-text").innerHTML =
-              "Challenge " + Cl(V.name) + " ?"),
-              (Vv = true);
+            document.getElementById("gm-1v1-confirm-duel-text").innerHTML =
+              `Challenge ${Cl(V.name)} ?`;
+            Vv = true;
             break;
           case 1:
-            (document.getElementById("gm-1v1-confirm-duel-text").innerHTML =
-              "Spectate " + Cl(V.name) + " ?"),
-              (Vv = false);
+            document.getElementById("gm-1v1-confirm-duel-text").innerHTML =
+              `Spectate ${Cl(V.name)} ?`;
+            Vv = false;
         }
         document.getElementById("gm-1v1-confirm-duel").style.visibility =
           "visible";
@@ -10020,9 +10010,9 @@ window.defly = (() => {
             OD();
         }
       } else z && Tc(zv);
-      (zv = 0),
-        (document.getElementById("gm-1v1-confirm-duel").style.visibility =
-          "hidden");
+      zv = 0;
+      document.getElementById("gm-1v1-confirm-duel").style.visibility =
+        "hidden";
     },
     answerChallenge: (z, V) => {
       var l = new DataView(new ArrayBuffer(6));

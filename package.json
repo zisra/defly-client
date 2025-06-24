@@ -3,7 +3,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "serve": "node ./server",
+    "serve": "tsx ./server",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -19,8 +19,10 @@
     "ws": "^8.18.2"
   },
   "devDependencies": {
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.20.3",
     "vite": "^6.3.5",
-    "vite-plugin-pwa": "^1.0.0",
-    "vite-plugin-node-polyfills": "^0.23.0"
+    "vite-plugin-node-polyfills": "^0.23.0",
+    "vite-plugin-pwa": "^1.0.0"
   }
 }
