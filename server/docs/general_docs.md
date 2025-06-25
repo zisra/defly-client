@@ -1,7 +1,3 @@
-Here is a technical and information-dense documentation set based on the full client-side code you’ve shared. It includes mechanics for **shooting, bullet handling**, **collision effects**, **zone filtering**, and **miscellaneous destruction logic**.
-
----
-
 # Client Engine Protocol and Rendering Logic
 
 ---
@@ -176,7 +172,3 @@ Handles **removal of all zones, lines, and dots** based on map slicing filter (v
 | `Fv()`          | Dot Check    | Deletes off-screen dots with no links        |
 | `DP()` / `WP()` | Movement     | Applies direction-based motion and collision |
 | `_v()`          | Zone ID kill | Removes a zone by ID                         |
-
----
-
-Let me know if you'd like a server-side spec for how to simulate this bullet logic, or how bullet lifespan and collisions should be handled in a fixed tick-rate loop.

@@ -1,9 +1,5 @@
 # Shooting and Bullet Collision Handling (Client-Side Specification)
 
-This document outlines how the client handles **shooting**, **bullet communication**, and **collision effects** with **dots** and **players**, based on the reverse-engineered logic from the shared codebase.
-
----
-
 ## 1. Input → Shooting Packet (`opcode 2`)
 
 ### Sender: Client → Server
@@ -190,7 +186,3 @@ When bullet is removed:
 | Debris effects      | `Hv(...)`         | Debris particles spread               |
 | Visual blast        | `$v(...)`         | Circular animation when hit occurs    |
 | Bullet storage      | `Uz[bulletId]`    | Contains position, velocity, lifetime |
-
----
-
-Let me know if you want equivalent **server-side data spec**, including bullet ownership, hit resolution rules, or score synchronization format.

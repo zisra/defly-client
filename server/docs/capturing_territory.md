@@ -1,7 +1,3 @@
-Here is a concise and technical documentation draft titled:
-
----
-
 # Client Handling of Shaded Regions and Dot Connections
 
 This document describes how the client receives, parses, and renders shaded regions (territorial zones) and their associated line/dot connections. It is based on reverse-engineered client logic including opcode handling, polygon rendering, and zone tracking.
@@ -147,7 +143,3 @@ If simplified:
 * Zones are drawn beneath other game layers
 * Color is determined by `Pl(ownerId)` or `Ll(ownerId)` depending on mode
 * Simplified zones have lower visual fidelity but are more bandwidth-efficient
-
----
-
-Let me know if you also need the binary format of each packet in spec table form, or a server-side reference implementation for zone packet construction.
