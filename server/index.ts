@@ -1,13 +1,13 @@
 import { type WebSocket, WebSocketServer } from "ws";
 import { keepInsideMapBounds } from "./keepInsideMapBounds";
 import { randomSpawn } from "./randomSpawn";
-import { MapShape, Opcode, type Player } from "./types";
+import { MapShape, Opcode, type Player, type PlayerPlus } from "./types";
 import { parseString, writeString } from "./utils";
 
 /* ─────────────── general constants ─────────────── */
 
 const PORT = 8000;
-const TICK_RATE = 60; // ticks · s⁻¹
+const TICK_RATE = 60;
 const TICK_INTERVAL_MS = 1_000 / TICK_RATE;
 
 export const MAP_WIDTH = 50;
@@ -15,27 +15,14 @@ export const MAP_HEIGHT = 50;
 export const SAFE_MARGIN_X = 0;
 export const SAFE_MARGIN_Y = 0;
 export const MAP_SHAPE: MapShape = MapShape.Hexagon;
+const DOT_MIN_DIST = 1;
+const DOT_OVERLAP_EPS = 0.3;
+const CAPTURE_GRID = 100;
 
 const PLAYER_SIZE = 1;
 const COLLISION_RADIUS = 0.6;
 const MOVE_SPEED = 10;
-
-/* ─────────────── game-objects ─────────────── */
-
-interface PlayerState extends Player {
-  prevShooting: boolean;
-  nextAllowedShot: number;
-}
-
-interface Bullet {
-  id: number;
-  owner: number;
-  x: number;
-  y: number;
-  sx: number;
-  sy: number;
-  spawnTick: number;
-}
+const COLLISION_THRESHOLD = COLLISION_RADIUS;
 
 interface Dot {
   id: number;
@@ -52,72 +39,213 @@ interface Line {
   b: number; // dotId 2
 }
 
-const BULLET_SPEED_FT_S = 30;
-const FIRE_COOLDOWN_TICKS = 10; // 100 ms
-const BULLET_LIFETIME_TICKS = 3 * TICK_RATE; // 3 s
 const DOT_HP = 8;
 
-const clients = new Map<WebSocket, PlayerState>();
-const bullets: Bullet[] = [];
+const clients = new Map<WebSocket, PlayerPlus>();
 const dots: Dot[] = [];
 const lines: Line[] = [];
 
 let serverTick = 0;
 let nextPlayerId = 1;
-let nextBulletId = 1;
 let nextDotId = 1;
 let nextLineId = 1;
 
 /* ─────────────── networking helpers ─────────────── */
+
+function distPointToSegment(
+  px: number,
+  py: number,
+  ax: number,
+  ay: number,
+  bx: number,
+  by: number,
+): number {
+  const vx = bx - ax,
+    vy = by - ay;
+  const wx = px - ax,
+    wy = py - ay;
+  const c1 = vx * wx + vy * wy;
+  if (c1 <= 0) return Math.hypot(px - ax, py - ay);
+  const c2 = vx * vx + vy * vy;
+  if (c2 <= c1) return Math.hypot(px - bx, py - by);
+  const t = c1 / c2;
+  const ix = ax + t * vx,
+    iy = ay + t * vy;
+  return Math.hypot(px - ix, py - iy);
+}
+
+function sendKillPacket(
+  victimId: number,
+  cause: number,
+  killerId = 0,
+  wallOwner = 0,
+): void {
+  /* layout understood by client’s xv()
+   *  0   uint8   10      (opcode)
+   *  1   int32   victim
+   *  5   uint8   cause   (1=shot, 2=wall, 3=collision, 5=explosion)
+   *  6   int32   killerId (or 0)
+   * 10   float32 radius   (we keep default 50)
+   * 14   int32   wallOwner (used for kills on wall crash)
+   */
+  const buf = new ArrayBuffer(1 + 4 + 1 + 4 + 4 + 4);
+  const dv = new DataView(buf);
+  dv.setUint8(0, 10);
+  dv.setInt32(1, victimId);
+  dv.setUint8(5, cause);
+  dv.setInt32(6, killerId);
+  dv.setFloat32(10, 50);
+  dv.setInt32(14, wallOwner);
+  broadcastPacket(buf);
+}
+
+function sendAllDots(ws: WebSocket): void {
+  if (dots.length === 0) return;
+  const n = dots.length;
+  const buf = new ArrayBuffer(1 + 2 + n * 26);
+  const dv = new DataView(buf);
+  dv.setUint8(0, Opcode.DotCreate); // 49
+  dv.setInt16(1, n);
+  let o = 3;
+
+  for (const d of dots) {
+    dv.setInt32(o, d.id);
+    o += 4;
+    dv.setInt32(o, d.owner);
+    o += 4;
+    dv.setFloat32(o, d.x);
+    o += 4;
+    dv.setFloat32(o, d.y);
+    o += 4;
+    dv.setUint8(o++, DOT_HP);
+    dv.setUint8(o++, DOT_HP);
+    dv.setFloat32(o, 0);
+    o += 4;
+    dv.setInt32(o, d.creationTick);
+    o += 4; // ⭐ advance!
+  }
+  ws.send(buf);
+}
+
+function sendAllLines(ws: WebSocket): void {
+  if (lines.length === 0) return;
+  const n = lines.length;
+  const buf = new ArrayBuffer(1 + 2 + n * 24);
+  const dv = new DataView(buf);
+  dv.setUint8(0, Opcode.LineCreate); // 50
+  dv.setInt16(1, n);
+  let o = 3;
+
+  for (const l of lines) {
+    dv.setInt32(o, l.id);
+    o += 4;
+    dv.setInt32(o, l.owner);
+    o += 4;
+    dv.setInt32(o, l.a);
+    o += 4;
+    dv.setInt32(o, l.b);
+    o += 4;
+    dv.setInt32(o, 0);
+    o += 4; // left zone
+    dv.setInt32(o, 0);
+    o += 4; // right zone  ⭐ add o+=4
+  }
+  ws.send(buf);
+}
+
+function tryCaptureArea(ownerId: number): void {
+  const ownerLines = lines.filter((l) => l.owner === ownerId);
+  if (ownerLines.length < 3) return;
+
+  /* Build adjacency → find any cycle with DFS/BFS */
+  const adj = new Map<number, number[]>();
+  for (const l of ownerLines) {
+    adj.set(l.a, (adj.get(l.a) ?? []).concat(l.b));
+    adj.set(l.b, (adj.get(l.b) ?? []).concat(l.a));
+  }
+
+  const visited = new Set<number>();
+  const stack: number[] = [];
+  let cycle: number[] | null = null;
+
+  function dfs(v: number, parent: number): boolean {
+    visited.add(v);
+    stack.push(v);
+    for (const nb of adj.get(v) ?? []) {
+      if (nb === parent) continue;
+      if (visited.has(nb)) {
+        // found a cycle
+        cycle = stack.slice(stack.indexOf(nb));
+        return true;
+      }
+      if (dfs(nb, v)) return true;
+    }
+    stack.pop();
+    return false;
+  }
+  for (const v of adj.keys()) {
+    if (!visited.has(v) && dfs(v, -1)) break;
+  }
+  if (!cycle || cycle?.length < 3) return;
+
+  /* Convert cycle-dot ids to coordinates  */
+  const poly = cycle.map((id) => {
+    const d = dots.find((x) => x.id === id)!;
+    return [d.x, d.y] as const;
+  });
+
+  /* Rasterise inside the polygon on CAPTURE_GRID × CAPTURE_GRID */
+  const cells: { y: number; x1: number; x2: number }[] = [];
+  for (let gy = 0; gy < CAPTURE_GRID; gy++) {
+    const y = ((gy + 0.5) * MAP_HEIGHT) / CAPTURE_GRID;
+    const inter: number[] = [];
+    for (let i = 0; i < poly.length; i++) {
+      const [x1, y1] = poly[i];
+      const [x2, y2] = poly[(i + 1) % poly.length];
+      if ((y1 <= y && y2 > y) || (y2 <= y && y1 > y)) {
+        const t = (y - y1) / (y2 - y1);
+        inter.push(x1 + t * (x2 - x1));
+      }
+    }
+    inter.sort((a, b) => a - b);
+    for (let k = 0; k + 1 < inter.length; k += 2) {
+      const x1 = Math.floor((inter[k] * CAPTURE_GRID) / MAP_WIDTH);
+      const x2 = Math.floor((inter[k + 1] * CAPTURE_GRID) / MAP_WIDTH);
+      if (x2 >= x1) cells.push({ y: gy, x1, x2 });
+    }
+  }
+
+  if (cells.length === 0) return;
+
+  /*  Build opcode-31 packet  */
+  const buf = new ArrayBuffer(1 + 4 + cells.length * 3);
+  const dv = new DataView(buf);
+  dv.setUint8(0, 31);
+  dv.setInt32(1, ownerId); // color chosen client-side
+  let o = 5;
+  for (const c of cells) {
+    // each triplet : y , x1 , x2
+    dv.setUint8(o++, c.y);
+    dv.setUint8(o++, c.x1);
+    dv.setUint8(o++, c.x2);
+  }
+  broadcastPacket(buf);
+}
 
 function broadcastPacket(ab: ArrayBuffer): void {
   const raw = Buffer.from(ab);
   for (const [ws] of clients) ws.readyState === ws.OPEN && ws.send(raw);
 }
 
-/* ---- bullet packets ---- */
-
-function buildBulletCreate(b: Bullet): ArrayBuffer {
-  const buf = new ArrayBuffer(1 + 4 + 4 + 4 + 4 + 4 + 4 + 4); // 33 bytes
-  const dv = new DataView(buf);
-  let o = 0;
-
-  dv.setUint8(o++, Opcode.BulletCreate);
-  dv.setInt32(o, b.spawnTick);
-  o += 4;
-  dv.setInt32(o, b.id);
-  o += 4;
-  dv.setInt32(o, b.owner);
-  o += 4;
-  dv.setFloat32(o, b.x);
-  o += 4;
-  dv.setFloat32(o, b.y);
-  o += 4;
-  dv.setFloat32(o, b.sx);
-  o += 4;
-  dv.setFloat32(o, b.sy);
-  o += 4;
-
-  return buf;
-}
-function buildBulletRemove(id: number): ArrayBuffer {
-  const buf = new ArrayBuffer(1 + 4);
-  const dv = new DataView(buf);
-  dv.setUint8(0, Opcode.BulletRemove);
-  dv.setInt32(1, id);
-  return buf;
-}
-
 /* ---- dot / line packets ---- */
-
 function buildDotCreate(dot: Dot): ArrayBuffer {
-  const buf = new ArrayBuffer(1 + 2 + 26);
+  const buf = new ArrayBuffer(1 + 2 + 26); // 29 bytes total
   const dv = new DataView(buf);
   let o = 0;
 
-  dv.setUint8(o++, Opcode.DotCreate);
+  dv.setUint8(o++, Opcode.DotCreate); // 49
   dv.setInt16(o, 1);
-  o += 2; // one dot
+  o += 2;
 
   dv.setInt32(o, dot.id);
   o += 4;
@@ -128,11 +256,38 @@ function buildDotCreate(dot: Dot): ArrayBuffer {
   dv.setFloat32(o, dot.y);
   o += 4;
   dv.setUint8(o++, DOT_HP); // hp
-  dv.setUint8(o++, DOT_HP); // max-hp
+  dv.setUint8(o++, DOT_HP); // maxHp
   dv.setFloat32(o, 0);
-  o += 4; // shield %
+  o += 4; // shield
   dv.setInt32(o, dot.creationTick);
+  o += 4; // ⭐ advance!
 
+  return buf; // o = 29
+}
+
+function buildDotRemovePacket(ids: number[]): ArrayBuffer {
+  const buf = new ArrayBuffer(1 + 2 + ids.length * 4);
+  const dv = new DataView(buf);
+  dv.setUint8(0, Opcode.DotCreate);
+  dv.setInt16(1, ids.length);
+  let o = 3;
+  for (const id of ids) {
+    dv.setInt32(o, id);
+    o += 4;
+  }
+  return buf;
+}
+
+function buildLineRemovePacket(ids: number[]): ArrayBuffer {
+  const buf = new ArrayBuffer(1 + 2 + ids.length * 4);
+  const dv = new DataView(buf);
+  dv.setUint8(0, Opcode.LineRemove);
+  dv.setInt16(1, ids.length);
+  let o = 3;
+  for (const id of ids) {
+    dv.setInt32(o, id);
+    o += 4;
+  }
   return buf;
 }
 
@@ -141,9 +296,9 @@ function buildLineCreate(line: Line): ArrayBuffer {
   const dv = new DataView(buf);
   let o = 0;
 
-  dv.setUint8(o++, Opcode.LineCreate);
+  dv.setUint8(o++, Opcode.LineCreate); // 50
   dv.setInt16(o, 1);
-  o += 2; // one line
+  o += 2;
 
   dv.setInt32(o, line.id);
   o += 4;
@@ -154,112 +309,192 @@ function buildLineCreate(line: Line): ArrayBuffer {
   dv.setInt32(o, line.b);
   o += 4;
   dv.setInt32(o, 0);
-  o += 4; // leftZone  (unused)
-  dv.setInt32(o, 0); // rightZone (unused)
+  o += 4; // left zone
+  dv.setInt32(o, 0);
+  o += 4; // right zone  ⭐ add o+=4
 
   return buf;
 }
 
-/* ─────────────── physics helpers ─────────────── */
+function removePlayerGeometry(playerId: number): void {
+  const dotIds = dots.filter((d) => d.owner === playerId).map((d) => d.id);
+  const lineIds = lines.filter((l) => l.owner === playerId).map((l) => l.id);
 
-function maybeFireBullet(p: PlayerState): void {
-  if (
-    p.shooting &&
-    !p.prevShooting &&
-    serverTick >= p.nextAllowedShot &&
-    p.aimDirection >= 0
-  ) {
-    const sx = Math.cos(p.aimDirection) * BULLET_SPEED_FT_S;
-    const sy = Math.sin(p.aimDirection) * BULLET_SPEED_FT_S;
+  /* purge from server-side arrays (→ no more collision) */
+  for (let i = dots.length - 1; i >= 0; i--)
+    if (dots[i].owner === playerId) dots.splice(i, 1);
+  for (let i = lines.length - 1; i >= 0; i--)
+    if (lines[i].owner === playerId) lines.splice(i, 1);
 
-    const bullet: Bullet = {
-      id: nextBulletId++,
-      owner: p.playerId,
-      x: p.x,
-      y: p.y,
-      sx,
-      sy,
-      spawnTick: serverTick,
-    };
-    bullets.push(bullet);
-    broadcastPacket(buildBulletCreate(bullet));
-    p.nextAllowedShot = serverTick + FIRE_COOLDOWN_TICKS;
-  }
-  p.prevShooting = p.shooting;
+  /* inform clients so the sprites vanish */
+  if (dotIds.length > 0) broadcastPacket(buildDotRemovePacket(dotIds));
+  if (lineIds.length > 0) broadcastPacket(buildLineRemovePacket(lineIds));
 }
 
-function stepBullets(): void {
-  for (let i = bullets.length - 1; i >= 0; i--) {
-    const b = bullets[i];
-    b.x += b.sx / TICK_RATE;
-    b.y += b.sy / TICK_RATE;
+function killPlayer(
+  p: PlayerPlus,
+  cause: 2 | 3 | 5, // 2=wall 3=player-collision 5=explosion
+  killerId = 0,
+  wallOwner = 0,
+): void {
+  if (p.dead) return;
 
-    const expired =
-      serverTick - b.spawnTick >= BULLET_LIFETIME_TICKS ||
-      b.x < 0 ||
-      b.x > MAP_WIDTH ||
-      b.y < 0 ||
-      b.y > MAP_HEIGHT;
+  sendKillPacket(p.playerId, cause, killerId, wallOwner);
+  p.dead = true;
+  p.moving = p.shooting = false;
+  p.sx = p.sy = 0;
 
-    if (expired) {
-      bullets.splice(i, 1);
-      broadcastPacket(buildBulletRemove(b.id));
+  removePlayerGeometry(p.playerId); // towers & walls disappear
+}
+
+function handlePlayerCollisions(): void {
+  const alive = [...clients.values()].filter((p) => !p.dead);
+
+  for (let i = 0; i < alive.length; i++) {
+    for (let j = i + 1; j < alive.length; j++) {
+      const a = alive[i],
+        b = alive[j];
+      const dist = Math.hypot(a.x - b.x, a.y - b.y);
+      if (dist <= COLLISION_THRESHOLD) {
+        /* both players die, each receives the other’s id */
+        killPlayer(a, 3, b.playerId);
+        killPlayer(b, 3, a.playerId);
+      }
     }
   }
 }
 
 /* ─────────────── player movement ─────────────── */
 
-function stepPlayer(p: PlayerState): void {
-  if (p.moving) {
-    p.sx = Math.cos(p.moveDirection) * MOVE_SPEED;
-    p.sy = Math.sin(p.moveDirection) * MOVE_SPEED;
-  } else {
+function stepPlayer(p: PlayerPlus): void {
+  /* ── 1. move only if the player is alive ───────────────────────── */
+  if (p.dead) {
     p.sx = p.sy = 0;
+  } else {
+    if (p.moving) {
+      p.sx = Math.cos(p.moveDirection) * MOVE_SPEED;
+      p.sy = Math.sin(p.moveDirection) * MOVE_SPEED;
+    } else {
+      p.sx = p.sy = 0;
+    }
+
+    p.x += p.sx / TICK_RATE;
+    p.y += p.sy / TICK_RATE;
+
+    const { x, y } = keepInsideMapBounds({
+      p,
+      MAP_SHAPE,
+      MAP_WIDTH,
+      MAP_HEIGHT,
+      SAFE_MARGIN_X,
+    });
+    p.x = x;
+    p.y = y;
   }
 
-  p.x += p.sx / TICK_RATE;
-  p.y += p.sy / TICK_RATE;
+  /* ── 2. collision with enemy line segments ─────────────────────── */
+  if (p.dead) return; // no collision check while dead
 
-  /* clamp / wrap according to map shape */
-  const { x, y } = keepInsideMapBounds({
-    p,
-    MAP_SHAPE,
-    MAP_WIDTH,
-    MAP_HEIGHT,
-    SAFE_MARGIN_X,
-  });
-  p.x = x;
-  p.y = y;
+  for (const seg of lines) {
+    if (seg.owner === p.playerId) continue; // ignore own walls
+
+    const d1 = dots.find((d) => d.id === seg.a);
+    const d2 = dots.find((d) => d.id === seg.b);
+    if (!d1 || !d2) continue;
+
+    const dist = distPointToSegment(p.x, p.y, d1.x, d1.y, d2.x, d2.y);
+
+    if (dist <= COLLISION_RADIUS) {
+      killPlayer(p, 2, 0, seg.owner);
+      break;
+    }
+  }
+}
+
+function respawnPlayer(p: PlayerPlus, ws: WebSocket): void {
+  const s = randomSpawn();
+
+  p.x = s.x;
+  p.y = s.y;
+  p.sx = p.sy = 0;
+  p.dead = false; // player can move again
+
+  /* tell THAT client all world-constants again (same packet used at login) */
+  ws.send(createGameInitPacket(p.playerId, s.x, s.y));
+  sendAllDots(ws); // ← NEW
+  sendAllLines(ws); // ← NEW
 }
 
 /* ─────────────── tower building (opcode 16) ─────────────── */
 
+export function haveLine(a: number, b: number): boolean {
+  return lines.some(
+    (l) => (l.a === a && l.b === b) || (l.a === b && l.b === a),
+  );
+}
+
 function handleBuildTowerPacket(ws: WebSocket, buf: ArrayBuffer): void {
   const p = clients.get(ws);
-  if (!p) return; // sanity
+  if (!p) return;
 
-  /* optional dev-coordinates (ignored) */
-  let towerX = p.x;
-  let towerY = p.y;
+  /* 1 – coordinates (debug packet may contain floats) */
+  let x = p.x,
+    y = p.y;
   if (buf.byteLength >= 9) {
     const dv = new DataView(buf);
-    towerX = dv.getFloat32(1);
-    towerY = dv.getFloat32(5);
+    x = dv.getFloat32(1);
+    y = dv.getFloat32(5);
   }
 
-  /* ---- create dot ---------------------------------------------------- */
+  /* 2 – find if we are right on top of an existing dot */
+  let overlap: Dot | undefined;
+  for (const d of dots) {
+    const dxy = Math.hypot(d.x - x, d.y - y);
+    if (dxy < DOT_OVERLAP_EPS) {
+      overlap = d;
+      break;
+    }
+  }
+
+  /* 3A – we ARE on an existing dot that belongs to this player
+          → treat as loop-closing action                              */
+  if (overlap && overlap.owner === p.playerId) {
+    /* find the last tower placed by this player that is not overlap  */
+    const ownDots = dots.filter((d) => d.owner === p.playerId);
+    if (ownDots.length >= 1) {
+      const last = ownDots[ownDots.length - 1];
+      if (last.id !== overlap.id && !haveLine(last.id, overlap.id)) {
+        /* create the missing line */
+        const line: Line = {
+          id: nextLineId++,
+          owner: p.playerId,
+          a: last.id,
+          b: overlap.id,
+        };
+        lines.push(line);
+        broadcastPacket(buildLineCreate(line));
+      }
+    }
+    /* attempt territory capture */
+    tryCaptureArea(p.playerId);
+    return; // nothing else to do
+  }
+
+  /* 3B – if too close to ANY existing dot (enemy OR own) → reject   */
+  for (const d of dots) if (Math.hypot(d.x - x, d.y - y) < DOT_MIN_DIST) return;
+
+  /* 4 – create a brand-new tower                                   */
   const dot: Dot = {
     id: nextDotId++,
     owner: p.playerId,
-    x: towerX,
-    y: towerY,
+    x,
+    y,
     creationTick: serverTick,
   };
   dots.push(dot);
   broadcastPacket(buildDotCreate(dot));
 
-  /* ---- create line to previous dot of the same owner ----------------- */
+  /* 5 – connect it to the previous dot                              */
   const ownDots = dots.filter((d) => d.owner === p.playerId);
   if (ownDots.length >= 2) {
     const prev = ownDots[ownDots.length - 2];
@@ -272,21 +507,20 @@ function handleBuildTowerPacket(ws: WebSocket, buf: ArrayBuffer): void {
     lines.push(line);
     broadcastPacket(buildLineCreate(line));
   }
+
+  /* 6 – maybe this new segment closed a loop                        */
+  tryCaptureArea(p.playerId);
 }
 
 /* ─────────────── tick packet (players only) ─────────────── */
 
 function sendTickPacket(): void {
-  /* 1. integrate physics */
-  for (const p of clients.values()) {
-    stepPlayer(p);
-    maybeFireBullet(p);
-  }
-  stepBullets();
+  for (const p of clients.values()) stepPlayer(p);
 
-  /* 2. build & send player-state packet */
-  const players = [...clients.values()];
-  const count = players.length;
+  handlePlayerCollisions();
+  const alive = [...clients.values()].filter((p) => !p.dead); // NEW
+  const count = alive.length;
+
   const buf = new ArrayBuffer(1 + 4 + 2 + count * 25);
   const dv = new DataView(buf);
   let off = 0;
@@ -297,7 +531,8 @@ function sendTickPacket(): void {
   dv.setInt16(off, count);
   off += 2;
 
-  for (const p of players) {
+  for (const p of alive) {
+    // ← uses alive list
     dv.setInt32(off, p.playerId);
     off += 4;
     dv.setFloat32(off, p.x);
@@ -309,13 +544,14 @@ function sendTickPacket(): void {
     dv.setFloat32(off, p.sy);
     off += 4;
     dv.setFloat32(off, p.aimDirection ?? 0);
-    off += 4; // rotation
-    dv.setUint8(off++, 255); // no super-power
+    off += 4;
+    dv.setUint8(off++, 255);
   }
 
   broadcastPacket(buf);
   serverTick++;
 }
+
 setInterval(sendTickPacket, TICK_INTERVAL_MS);
 
 /* ─────────────── login / packets from client ─────────────── */
@@ -323,8 +559,8 @@ setInterval(sendTickPacket, TICK_INTERVAL_MS);
 function parseLoginPacket(
   buffer: ArrayBuffer,
 ): Omit<
-  PlayerState,
-  "playerId" | "x" | "y" | "sx" | "sy" | "lastInputTurn"
+  Player,
+  "playerId" | "x" | "y" | "sx" | "sy" | "lastInputTurn" | "badge"
 > | null {
   const view = new DataView(buffer);
   if (view.getUint8(0) !== Opcode.Login) return null;
@@ -353,7 +589,7 @@ function parseLoginPacket(
   };
 }
 
-function buildPlayerInfoPacket(p: PlayerState): ArrayBuffer {
+function buildPlayerInfoPacket(p: Player): ArrayBuffer {
   const strBytes = 1 + 2 * Math.min(p.username.length, 255);
   const bufLen = 1 + 4 + strBytes + 4 + 4 + 1;
   const buf = new ArrayBuffer(bufLen);
@@ -375,10 +611,10 @@ function buildPlayerInfoPacket(p: PlayerState): ArrayBuffer {
 }
 
 function handleInputPacket(ws: WebSocket, buf: ArrayBuffer): void {
-  if (buf.byteLength < 16) return;
-  const v = new DataView(buf);
   const p = clients.get(ws);
-  if (!p) return;
+  if (!p || p.dead) return;
+
+  const v = new DataView(buf);
 
   const flags = v.getUint8(1);
   p.shooting = (flags & 1) !== 0;
@@ -440,7 +676,7 @@ console.log(`Server listening on ws://localhost:${PORT}`);
 wss.on("connection", (ws) => {
   console.log("[+] Client connected");
 
-  ws.on("message", (data) => {
+  ws.on("message", (data: Buffer) => {
     const ab = data.buffer.slice(
       data.byteOffset,
       data.byteOffset + data.byteLength,
@@ -456,15 +692,14 @@ wss.on("connection", (ws) => {
         const id = nextPlayerId++;
         const pos = randomSpawn();
 
-        const pl: PlayerState = {
+        const pl: PlayerPlus = {
           playerId: id,
           ...login,
           ...pos,
           sx: 0,
           sy: 0,
           lastInputTurn: 0,
-          prevShooting: false,
-          nextAllowedShot: 0,
+          dead: false,
         };
         clients.set(ws, pl);
 
@@ -478,6 +713,8 @@ wss.on("connection", (ws) => {
 
         /* c) normal game-init packet */
         ws.send(createGameInitPacket(id, pos.x, pos.y));
+        sendAllDots(ws); // ← NEW
+        sendAllLines(ws); // ← NEW
         break;
       }
 
@@ -493,6 +730,13 @@ wss.on("connection", (ws) => {
         ws.send(Uint8Array.of(Opcode.Ping));
         break;
 
+      case 4: {
+        // client → server
+        const pl = clients.get(ws);
+        if (pl && pl.dead) respawnPlayer(pl, ws);
+        break;
+      }
+
       default:
         console.log("[?] Unknown opcode:", op);
     }
@@ -500,7 +744,11 @@ wss.on("connection", (ws) => {
 
   ws.on("close", () => {
     const p = clients.get(ws);
-    p && console.log(`[-] ${p.username} disconnected`);
+    if (p) {
+      console.log(`[-] ${p.username} disconnected`);
+
+      removePlayerGeometry(p.playerId);
+    }
     clients.delete(ws);
   });
 });

@@ -15,6 +15,8 @@ export enum Opcode {
   DotCreate = 49,
   LineCreate = 50,
   BuildTower = 16,
+  DotRemove = 8,
+  LineRemove = 20,
 }
 
 export interface Player {
@@ -40,4 +42,8 @@ export interface Player {
   sy: number; // Y-velocity
 
   lastInputTurn: number;
+}
+
+export interface PlayerPlus extends Player {
+  dead: boolean;
 }
