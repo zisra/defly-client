@@ -42,8 +42,38 @@ export interface Player {
   sy: number; // Y-velocity
 
   lastInputTurn: number;
+  lastShotTick?: number; // NEW: track last tick the player shot
 }
 
 export interface PlayerPlus extends Player {
   dead: boolean;
+}
+
+export interface Dot {
+  id: number;
+  owner: number;
+  x: number;
+  y: number;
+  creationTick: number;
+}
+
+export interface Line {
+  id: number;
+  owner: number;
+  a: number; // dotId 1
+  b: number; // dotId 2
+  leftZoneId: number;
+  rightZoneId: number;
+}
+
+export interface Bullet {
+  id: number;
+  owner: number;
+  x: number;
+  y: number;
+  sx: number;
+  sy: number;
+  lifetime: number;
+  lastX: number;
+  lastY: number;
 }

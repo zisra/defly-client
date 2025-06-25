@@ -4,8 +4,8 @@ import {
   MAP_WIDTH,
   SAFE_MARGIN_X,
   SAFE_MARGIN_Y,
-} from ".";
-import { MapShape } from "./types";
+} from "../constants/game";
+import { MapShape } from "../constants/types";
 
 export function randomSpawn(): { x: number; y: number } {
   if (MAP_SHAPE === MapShape.Circle) {

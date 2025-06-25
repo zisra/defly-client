@@ -1,4 +1,4 @@
-import { MapShape, type Player } from "./types";
+import { MapShape, type Player } from "../constants/types";
 
 export function keepInsideMapBounds({
   p,
